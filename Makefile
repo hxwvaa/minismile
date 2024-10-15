@@ -16,7 +16,7 @@ all: $(NAME)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJ)
-	$(CC) -lreadline $^ -o $@
+	$(CC)  $^ -o $@ -lreadline
 
 clean:
 	$(DEL) $(OBJ)
