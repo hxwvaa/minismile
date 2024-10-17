@@ -11,12 +11,12 @@ int main(int ac, char **av)
 
     while(1)
     {
-        line = readline("minishell$\n");
-        printf("my line: %s\n", line);
-        //av = ft_tokenize(line);
-        ft_tokenize(line);
+        line = readline("minishell♣\n");
         if(!line)
             exit(1);
+        printf("\nbefore_trim - {%s}\n", line);
+        av = ft_tokenize(line);
+        add_history(line);
     }
     return(0);
 }
