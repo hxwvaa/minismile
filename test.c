@@ -1,12 +1,26 @@
-#include <stdio.h>
+#include "minishell.h"
 
 int main(int ac, char **av)
 {
-    int i = 1;
-    while(av[i])
+    char *line;
+    (void)ac;
+    // (void)env;
+    //(void)av;
+
+     
+    while(1)
     {
-        printf("%s ", av[i]);
-        i++;
+        line = readline("minishell♣\n");
+        if(ft_strncmp(line, "exit", 4) == 0)
+        {
+            free(line);
+            exit(0);
+        }
+        if(!line)
+            exit(1);
+        printf("\nbefore_trim - {%s}\n", line);
+        av = st_tokenize(line);
+        add_history(line);
     }
-    printf("\n%d", i - 1);
+    return(0);
 }

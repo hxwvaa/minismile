@@ -1,6 +1,6 @@
 NAME = minishell
 
-SRC = minislime.c tokenize.c libft/ft_strtrim.c
+SRC = minislime.c tokenize.c libft/ft_strtrim.c libft/ft_strncmp.c
 
 OBJ = $(SRC:.c=.o)
 

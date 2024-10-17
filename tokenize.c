@@ -1,5 +1,6 @@
 #include "minishell.h"
 
+
 int	ft_quote(char *str, int i, char quote)
 {
 	if (quote == '\'')
@@ -15,12 +16,16 @@ int	ft_quote(char *str, int i, char quote)
 		return (i);
 	}
 }
-
+/**
+ * @brief this function counts how many tokens we have
+ * @param s - this the command line after trimming
+ * @return returns the token count
+ * 
+*/
 int	ft_wount(char *s)
 {
 	int	i;
 	int	word;
-	int qlen;
 
 	i = 0;
 	word = 0;
@@ -30,7 +35,7 @@ int	ft_wount(char *s)
 			i++;
 		if (s[i] && s[i] != ' ' && !(s[i] >= 9 && s[i] <= 13) && !(s[i] == '<'
 				|| s[i] == '>' || s[i] == '|'))
-			word++;
+			word++;	
 		while (s[i] && s[i] != ' ' && !(s[i] >= 9 && s[i] <= 13))
 		{
 			if ((s[i] == '<' || s[i] == '>' || s[i] == '|'))
