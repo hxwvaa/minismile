@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int main(int ac, char **av)
+int main(int ac, char **av, char **env)
 {
     char *line;
     (void)ac;
@@ -20,6 +20,7 @@ int main(int ac, char **av)
             exit(1);
         printf("\nbefore_trim - {%s}\n", line);
         av = st_tokenize(line);
+        pre_execute_cmd(av, env);
         add_history(line);
     }
     return(0);
