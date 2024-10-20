@@ -122,50 +122,8 @@ void	t_strcpy(char *des, char *src, int j)
 	}
 	des[i] = '\0';
 }
-// int	t_fill(char *s, char **cmd)
-// {
-// 	int	i;
-// 	int	word;
-// 	int j;
 
-// 	i = 0;
-// 	word = 0;
-// 	while (s[i])
-// 	{
-// 		while (s[i] && (s[i] == ' ' || (s[i] >= 9 && s[i] <= 13)))
-// 			i++;
-// 		if (s[i] && s[i] != ' ' && !(s[i] >= 9 && s[i] <= 13) && !(s[i] == '<'
-// 				|| s[i] == '>' || s[i] == '|'))
-// 			word++;
-// 		j = 0;	
-// 		while (s[i + j] && s[i + j] != ' ' && !(s[i + j] >= 9 && s[i + j] <= 13))
-// 		{
-// 			if ((s[i + j] == '<' || s[i + j] == '>' || s[i + j] == '|'))
-// 			{
-// 				word++;
-// 				j++;
-// 				break ;
-// 			}
-// 			if ((s[i + j] == '\'' || s[i + j] == '\"') && (s[(i + j)- 1] == ' ' || (s[(i + j)
-// 					- 1] >= 9 && s[(i + j) - 1] <= 13)))
-// 				j = t_quote(s, (i + j) + 1, s[i + j]);
-// 			else if ((s[i + j] == '\'' || s[i + j] == '\"') && s[(i+j) - 1] != ' ' && !(s[(i+j)
-// 					- 1] >= 9 && s[(i + j) - 1] <= 13))
-// 				j = t_quote(s, (i + j) + 1, s[i + j]);
-// 			i += j;
-// 			printf("hi\n");
-// 		}
-// 		cmd[word] = ft_calloc((j + 1), sizeof(char));
-// 		if(!cmd[word])
-// 			return(t_free(cmd, word));
-// 		t_strcpy(cmd[word], s + i, j);	
-// 		//i += j;
-// 	}
-// 	return (0);
-// }
-
-
-int	t_fill(char *s, char **cmd)
+int	t_fill(char *s, char **cmd, int count)
 {
 	int	i;
 	int	word;
@@ -173,7 +131,7 @@ int	t_fill(char *s, char **cmd)
 
 	i = 0;
 	word = 0;
-	while (s[i])
+	while (s[i] && word < count)
 	{
 		while (s[i] && (s[i] == ' ' || (s[i] >= 9 && s[i] <= 13)))
 			i++;
@@ -181,9 +139,10 @@ int	t_fill(char *s, char **cmd)
 				|| s[i] == '>' || s[i] == '|'))
 			{
 				j = i;
-			}	
+			}
 		while (s[i] && s[i] != ' ' && !(s[i] >= 9 && s[i] <= 13))
 		{
+			
 			if ((s[i] == '<' || s[i] == '>' || s[i] == '|'))
 			{
 				j = i;
@@ -197,7 +156,10 @@ int	t_fill(char *s, char **cmd)
 					- 1] >= 9 && s[i - 1] <= 13))
 				i = t_quote(s, i + 1, s[i]);
 			i++;
+			if ((s[i] == '<' || s[i] == '>' || s[i] == '|'))
+				break;
 		}
+		printf("i:%d, j:%d\n", i, j);
 		cmd[word] = ft_calloc(((i - j) + 1), sizeof(char));
 		if(!cmd[word])
 			return(t_free(cmd, word));
@@ -222,7 +184,7 @@ char	**st_tokenize(char *s)
     if(!split)
         return(NULL);
     split[i] = 0;
-    if(t_fill(r, split) == -1)
+    if(t_fill(r, split, i) == -1)
         return(NULL);
 	printf("{");
     while(j < i)
