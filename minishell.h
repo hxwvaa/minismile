@@ -10,6 +10,37 @@
 #include <stdint.h>
 # include <sys/wait.h>
 
+typedef enum S_TYPES{
+
+    CMD,
+    PIPE,
+    REDIR_IN,
+    REDIR_OUT,
+    APPEND
+}t_type;
+
+typedef struct s_token{
+
+    char *token;
+    t_type type;
+}t_token;
+
+typedef struct s_cmd{
+    
+    char *cmd;
+    char **cargs;
+    char *inf;
+    char *out;
+    int   app;
+    struct s_cmd *next;
+}t_cmd;
+
+typedef struct s_shell{
+    
+    char **envi;
+    char **our_args;
+}t_shell;
+
 char	*ft_strtrim(char const *s1, char const *set);
 char **ft_tokenize(char *s);
 char	*ft_strchr(const char *s, int c);
@@ -24,11 +55,5 @@ char	**st_tokenize(char *s);
 void    pre_execute_cmd(char **cmd, char **env);
 char	*get_cmd_path(char *cmd, char **env);
 
-typedef enum S_TYPES
-{
-    CMD,
-    ARG,
-    PIPE
-} t_types;
 
 #endif
