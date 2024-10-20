@@ -15,7 +15,7 @@ int main(int ac, char **av)
         if(!line)
             exit(1);
         printf("\nbefore_trim - {%s}\n", line);
-        av = ft_tokenize(line);
+        av = our_tokenize(line);
         add_history(line);
     }
     return(0);
