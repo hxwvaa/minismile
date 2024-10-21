@@ -4,9 +4,9 @@ char	**findsplit_path(char **env)
 {
 	char	*pathy;
 	char	**paths;
-	int		i;
+	// int		i;
 
-	i = 0;
+	// i = 0;
 	pathy = NULL;
     (void)env;
 	// while (env[i])
@@ -20,7 +20,9 @@ char	**findsplit_path(char **env)
 	// }
     pathy = getenv("PATH");
     if (!pathy)
+	{
         return(NULL);
+	}
 	paths = ft_split(pathy, ':');
 	return (paths);
 }
