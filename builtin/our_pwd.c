@@ -12,13 +12,3 @@ bool our_pwd(void)
     printf("%s\n", pwd);
     return(true);
 }
-    // char *buff;
-    
-    // buff = getcwd(NULL, 0);
-    // if(buff == NULL)
-    // {
-    //     write(2, "pwd: error in getcwd\n", 21);
-    //     return(1);
-    // }
-    // printf("%s\n", buff);
-    // free(buff);

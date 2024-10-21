@@ -1,14 +1,4 @@
 #include "../minishell.h"
-int ft_strlen(char *s)
-{
-    int i = 0;
-
-    while(s[i])
-    {
-        i++;
-    }
-    return(i);
-}
 
 void our_echo(char **arg)
 {
@@ -31,17 +21,4 @@ void our_echo(char **arg)
     }
     if(flag_n)
         write(1, "\n", 1);
-}
-
-int main(int ac, char **av)
-{
-    (void)ac;
-    //int i;
-
-
-    if(ft_strncmp(av[1], "echo", 4) == 0)
-        our_echo(av + 1);
-    else
-        printf("\n");
-
 }
