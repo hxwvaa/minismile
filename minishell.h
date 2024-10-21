@@ -9,6 +9,7 @@
 #include <readline/history.h>
 #include <stdint.h>
 # include <sys/wait.h>
+#include <stdbool.h>
 
 typedef enum S_TYPES{
 
@@ -44,7 +45,7 @@ typedef struct s_shell{
 char	*ft_strtrim(char const *s1, char const *set);
 char **ft_tokenize(char *s);
 char	*ft_strchr(const char *s, int c);
-int	ft_strlen(const char *s);
+//int	ft_strlen(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
 void	*ft_calloc(size_t count, size_t size);
 char	**ft_split(char const *s, char c);
