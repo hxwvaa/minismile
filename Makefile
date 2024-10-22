@@ -1,6 +1,6 @@
 NAME = minishell
 
-SRC = minislime.c tokenize.c libft/ft_strtrim.c libft/ft_strncmp.c
+SRC = minislime.c tokenize.c findpath.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -10,18 +10,38 @@ CFLAGS = -Wall -Werror -Wextra
 
 DEL = rm -rf
 
-all: $(NAME)
+LIBFT_DIR = libft
+LIBFT = $(LIBFT_DIR)/libft.a
+
+# Colors
+GR	= \033[32;1m
+RE	= \033[31;1m
+YE	= \033[33;1m
+CY	= \033[36;1m
+RC	= \033[0m
+
+all: $(LIBFT) $(NAME)
+
+$(LIBFT):
+	@echo "$(CY)Building libft$(RC)"
+	@make -C $(LIBFT_DIR)
 
 %.o: %.c minishell.h
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJ)
-	$(CC)  $^ -o $@ -lreadline
+	@echo "$(CY)Generating minishell$(RC)"
+	@$(CC) -o $@ $^ -lreadline $(LIBFT)
 
 clean:
-	$(DEL) $(OBJ)
+	@echo "$(YE)Cleaning all object files$(RC)\n"
+	@make clean -C $(LIBFT_DIR)
+	@$(DEL) $(OBJ)
+
 fclean: clean
-	$(DEL) $(NAME)
+	@echo "$(YE)Cleaning all additional objects and libraries$(RC)\n"
+	@make fclean -C $(LIBFT_DIR)
+	@$(DEL) $(NAME)
 
 re: fclean all
 

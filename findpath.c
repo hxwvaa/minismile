@@ -4,10 +4,11 @@ char	**findsplit_path(char **env)
 {
 	char	*pathy;
 	char	**paths;
-	int		i;
+	// int		i;
 
-	i = 0;
+	// i = 0;
 	pathy = NULL;
+    (void)env;
 	// while (env[i])
 	// {
 	// 	if (ftb_strncmp(env[i], "PATH=", 5) == 0)
@@ -18,6 +19,10 @@ char	**findsplit_path(char **env)
 	// 	i++;
 	// }
     pathy = getenv("PATH");
+    if (!pathy)
+	{
+        return(NULL);
+	}
 	paths = ft_split(pathy, ':');
 	return (paths);
 }
@@ -35,9 +40,10 @@ int	only_space(char *s)
 		return (1);
 	return (0);
 }
-
 int	accessible_p(char **array, char *fp)
 {
+    (void)array;
+    
 	if (access(fp, X_OK) == 0)
 	{
 		//free_array(array);
