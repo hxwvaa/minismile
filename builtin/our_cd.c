@@ -1,13 +1,26 @@
 #include "../minishell.h"
 
-void our_cdir(char *path)
+void change_dir()
+
+void our_cdir(char *path, t_shell *data)
 {
     int i;
-
+    char *curdir;
+    char *prevdir;
     i = 0;
-    char    pwd[1024];
+    //char    pwd[1024];
 
- 
+    if(!path)
+    {
+        path = getenv("HOME");
+        if(!path)
+        {
+            write(2, "cd : HOME is not set\n", 21);
+            //data->exit_code = 1;
+            return ;
+        }
+    }
+    curdir = 
     i = chdir(path);
     if(i == -1)
     {

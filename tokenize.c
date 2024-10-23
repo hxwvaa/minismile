@@ -74,8 +74,7 @@ int	our_wount(char *s)
 			i++;
 		if (s[i] && s[i] != ' ' && !(s[i] >= 9 && s[i] <= 13) && !(s[i] == '<'
 				|| s[i] == '>' || s[i] == '|'))
-			word++;	
-			word++;	
+			word++;
 		while (s[i] && s[i] != ' ' && !(s[i] >= 9 && s[i] <= 13))
 		{
 			if ((s[i] == '<' || s[i] == '>' || s[i] == '|'))
@@ -179,6 +178,8 @@ char	**our_tokenize(char *s)
 	// int j = 0;
 
 	r = ft_strtrim(s, " ");
+	// if(r == NULL)
+	// 	return NULL;
 	printf("\nafter_trim - {%s}\n", r);
 	int i = our_wount(r);
 	printf("\ntoken_count - %d\n", i);

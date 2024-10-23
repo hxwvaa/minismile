@@ -9,7 +9,6 @@
 #include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-#include <stdint.h>
 # include <sys/wait.h>
 #include <stdbool.h>
 
@@ -19,7 +18,10 @@ typedef enum S_TYPES{
     PIPE,
     REDIR_IN,
     REDIR_OUT,
+    HERE_DOC,
+    LIMITER,
     APPEND
+
 }t_type;
 
 typedef struct s_token{
@@ -41,7 +43,9 @@ typedef struct s_cmd{
 typedef struct s_shell{
     
     char **envi;
+    t_list *envir;
     char **our_args;
+    int     exit_code;
 }t_shell;
 
 char	*ft_strtrim(char const *s1, char const *set);
@@ -51,3 +55,5 @@ int	our_quote(char *str, int i, char quote);
 
 
 #endif
+
+//// askjdsakjdh asldkhas d> ask<sajdg " " | dksa | sadlasd > asdk ;

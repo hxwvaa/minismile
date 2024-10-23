@@ -24,7 +24,7 @@ all: $(LIBFT) $(NAME)
 
 $(LIBFT):
 	@echo "$(CY)Building libft$(RC)"
-	@make -C $(LIBFT_DIR)
+	@make bonus -C $(LIBFT_DIR)
 
 %.o: %.c minishell.h
 	@$(CC) $(CFLAGS) -c $< -o $@
@@ -44,5 +44,8 @@ fclean: clean
 	@$(DEL) $(NAME)
 
 re: fclean all
+
+valgrind: $(NAME)
+	sh ak.sh
 
 .PHONY: all clean fclean re
