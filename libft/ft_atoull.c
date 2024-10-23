@@ -1,40 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atol.c                                          :+:      :+:    :+:   */
+/*   ft_atoull.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbasheer <hbasheer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/21 17:23:23 by hbasheer          #+#    #+#             */
-/*   Updated: 2024/10/23 20:05:22 by hbasheer         ###   ########.fr       */
+/*   Created: 2024/10/23 20:05:40 by hbasheer          #+#    #+#             */
+/*   Updated: 2024/10/23 20:07:37 by hbasheer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-long long	ft_atol(const char *str)
+unsigned long long	ft_atoull(const char *str)
 {
-	long long	nb;
+	unsigned long long	nb;
 	int					i;
-	int					sign;
 
-	sign = 1;
 	nb = 0;
 	i = 0;
 	while (*str == ' ' || (*str >= '\t' && *str <= '\r'))
 		str++;
-	if (*str == '-' || *str == '+')
-	{
-		if (*str == '-')
-			sign *= -1;
+	if (*str == '+')
 		str++;
-	}
 	while (*str >= '0' && *str <= '9')
 	{
 		nb = nb * 10 + *str - '0';
 		str++;
 	}
-	if ((sign * nb) == 	LONG_MIN)
-		return(LONG_MIN);
-	return (sign * nb);
+	return (nb);
 }

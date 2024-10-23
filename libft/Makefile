@@ -35,6 +35,7 @@ ft_putnbr_fd.c\
 ft_itoa.c\
 ft_split.c\
 ft_atol.c\
+ft_atoull.c\
 
 OBJ = $(SRC:.c=.o)
 SRC_BONUS = ft_lstnew.c \
