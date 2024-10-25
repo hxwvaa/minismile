@@ -6,7 +6,7 @@
 /*   By: hbasheer <hbasheer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 20:05:40 by hbasheer          #+#    #+#             */
-/*   Updated: 2024/10/23 20:07:37 by hbasheer         ###   ########.fr       */
+/*   Updated: 2024/10/25 11:07:49 by hbasheer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ unsigned long long	ft_atoull(const char *str)
 		str++;
 	if (*str == '+')
 		str++;
+	while(str[i])
+		i++;
+	if (i > 19)
+		return(ULONG_MAX);
 	while (*str >= '0' && *str <= '9')
 	{
 		nb = nb * 10 + *str - '0';
