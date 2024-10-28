@@ -17,7 +17,7 @@ void print_exenv(t_shell *data)
         }
 }
 
-bool our_export(char *var, t_list **envir)
+bool our_export(char **arg, t_list **envir)
 {
     // if(!var || !ft_strchr(var, '='))
     // {

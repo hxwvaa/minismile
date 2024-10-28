@@ -129,6 +129,8 @@ void check_built_in(char **av, t_shell *data)
         our_env(data->envir);
     else if(ft_strncmp(av[i], "unset", 5) == 0)
         our_unset(av[i + 1], &data->envir);
+    else if(ft_strncmp(av[i], "echo", 4) == 0)
+        our_echo(av);
     // else if(ft_strncmp(av[i], "pwd", 3) == 0)
     //     our_pwd()
 
