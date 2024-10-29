@@ -1,6 +1,8 @@
 NAME = minishell
 
-SRC = minislime.c tokenize.c findpath.c builtin/our_echo.c
+SRC = minislime.c tokenize.c findpath.c builtin/our_echo.c\
+		builtin/our_env.c builtin/our_pwd.c builtin/our_unset.c\
+
 
 OBJ = $(SRC:.c=.o)
 

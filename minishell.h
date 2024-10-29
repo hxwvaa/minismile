@@ -52,7 +52,13 @@ char	*ft_strtrim(char const *s1, char const *set);
 char **our_tokenize(char *s);
 char	*get_cmd_path(char *cmd, char **env);
 int	our_quote(char *str, int i, char quote);
+
+//---------------------builtins------------------//
 void our_echo(char **arg);
+void our_expenv(t_shell *data);
+void our_env(t_list *envir);
+bool our_pwd(void);
+bool our_unset(char *var, t_list **envir);
 
 
 #endif

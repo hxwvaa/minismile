@@ -4,57 +4,41 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-bool our_unset(char *var, t_list **envir)
-{
-    if(!var)
-    {
-        write(2, "unset: not enough arguments\n", 28);
-        //data->exit_code = 1
-        return (false);
-    }
-    t_list *current;
-    t_list *prev;
-    int len;
+// bool our_unset(char *var, t_list **envir)
+// {
+//     if(!var)
+//     {
+//         write(2, "unset: not enough arguments\n", 28);
+//         //data->exit_code = 1
+//         return (false);
+//     }
+//     t_list *current;
+//     t_list *prev;
+//     int len;
 
-    current = *envir;
-    prev = NULL;
-    len = ft_strlen(var);
-    printf("%s, len:%d\n", var, len);
-    while(current)
-    {
-        if(ft_strncmp(current->content, var, len) == 0)
-        {
-            if(prev == NULL)
-                *envir = current->next;
-            else
-                prev->next = current->next;
-            //printf("%s\n", current->content);
-            //free(current->content);
-            //free(current); 
-            return(true);
-        }
-        prev = current;
-        current = current->next;
-    }
-    //free at the end the list
-    return (false);
-}
-
-void our_env(t_list *envir)
-{
-    // int i;
-
-    // i = 0;
-    t_list *tmp;
-
-    tmp = envir;
-    printf("our own env\n");
-    while(tmp)
-    {
-        printf("%s\n", (char *)tmp->content);
-        tmp = tmp->next;
-    }
-}
+//     current = *envir;
+//     prev = NULL;
+//     len = ft_strlen(var);
+//     printf("%s, len:%d\n", var, len);
+//     while(current)
+//     {
+//         if(ft_strncmp(current->content, var, len) == 0)
+//         {
+//             if(prev == NULL)
+//                 *envir = current->next;
+//             else
+//                 prev->next = current->next;
+//             //printf("%s\n", current->content);
+//             //free(current->content);
+//             //free(current); 
+//             return(true);
+//         }
+//         prev = current;
+//         current = current->next;
+//     }
+//     //free at the end the list
+//     return (false);
+// }
 
 int is_digit_exit_code (char **av)
 {
@@ -131,8 +115,10 @@ void check_built_in(char **av, t_shell *data)
         our_unset(av[i + 1], &data->envir);
     else if(ft_strncmp(av[i], "echo", 4) == 0)
         our_echo(av);
-    // else if(ft_strncmp(av[i], "pwd", 3) == 0)
-    //     our_pwd()
+    // else if(ft_strncmp(av[i], "export", 6)== 0)
+    //     our_export(av, &data);
+    else if(ft_strncmp(av[i], "pwd", 3) == 0)
+        our_pwd();
 
 }
 
@@ -145,6 +131,7 @@ void check_args(char **av, t_shell *data)
     check_built_in(av, data);
 
 }
+// strdup the content so when u unset you free and set to NULL
 void init_shell(t_shell *data, char **envp)
 {
     t_list *new_node;
@@ -206,6 +193,7 @@ int main(int ac, char **av, char **envp)
         if(line)
             add_history(line);
         free(line);
+        //we need clean everything before next line the allocations
     }
     return(0);
 }

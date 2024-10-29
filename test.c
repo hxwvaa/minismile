@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <limits.h>
+#include "minishell.h"
 
 // unsigned long long	ft_atol(const char *str)
 // {
@@ -31,36 +32,30 @@
 // 	return (sign * nb);
 // }
 
-long long	ft_atol(const char *str)
+void our_exeenvv(t_shell *data, char **env)
 {
-	long long	nb;
-	int					i;
-	int					sign;
+	int i;
 
-	sign = 1;
-	nb = 0;
 	i = 0;
-	while (*str == ' ' || (*str >= '\t' && *str <= '\r'))
-		str++;
-	if (*str == '-' || *str == '+')
+	while(env[i])
 	{
-		if (*str == '-')
-			sign *= -1;
-		str++;
-	}
-	while (str[i] >= '0' && str[i] <= '9')
+		// write(1, "a", 1);
+		data->envi[i] = ft_strdup(env[i]);
 		i++;
-	while (*str >= '0' && *str <= '9')
-	{
-		nb = nb * 10 + *str - '0';
-		str++;
 	}
-	if (nb > LONG_MAX || ((nb * sign) < LONG_MIN))
-		return (LONG_MIN);
-	return (sign * nb);
+	data->envi[i] = NULL;
 }
 
 int main(int ac, char **av, char **env)
 {
-    printf("%lld", ft_atol("-9223372036854775808"));
+	t_shell data;
+	data.envi = malloc(sizeof(env) + 1);
+	// data.envi = NULL;
+    our_exeenvv(&data, env);
+	int i =0;
+	while(data.envi[i])
+	{
+		printf("%s\n",data.envi[i]);
+		i++;
+	}
 }

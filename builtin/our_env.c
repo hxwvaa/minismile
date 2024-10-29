@@ -14,53 +14,79 @@
 
 void our_env(t_list *envir)
 {
-    // int i;
-
-    // i = 0;
     t_list *tmp;
 
     tmp = envir;
     printf("our own env\n");
     while(tmp)
     {
-        printf("%s\n", (char *)tmp->content);
+        if(ft_strchr(tmp->content, '='))
+            printf("%s\n", (char *)tmp->content);
         tmp = tmp->next;
     }
 }
 
-void our_exenv(t_shell *data, char **envp)
+void our_expenv(t_shell *data)
 {
-    int i;
-    int j;
-    char *tmp; 
-    
-    i = 0;
-    while(envp)
+    t_list *tmp;
+
+    tmp = data->envir;
+
+    while(tmp)
     {
-        j = 0;
-        if(ft_strchr(&envp[i][j], '='))
+        char *equal = ft_strchr((char *)tmp->content, '=');
+        if(equal)
         {
-            tmp = &envp[i][j];
-            data->envi[i][j] = *ft_strjoin(&envp[i][j], "\"");
-            free(tmp);
-            while(envp[i][j])
-                j++;
-            j--;
-            tmp = &envp[i][j];
-            data->envi[i][j] = *ft_strjoin(&envp[i][j], "\"");
-            free(tmp);
+            printf("declare -x %.*s=\"%s\"\n", (int)(equal - (char *)tmp->content), tmp->content, equal + 1);
         }
-        i++;
+        else
+            printf("declare -x %s\n", tmp->content);
+        tmp = tmp->next;
     }
 }
-int main(int ac, char **av, char **envp)
-{
-    (void)ac;
-    (void)av;
-    t_shell data;
+// void init_shell(t_shell *data, char **envp)
+// {
+//     t_list *new_node;
+//     int i;
 
-    our_exenv(&data, envp);
-    int i =0;
-    while(data.envi[i])
-        printf("declare -x %s\n", data.envi[i++]);
-}
+//     data->envi = envp;
+//     data->envir = NULL;
+//     data->our_args = NULL;
+//     data->exit_code = 0;
+
+//     i = 0;
+//     if (envp)
+//     {   
+//         while(envp[i])
+//         {
+//             new_node = ft_lstnew(envp[i]);
+//             if(!new_node)
+//             {
+//                 write(2, "error malloc\n", 13);
+//                 return ;
+//             }
+//             if(new_node)
+//                 ft_lstadd_back(&data->envir, new_node);
+//             i++;
+//         }
+//     }
+// }
+// int main(int ac, char **av, char **envp)
+// {
+//     (void)ac;
+//     (void)av;
+//     t_shell data;
+
+//     init_shell(&data, envp);
+
+//     our_expenv(&data);
+    
+//     int i =0;
+//     printf("-------------------------------\n");
+//     while(envp[i])
+//     {
+//         printf("%s\n", envp[i++]);
+//     }
+//     // while(data.envi[i])
+//     //     printf("%s\n", data.envi[i++]);
+// }
