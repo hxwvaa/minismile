@@ -40,17 +40,78 @@
 bool our_export(char **arg, t_shell *data)
 {
     int i;
+    t_list *current;
+    t_list *new;
+    char *key;
+    int varl;
+    int found;
 
     i = 1;
+    //found = 0;
     if(!arg[i]) // if export with no args, print export list
     {
-        our_expenv(&data);
+        our_expenv(data);
+        return (true);
     }
     else
     {
+        current = data->envir;
         while(arg[i])
         {
+            found = 0;
+            key = ft_strchr(arg[i], '=');
+            if(key)
+            {
+                varl = (int)(key - arg[i]);
+                while(current)
+                {
+                    if(ft_strncmp(current->content, arg[i], varl) == 0)
+                    {
+                        free(current->content);
+                        current->content = ft_strdup(arg[i]);
+                        if(!current->content)
+                        {
+                            write(2, "error malloc\n", 13);
+                            return (false);
+                        }
+                        found = 1;
+                        break ;
+                    }
+                    current = current->next;
+                }
+            }
+            else if(!key)
+            {
+                while(current)
+                {
+                    if(ft_strncmp(current->content, arg[i], ft_strlen(arg[i])) == 0)
+                    {
+                        free(current->content);
+                        current->content = ft_strdup(arg[i]);
+                        if(!current->content)
+                        {
+                            write(2, "error malloc\n", 13);
+                            return (false);
+                        }
+                        found = 1;
+                        break ;
+                    }
+                    current = current->next;
+                }
+            }
             
+            if(!found)
+            {
+                new = ft_lstnew(ft_strdup(arg[i]));
+                if(!new)
+                {
+                    write(2, "error malloc\n", 13);
+                    return false ;
+                }
+                ft_lstadd_back(&data->envir, new);
+            }
+            i++;
         }
     }
+    return true;
 }

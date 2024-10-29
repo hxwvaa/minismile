@@ -115,10 +115,12 @@ void check_built_in(char **av, t_shell *data)
         our_unset(av[i + 1], &data->envir);
     else if(ft_strncmp(av[i], "echo", 4) == 0)
         our_echo(av);
-    // else if(ft_strncmp(av[i], "export", 6)== 0)
-    //     our_export(av, &data);
+    else if(ft_strncmp(av[i], "export", 6)== 0)
+        our_export(av, data);
     else if(ft_strncmp(av[i], "pwd", 3) == 0)
         our_pwd();
+    else if(ft_strncmp(av[i], "cd", 2) == 0)
+        our_cdir(av[i + 1], data);
 
 }
 
@@ -147,7 +149,7 @@ void init_shell(t_shell *data, char **envp)
     {   
         while(envp[i])
         {
-            new_node = ft_lstnew(envp[i]);
+            new_node = ft_lstnew(ft_strdup(envp[i]));
             if(!new_node)
             {
                 write(2, "error malloc\n", 13);

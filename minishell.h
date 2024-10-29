@@ -58,7 +58,10 @@ void our_echo(char **arg);
 void our_expenv(t_shell *data);
 void our_env(t_list *envir);
 bool our_pwd(void);
+char *get_pwd(void);
 bool our_unset(char *var, t_list **envir);
+bool our_export(char **arg, t_shell *data);
+void our_cdir(char *path, t_shell *data);
 
 
 #endif
