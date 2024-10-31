@@ -59,9 +59,12 @@ void change_dir(char * path, t_shell *data)
     char *oldpwd;
 
     i = 0;
+    //maybe i need to move this down after chdir because i get stuck
+    //inside a unfound directory
     prevdir = get_pwd();
-    if(!prevdir)
-        return ;
+    // if(!prevdir)
+    //     return ; // or remove return
+    printf("hrllo\n");
     i = chdir(path);
     if(i == -1)
     {
@@ -69,10 +72,11 @@ void change_dir(char * path, t_shell *data)
         write(2, path, ft_strlen(path));
         write(2, ": No such file or directory\n", 28);
         // set variable to echo $? to 1;
-        exit(1);
+        //exit(1);
     }
     curdir= get_pwd();
-    if(!curdir)
+    printf("after\n");
+    if(!curdir || !prevdir)
         return ;
     oldpwd = ft_strjoin("OLDPWD=", prevdir);
     pwd = ft_strjoin("PWD=", curdir);
@@ -102,6 +106,9 @@ void our_cdir(char *path, t_shell *data)
         }
     }
     change_dir(path, data);
+    // maybe add a case for if path is '..'
+
+
     // prevdir = our_pwd();
     // i = chdir(path);
     // if(i == -1)

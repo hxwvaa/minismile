@@ -11,6 +11,9 @@
 #include <readline/history.h>
 # include <sys/wait.h>
 #include <stdbool.h>
+#include <errno.h>
+
+// define a macro for cd error message
 
 typedef enum S_TYPES{
 
@@ -20,6 +23,7 @@ typedef enum S_TYPES{
     REDIR_OUT,
     HERE_DOC,
     LIMITER,
+    EXPAND,
     APPEND
 
 }t_type;
@@ -62,6 +66,9 @@ char *get_pwd(void);
 bool our_unset(char *var, t_list **envir);
 bool our_export(char **arg, t_shell *data);
 void our_cdir(char *path, t_shell *data);
+
+
+void our_expand(char *var, t_shell *data);
 
 
 #endif

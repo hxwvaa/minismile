@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "libft.h": "c",
-        "iterator": "c"
+        "iterator": "c",
+        "minishell.h": "c"
     }
 }
