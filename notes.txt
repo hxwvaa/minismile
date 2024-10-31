@@ -1,0 +1,10 @@
+Error message for cd, 
+cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory
+Echo $? -> 0
+
+
+Well I delete the parent directory and I am inside the child directory, 
+when I try to cd .. chdir doesn’t fail but If I add error message in get_pwd 
+It will be printed out twice, and pads in the env list is fucked in this situation, 
+maybe I need to handle “..” Path on its own in a separate function, where I check 
+if the directory is available is something
