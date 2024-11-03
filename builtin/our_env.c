@@ -37,10 +37,10 @@ void our_expenv(t_shell *data)
         char *equal = ft_strchr((char *)tmp->content, '=');
         if(equal)
         {
-            printf("declare -x %.*s=\"%s\"\n", (int)(equal - (char *)tmp->content), tmp->content, equal + 1);
+            printf("declare -x %.*s=\"%s\"\n", (int)(equal - (char *)tmp->content), (char *)tmp->content, equal + 1);
         }
         else
-            printf("declare -x %s\n", tmp->content);
+            printf("declare -x %s\n", (char *)tmp->content);
         tmp = tmp->next;
     }
 }
