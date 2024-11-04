@@ -18,6 +18,8 @@
 typedef enum S_TYPES{
 
     CMD,
+    FLAG,
+    ARGS,
     PIPE,
     REDIR_IN,
     REDIR_OUT,
@@ -50,6 +52,7 @@ typedef struct s_shell{
     t_list *envir;
     char **our_args;
     int     exit_code;
+    
 }t_shell;
 
 char	*ft_strtrim(char const *s1, char const *set);

@@ -55,9 +55,9 @@ bool our_export(char **arg, t_shell *data)
     }
     else
     {
-        current = data->envir;
         while(arg[i])
         {
+            current = data->envir;
             found = 0;
             key = ft_strchr(arg[i], '=');
             if(key)
@@ -86,15 +86,20 @@ bool our_export(char **arg, t_shell *data)
                 {
                     if(ft_strncmp(current->content, arg[i], ft_strlen(arg[i])) == 0)
                     {
-                        free(current->content);
-                        current->content = ft_strdup(arg[i]);
-                        if(!current->content)
+                        if(ft_strlen(current->content) == ft_strlen(arg[i]))
                         {
-                            write(2, "error malloc\n", 13);
-                            return (false);
+                            free(current->content);
+                            current->content = ft_strdup(arg[i]);
+                            if(!current->content)
+                            {
+                                write(2, "error malloc\n", 13);
+                                return (false);
+                            }
+                            found = 1;
+                            break ;
                         }
-                        found = 1;
-                        break ;
+                        else
+                            found = 1;
                     }
                     current = current->next;
                 }

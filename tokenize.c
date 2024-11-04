@@ -178,8 +178,8 @@ char	**our_tokenize(char *s)
 	// int j = 0;
 
 	r = ft_strtrim(s, " ");
-	// if(r == NULL)
-	// 	return NULL;
+	if(r == NULL)
+		return NULL;
 	printf("\nafter_trim - {%s}\n", r);
 	int i = our_wount(r);
 	printf("\ntoken_count - %d\n", i);
@@ -189,11 +189,6 @@ char	**our_tokenize(char *s)
     split[i] = 0;
     if(our_fill(r, split, i) == -1)
         return(NULL);
-	// printf("{");
-    // while(j < i)
-    //     printf("%s,", split[j++]);
-
-	// printf("}\n");
 	free(r);
 	return (split);
 }

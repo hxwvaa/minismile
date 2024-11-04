@@ -61,8 +61,8 @@ bool our_unset(char *var, t_list **envir)
             else
                 prev->next = current->next;
             //printf("%s\n", current->content);
-            //free(current->content);
-            //free(current); 
+            free(current->content);
+            free(current); 
             return(true);
         }
         prev = current;

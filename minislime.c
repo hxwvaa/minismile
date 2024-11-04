@@ -4,103 +4,6 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-// bool our_unset(char *var, t_list **envir)
-// {
-//     if(!var)
-//     {
-//         write(2, "unset: not enough arguments\n", 28);
-//         //data->exit_code = 1
-//         return (false);
-//     }
-//     t_list *current;
-//     t_list *prev;
-//     int len;
-
-//     current = *envir;
-//     prev = NULL;
-//     len = ft_strlen(var);
-//     printf("%s, len:%d\n", var, len);
-//     while(current)
-//     {
-//         if(ft_strncmp(current->content, var, len) == 0)
-//         {
-//             if(prev == NULL)
-//                 *envir = current->next;
-//             else
-//                 prev->next = current->next;
-//             //printf("%s\n", current->content);
-//             //free(current->content);
-//             //free(current); 
-//             return(true);
-//         }
-//         prev = current;
-//         current = current->next;
-//     }
-//     //free at the end the list
-//     return (false);
-// }
-
-int is_digit_exit_code (char **av)
-{
-    int n ;
-    n = 0;
-
-    while(av[1][n])
-    {
-        if (ft_isdigit(av[1][n]))
-            ;
-        else
-            return (0);
-        n++;
-    }
-    return(1);
-}
-
-void exit_av_more_than_2(char **av)
-{
-    if (is_digit_exit_code(av))
-    {
-        (printf("exit\n"), printf("shell: exit: too many arguments\n"));
-        return ;
-    }
-    else
-    {
-        printf("exit\n"); 
-        printf("shell: exit: %s: numeric argument required\n", av[1]);
-        exit(255);
-    }
-}
-
-void exit_av_is_equal_2(char **av)
-{
-    if (is_digit_exit_code(av))
-    {
-        // unsigned long long n;
-        // n = ft_atol(av[1]);
-        printf("exit\n");
-        exit(ft_atol(av[1]) % 256); // doesnt work for av[1] graeater than 9223372036854775807 yet
-    }
-    else
-    {
-        printf("exit\n"); 
-        printf("shell: exit: %s: numeric argument required\n", av[1]);
-        exit(255);
-    }
-}
-
-void exit_shell(char **av)
-{
-    int i;
-    i = 0;
-    while(av[i])
-        i++;
-    if (i == 1)
-        (printf("exit\n"), exit(0));
-    else if (i == 2)
-        exit_av_is_equal_2(av);
-    else
-        exit_av_more_than_2(av);
-}
 
 void check_built_in(char **av, t_shell *data)
 {
@@ -190,6 +93,7 @@ int main(int ac, char **av, char **envp)
             printf("%d - [%s]\n", i + 1, av[i]);
             i++;
         }
+        
         if (av && av[0])
             check_args(av, &data);
         if(line)
