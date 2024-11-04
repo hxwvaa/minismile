@@ -6,7 +6,7 @@
 /*   By: hbasheer <hbasheer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 17:23:23 by hbasheer          #+#    #+#             */
-/*   Updated: 2024/10/23 20:05:22 by hbasheer         ###   ########.fr       */
+/*   Updated: 2024/10/30 13:24:26 by hbasheer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,10 @@
 long long	ft_atol(const char *str)
 {
 	long long	nb;
-	int					i;
 	int					sign;
 
 	sign = 1;
 	nb = 0;
-	i = 0;
 	while (*str == ' ' || (*str >= '\t' && *str <= '\r'))
 		str++;
 	if (*str == '-' || *str == '+')

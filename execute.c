@@ -1,51 +1,50 @@
 #include "minishell.h"
 
-
 //void	execute_cmd(char *cmd, char **env, int ifd, int fd[])
-// void	execute_cmd(char **cmd, char **env)
-// {
-// 	//char	**cmd_av;
-// 	char	*cmd_path;
+void	execute_cmd(char **cmd, char **env)
+{
+	//char	**cmd_av;
+	char	*cmd_path;
 
-// 	// if (only_space(cmd) == 1)
-// 	// 	inv_string(ifd, fd);
-// 	//cmd_av = ft_split(cmd, ' ');
-// 	cmd_path = get_cmd_path(cmd[0], env);
-// 	// if (!cmd_path)
-// 	// 	inv_cmd(cmd_av[0], cmd_av);
-// 	// if (ifd != STDIN_FILENO)
-// 	// {
-// 	// 	dup2(ifd, STDIN_FILENO);
-// 	// 	close(ifd);
-// 	// }
-// 	// if (fd[1] != STDOUT_FILENO)
-// 	// {
-// 	// 	dup2(fd[1], STDOUT_FILENO);
-// 	// 	close(fd[1]);
-// 	// }
-// 	execve(cmd_path, cmd, env);
-// // 	if (execve(cmd_path, cmd_av, env) == -1)
-// // 		inv_cmd(cmd_av[0], cmd_av);
-//  }
+	// if (only_space(cmd) == 1)
+	// 	inv_string(ifd, fd);
+	//cmd_av = ft_split(cmd, ' ');
+	cmd_path = get_cmd_path(cmd[0], env);
+	// if (!cmd_path)
+	// 	inv_cmd(cmd_av[0], cmd_av);
+	// if (ifd != STDIN_FILENO)
+	// {
+	// 	dup2(ifd, STDIN_FILENO);
+	// 	close(ifd);
+	// }
+	// if (fd[1] != STDOUT_FILENO)
+	// {
+	// 	dup2(fd[1], STDOUT_FILENO);
+	// 	close(fd[1]);
+	// }
+	execve(cmd_path, cmd, env);
+// 	if (execve(cmd_path, cmd_av, env) == -1)
+// 		inv_cmd(cmd_av[0], cmd_av);
+ }
 
-// void    pre_execute_cmd(char **cmd, char **env)
-// {
-// 	// char **ven;
-// 	pid_t pid = fork ();
-// 	if(pid == -1)
-// 		write(2, "fork error\n", 11);
-// 	if(pid == 0)
-// 	{
-// 		execute_cmd(cmd, env);
-// 	}
-// 	else
-// 	{
-// 		int status;
-// 		wait(&status);
-// 	}
-// }
+void    pre_execute_cmd(char **cmd, char **env)
+{
+	char **ven;
+	pid_t pid = fork ();
+	if(pid == -1)
+		write(2, "fork error\n", 11);
+	if(pid == 0)
+	{
+		execute_cmd(cmd, env);
+	}
+	else
+	{
+		int status;
+		wait(&status);
+	}
+}
 
-int	our_quote(char *str, int i, char quote)
+int	t_quote(char *str, int i, char quote)
 {
 	if (quote == '\'')
 	{
@@ -61,7 +60,7 @@ int	our_quote(char *str, int i, char quote)
 	}
 }
 
-int	our_wount(char *s)
+int	t_wount(char *s)
 {
 	int	i;
 	int	word;
@@ -74,7 +73,7 @@ int	our_wount(char *s)
 			i++;
 		if (s[i] && s[i] != ' ' && !(s[i] >= 9 && s[i] <= 13) && !(s[i] == '<'
 				|| s[i] == '>' || s[i] == '|'))
-			word++;
+			word++;	
 		while (s[i] && s[i] != ' ' && !(s[i] >= 9 && s[i] <= 13))
 		{
 			if ((s[i] == '<' || s[i] == '>' || s[i] == '|'))
@@ -85,10 +84,10 @@ int	our_wount(char *s)
 			}
 			if ((s[i] == '\'' || s[i] == '\"') && (s[i - 1] == ' ' || (s[i
 					- 1] >= 9 && s[i - 1] <= 13)))
-				i = our_quote(s, i + 1, s[i]);
+				i = t_quote(s, i + 1, s[i]);
 			else if ((s[i] == '\'' || s[i] == '\"') && s[i - 1] != ' ' && !(s[i
 					- 1] >= 9 && s[i - 1] <= 13))
-				i = our_quote(s, i + 1, s[i]);
+				i = t_quote(s, i + 1, s[i]);
 			i++;
 		}
 	}
@@ -97,7 +96,7 @@ int	our_wount(char *s)
 
 
 
-int	our_free(char **str, int t)
+int	t_free(char **str, int t)
 {
 	int	i;
 
@@ -111,7 +110,7 @@ int	our_free(char **str, int t)
 	return (-1);
 }
 
-void	our_strcpy(char *des, char *src, int j)
+void	t_strcpy(char *des, char *src, int j)
 {
 	int	i;
 
@@ -124,7 +123,7 @@ void	our_strcpy(char *des, char *src, int j)
 	des[i] = '\0';
 }
 
-int	our_fill(char *s, char **cmd, int count)
+int	t_fill(char *s, char **cmd, int count)
 {
 	int	i;
 	int	word;
@@ -152,10 +151,10 @@ int	our_fill(char *s, char **cmd, int count)
 			}
 			if ((s[i] == '\'' || s[i] == '\"') && (s[i- 1] == ' ' || (s[i
 					- 1] >= 9 && s[i - 1] <= 13)))
-				i = our_quote(s, i + 1, s[i]);
+				i = t_quote(s, i + 1, s[i]);
 			else if ((s[i] == '\'' || s[i] == '\"') && s[i - 1] != ' ' && !(s[i
 					- 1] >= 9 && s[i - 1] <= 13))
-				i = our_quote(s, i + 1, s[i]);
+				i = t_quote(s, i + 1, s[i]);
 			i++;
 			if ((s[i] == '<' || s[i] == '>' || s[i] == '|'))
 				break;
@@ -163,37 +162,35 @@ int	our_fill(char *s, char **cmd, int count)
 		printf("i:%d, j:%d\n", i, j);
 		cmd[word] = ft_calloc(((i - j) + 1), sizeof(char));
 		if(!cmd[word])
-			return(our_free(cmd, word));
-		our_strcpy(cmd[word], s + j, i - j);
+			return(t_free(cmd, word));
+		t_strcpy(cmd[word], s + j, i - j);
 		word++;	
 	}
 	return (0);
 }
 
-char	**our_tokenize(char *s)
+char	**st_tokenize(char *s)
 {
 	char *r;
 	char **split;
-	// char *cmd;
-	// int j = 0;
+	char *cmd;
+	int j = 0;
 
 	r = ft_strtrim(s, " ");
-	// if(r == NULL)
-	// 	return NULL;
 	printf("\nafter_trim - {%s}\n", r);
-	int i = our_wount(r);
+	int i = t_wount(r);
 	printf("\ntoken_count - %d\n", i);
     split = ft_calloc(i + 1, sizeof(char *));
     if(!split)
         return(NULL);
     split[i] = 0;
-    if(our_fill(r, split, i) == -1)
+    if(t_fill(r, split, i) == -1)
         return(NULL);
-	// printf("{");
-    // while(j < i)
-    //     printf("%s,", split[j++]);
+	printf("{");
+    while(j < i)
+        printf("%s,", split[j++]);
 
-	// printf("}\n");
+	printf("}\n");
 	free(r);
 	return (split);
 }
