@@ -1,5 +1,7 @@
 #include "../minishell.h"
 
+//need to deal with the quotes still
+
 void our_echo(char **arg)
 {
     int flag_n;

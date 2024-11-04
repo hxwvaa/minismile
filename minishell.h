@@ -11,6 +11,9 @@
 #include <readline/history.h>
 # include <sys/wait.h>
 #include <stdbool.h>
+#include <errno.h>
+
+// define a macro for cd error message
 
 typedef enum S_TYPES{
 
@@ -20,6 +23,7 @@ typedef enum S_TYPES{
     REDIR_OUT,
     HERE_DOC,
     LIMITER,
+    EXPAND,
     APPEND
 
 }t_type;
@@ -35,8 +39,7 @@ typedef struct s_cmd{
     char *cmd;
     char **cargs;
     char *inf;
-    char *out;
-    int   app;
+    char *outf;
     struct s_cmd *next;
 }t_cmd;
 
@@ -52,6 +55,19 @@ char	*ft_strtrim(char const *s1, char const *set);
 char **our_tokenize(char *s);
 char	*get_cmd_path(char *cmd, char **env);
 int	our_quote(char *str, int i, char quote);
+
+//---------------------builtins------------------//
+void our_echo(char **arg);
+void our_expenv(t_shell *data);
+void our_env(t_list *envir);
+bool our_pwd(void);
+char *get_pwd(void);
+bool our_unset(char *var, t_list **envir);
+bool our_export(char **arg, t_shell *data);
+void our_cdir(char *path, t_shell *data);
+
+
+void our_expand(char *var, t_shell *data);
 
 void exit_shell(char **av);
 
