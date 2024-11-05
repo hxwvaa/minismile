@@ -23,3 +23,5 @@ echo $? -> 1
 
 dont forget to free in unset cause now i am ft_strdup content of list, 
 also fix the while loop for export, current = data->envir should be inside the big loop & b4 inner loop
+
+look at strncmp in cd should they be the var name size or +1??

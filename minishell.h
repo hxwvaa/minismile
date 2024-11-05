@@ -33,8 +33,14 @@ typedef enum S_TYPES{
 typedef struct s_token{
 
     char *token;
-    t_type type;
+    int type;
 }t_token;
+
+typedef struct s_toklist{
+    char *token;
+    int type;
+    struct s_toklist *next;
+}t_toklist;
 
 typedef struct s_cmd{
     
@@ -71,6 +77,11 @@ void our_cdir(char *path, t_shell *data);
 
 
 void our_expand(char *var, t_shell *data);
+
+//---------------------pre_execute------------------//
+t_token *array_to_token_array(char **split, int count);
+
+t_toklist *array_token_list(char **split, int count);
 
 void exit_shell(char **av);
 

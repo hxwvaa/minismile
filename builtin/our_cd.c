@@ -1,6 +1,21 @@
 #include "../minishell.h"
 
 
+//check it later it works
+char *get_value_env(char *var, t_shell *data)
+{
+    t_list *current;
+
+    current = data->envir;
+    while(current)
+    {
+        if(ft_strncmp(current->content, var, (ft_strlen(var) + 1)) == 0)
+            return(ft_strdup(current->content + 4));
+        current = current->next;
+    }
+    return (NULL);
+}
+
 char *get_pwd_value(t_shell *data)
 {
     t_list *current;
@@ -8,7 +23,7 @@ char *get_pwd_value(t_shell *data)
     current = data->envir;
     while(current)
     {
-        if(ft_strncmp(current->content, "PWD=", 4) == 0)
+        if(ft_strncmp(current->content, "PWD=", 5) == 0)
             return(ft_strdup(current->content + 4));
         current = current->next;
     }
@@ -22,7 +37,7 @@ void update_pwd(t_shell *data, char *pwd)
     current = data->envir;
     while(current)
     {
-        if(ft_strncmp(current->content, "PWD=", 4) == 0)
+        if(ft_strncmp(current->content, "PWD=", 5) == 0)
         {
             free(current->content);
             //current->content = ft_strdup(pwd);
@@ -43,7 +58,7 @@ void update_oldpwd(t_shell *data, char *oldpwd)
     current = data->envir;
     while(current)
     {
-        if(ft_strncmp(current->content, "OLDPWD=", 7) == 0)
+        if(ft_strncmp(current->content, "OLDPWD=", 8) == 0)
             {
                 free(current->content);
                 current->content = ft_strjoin("OLDPWD=", oldpwd);

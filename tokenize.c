@@ -91,6 +91,52 @@ int	our_quote(char *str, int i, char quote)
 // 	return word;
 // }
 
+// int	our_wount(char *s, int *i, int word)
+// {
+// 	while (s[*i])
+// 	{
+// 		while (s[*i] && (s[*i] == ' ' || (s[*i] >= 9 && s[*i] <= 13)))
+// 			(*i)++;
+// 		if (s[*i] && s[*i] != ' ' && !(s[*i] >= 9 && s[*i] <= 13)
+// 			&& !(s[*i] == '<' || s[*i] == '>' || s[*i] == '|'))
+// 			word++;
+// 		while (s[*i] && s[*i] != ' ' && !(s[*i] >= 9 && s[*i] <= 13))
+// 		{
+// 			if ((s[*i] == '<' || s[*i] == '>' || s[*i] == '|'))
+// 			{
+// 				word++;
+// 				(*i)++;
+// 				break ;
+// 			}
+// 			if ((s[*i] == '\'' || s[*i] == '\"')
+// 				&& (s[*i - 1] == ' ' || (s[*i - 1] >= 9 && s[*i - 1] <= 13)))
+// 				*i = our_quote(s, *i + 1, s[*i]);
+// 			else if ((s[*i] == '\'' || s[*i] == '\"') && s[*i - 1] != ' '
+// 				&& !(s[*i - 1] >= 9 && s[*i - 1] <= 13))
+// 				*i = our_quote(s, *i + 1, s[*i]);
+// 			(*i)++;
+// 		}
+// 	}
+// 	return (word);
+// }
+
+int our_help_wount(int *word, int *i, char *s)
+{
+	if ((s[*i] == '<' || s[*i] == '>' || s[*i] == '|'))
+	{
+		(*word)++;
+		(*i)++;
+		return -1;
+	}
+	if ((s[*i] == '\'' || s[*i] == '\"')
+		&& (s[*i - 1] == ' ' || (s[*i - 1] >= 9 && s[*i - 1] <= 13)))
+		*i = our_quote(s, *i + 1, s[*i]);
+	else if ((s[*i] == '\'' || s[*i] == '\"') && s[*i - 1] != ' '
+		&& !(s[*i - 1] >= 9 && s[*i - 1] <= 13))
+		*i = our_quote(s, *i + 1, s[*i]);
+	return(0);
+}
+
 int	our_wount(char *s, int *i, int word)
 {
 	while (s[*i])
@@ -102,18 +148,8 @@ int	our_wount(char *s, int *i, int word)
 			word++;
 		while (s[*i] && s[*i] != ' ' && !(s[*i] >= 9 && s[*i] <= 13))
 		{
-			if ((s[*i] == '<' || s[*i] == '>' || s[*i] == '|'))
-			{
-				word++;
-				(*i)++;
-				break ;
-			}
-			if ((s[*i] == '\'' || s[*i] == '\"')
-				&& (s[*i - 1] == ' ' || (s[*i - 1] >= 9 && s[*i - 1] <= 13)))
-				*i = our_quote(s, *i + 1, s[*i]);
-			else if ((s[*i] == '\'' || s[*i] == '\"') && s[*i - 1] != ' '
-				&& !(s[*i - 1] >= 9 && s[*i - 1] <= 13))
-				*i = our_quote(s, *i + 1, s[*i]);
+			if (our_help_wount(&word, i, s) == -1)
+				break;
 			(*i)++;
 		}
 	}
@@ -147,6 +183,26 @@ void	our_strcpy(char *des, char *src, int j)
 	des[i] = '\0';
 }
 
+int our_help_fill(int *j, int *i, char *s)
+{
+	if ((s[*i] == '<' || s[*i] == '>' || s[*i] == '|'))
+	{
+		(*j) = (*i);
+		(*i)++;
+		return -1;
+	}
+	if ((s[*i] == '\'' || s[*i] == '\"')
+		&& (s[*i - 1] == ' ' || (s[*i - 1] >= 9 && s[*i - 1] <= 13)))
+		*i = our_quote(s, *i + 1, s[*i]);
+	else if ((s[*i] == '\'' || s[*i] == '\"') && s[*i - 1] != ' '
+		&& !(s[*i - 1] >= 9 && s[*i - 1] <= 13))
+		*i = our_quote(s, *i + 1, s[*i]);
+	(*i)++;
+	if ((s[*i] == '<' || s[*i] == '>' || s[*i] == '|'))
+		return -1;
+	return(0);
+}
+
 int	our_fill(char *s, char **cmd, int count)
 {
 	int	i;
@@ -161,34 +217,32 @@ int	our_fill(char *s, char **cmd, int count)
 			i++;
 		if (s[i] && s[i] != ' ' && !(s[i] >= 9 && s[i] <= 13) && !(s[i] == '<'
 				|| s[i] == '>' || s[i] == '|'))
-			{
-				j = i;
-			}
+			j = i;
 		while (s[i] && s[i] != ' ' && !(s[i] >= 9 && s[i] <= 13))
 		{
-			
-			if ((s[i] == '<' || s[i] == '>' || s[i] == '|'))
-			{
-				j = i;
-				i++;
-				break ;
-			}
-			if ((s[i] == '\'' || s[i] == '\"') && (s[i- 1] == ' ' || (s[i
-					- 1] >= 9 && s[i - 1] <= 13)))
-				i = our_quote(s, i + 1, s[i]);
-			else if ((s[i] == '\'' || s[i] == '\"') && s[i - 1] != ' ' && !(s[i
-					- 1] >= 9 && s[i - 1] <= 13))
-				i = our_quote(s, i + 1, s[i]);
-			i++;
-			if ((s[i] == '<' || s[i] == '>' || s[i] == '|'))
+			// if ((s[i] == '<' || s[i] == '>' || s[i] == '|'))
+			// {
+			// 	j = i;
+			// 	i++;
+			// 	break ;
+			// }
+			// if ((s[i] == '\'' || s[i] == '\"') && (s[i- 1] == ' ' || (s[i
+			// 		- 1] >= 9 && s[i - 1] <= 13)))
+			// 	i = our_quote(s, i + 1, s[i]);
+			// else if ((s[i] == '\'' || s[i] == '\"') && s[i - 1] != ' ' && !(s[i
+			// 		- 1] >= 9 && s[i - 1] <= 13))
+			// 	i = our_quote(s, i + 1, s[i]);
+			// i++;
+			// if ((s[i] == '<' || s[i] == '>' || s[i] == '|'))
+			// 	break;
+			if (our_help_fill(&j, &i, s) == -1)
 				break;
 		}
-		printf("i:%d, j:%d\n", i, j);
 		cmd[word] = ft_calloc(((i - j) + 1), sizeof(char));
 		if(!cmd[word])
 			return(our_free(cmd, word));
 		our_strcpy(cmd[word], s + j, i - j);
-		word++;	
+		word++;
 	}
 	return (0);
 }
@@ -197,7 +251,6 @@ char	**our_tokenize(char *s)
 {
 	char *r;
 	char **split;
-	// int j = 0;
 	int i;
 	int word;
 
@@ -206,9 +259,9 @@ char	**our_tokenize(char *s)
 	r = ft_strtrim(s, " ");
 	if(r == NULL)
 		return NULL;
-	printf("\nafter_trim - {%s}\n", r);
+	printf("\nafter_trim - {%s}\n", r); //SAVE
 	word = our_wount(r, &i, word);
-	printf("\ntoken_count - %d\n", word);
+	printf("\ntoken_count - %d\n", word); //SAVE
     split = ft_calloc(word + 1, sizeof(char *));
     if(!split)
         return(NULL);

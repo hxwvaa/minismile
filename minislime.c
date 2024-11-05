@@ -11,17 +11,23 @@ void check_built_in(char **av, t_shell *data)
     i = 0;
     if (ft_strncmp(av[i], "exit", 5) == 0)
         exit_shell(av);
-    else if(ft_strncmp(av[i], "env", 3) == 0)
+    else if(ft_strncmp(av[i], "env", 4) == 0)
         our_env(data->envir);
-    else if(ft_strncmp(av[i], "unset", 5) == 0)
+    else if(ft_strncmp(av[i], "unset", 6) == 0)
         our_unset(av[i + 1], &data->envir);
-    else if(ft_strncmp(av[i], "echo", 4) == 0)
+    else if(ft_strncmp(av[i], "echo", 5) == 0)
         our_echo(av);
-    else if(ft_strncmp(av[i], "export", 6)== 0)
+    else if(ft_strncmp(av[i], "export", 7)== 0)
         our_export(av, data);
-    else if(ft_strncmp(av[i], "pwd", 3) == 0)
-        our_pwd();
-    else if(ft_strncmp(av[i], "cd", 2) == 0)
+    else if(ft_strncmp(av[i], "pwd", 4) == 0)
+    {
+        if(av[i + 1] != NULL)
+            write(2, "pwd: too many arguments\n", 24);
+            //echo $?// data->exit_code = 1
+        else    
+            our_pwd();
+    }
+    else if(ft_strncmp(av[i], "cd", 3) == 0)
         our_cdir(av[i + 1], data);
 
 }
@@ -72,6 +78,10 @@ int main(int ac, char **av, char **envp)
     int i = 0;
     (void)envp;
     (void)av;
+    //t_token *tokens;
+    //int j = 0;
+    t_toklist *tokens;
+    t_toklist *tmp;
 
     init_shell(&data, envp);
     while(1)
@@ -87,13 +97,26 @@ int main(int ac, char **av, char **envp)
             exit(1);
         printf("\nbefore_trim - {%s}\n", line);
         av = our_tokenize(line);
-        
         while(av[i])
         {
             printf("%d - [%s]\n", i + 1, av[i]);
             i++;
         }
-        
+        i--;
+        //tokens = array_to_token_array(av, i);
+        tokens = array_token_list(av, i);
+        tmp = tokens;
+        while(tmp)
+        {
+            printf("token: %s, type: %d\n", tmp->token, tmp->type);
+            tmp = tmp->next;
+        }
+        // while(tokens[j].token)
+        // {
+        //     printf("hello\n");
+        //     printf("token: %s, type:%d\n", (char *)tokens[j].token, (int)tokens[j].type);
+        //     j++;
+        // }
         if (av && av[0])
             check_args(av, &data);
         if(line)
