@@ -2,7 +2,7 @@ NAME = minishell
 
 SRC = minislime.c tokenize.c findpath.c builtin/our_echo.c\
 		builtin/our_env.c builtin/our_pwd.c builtin/our_unset.c\
-		builtin/our_export.c builtin/our_cd.c 
+		builtin/our_export.c builtin/our_cd.c builtin/our_exit.c
 
 
 OBJ = $(SRC:.c=.o)

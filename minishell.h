@@ -41,8 +41,7 @@ typedef struct s_cmd{
     char *cmd;
     char **cargs;
     char *inf;
-    char *out;
-    int   app;
+    char *outf;
     struct s_cmd *next;
 }t_cmd;
 
@@ -72,6 +71,8 @@ void our_cdir(char *path, t_shell *data);
 
 
 void our_expand(char *var, t_shell *data);
+
+void exit_shell(char **av);
 
 
 #endif

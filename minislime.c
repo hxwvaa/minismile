@@ -4,7 +4,6 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-
 void check_built_in(char **av, t_shell *data)
 {
     int i;
@@ -88,6 +87,7 @@ int main(int ac, char **av, char **envp)
             exit(1);
         printf("\nbefore_trim - {%s}\n", line);
         av = our_tokenize(line);
+        
         while(av[i])
         {
             printf("%d - [%s]\n", i + 1, av[i]);

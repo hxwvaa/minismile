@@ -61,41 +61,64 @@ int	our_quote(char *str, int i, char quote)
 	}
 }
 
-int	our_wount(char *s)
-{
-	int	i;
-	int	word;
+//THE WORKING ONE - DONT DELETE
+// int our_wount(char *s, int *i, int word)
+// {
+// 	while (s[*i])
+// 	{
+// 		while (s[*i] && (s[*i] == ' ' || (s[*i] >= 9 && s[*i] <= 13)))
+// 			(*i)++;
+// 		if (s[*i] && s[*i] != ' ' && !(s[*i] >= 9 && s[*i] <= 13) && !(s[*i] == '<'
+// 				|| s[*i] == '>' || s[*i] == '|'))
+// 			word++;
+// 		while (s[*i] && s[*i] != ' ' && !(s[*i] >= 9 && s[*i] <= 13))
+// 		{
+// 			if ((s[*i] == '<' || s[*i] == '>' || s[*i] == '|'))
+// 			{
+// 				word++;
+// 				(*i)++;
+// 				break;
+// 			}
+// 			if ((s[*i] == '\'' || s[*i] == '\"') && (s[*i - 1] == ' ' || (s[*i
+// 					- 1] >= 9 && s[*i - 1] <= 13)))
+// 				*i = our_quote(s, *i + 1, s[*i]);
+// 			else if ((s[*i] == '\'' || s[*i] == '\"') && s[*i - 1] != ' ' && !(s[*i
+// 					- 1] >= 9 && s[*i - 1] <= 13))
+// 				*i = our_quote(s, *i + 1, s[*i]);
+// 			(*i)++;
+// 		}
+// 	}
+// 	return word;
+// }
 
-	i = 0;
-	word = 0;
-	while (s[i])
+int	our_wount(char *s, int *i, int word)
+{
+	while (s[*i])
 	{
-		while (s[i] && (s[i] == ' ' || (s[i] >= 9 && s[i] <= 13)))
-			i++;
-		if (s[i] && s[i] != ' ' && !(s[i] >= 9 && s[i] <= 13) && !(s[i] == '<'
-				|| s[i] == '>' || s[i] == '|'))
+		while (s[*i] && (s[*i] == ' ' || (s[*i] >= 9 && s[*i] <= 13)))
+			(*i)++;
+		if (s[*i] && s[*i] != ' ' && !(s[*i] >= 9 && s[*i] <= 13)
+			&& !(s[*i] == '<' || s[*i] == '>' || s[*i] == '|'))
 			word++;
-		while (s[i] && s[i] != ' ' && !(s[i] >= 9 && s[i] <= 13))
+		while (s[*i] && s[*i] != ' ' && !(s[*i] >= 9 && s[*i] <= 13))
 		{
-			if ((s[i] == '<' || s[i] == '>' || s[i] == '|'))
+			if ((s[*i] == '<' || s[*i] == '>' || s[*i] == '|'))
 			{
 				word++;
-				i++;
+				(*i)++;
 				break ;
 			}
-			if ((s[i] == '\'' || s[i] == '\"') && (s[i - 1] == ' ' || (s[i
-					- 1] >= 9 && s[i - 1] <= 13)))
-				i = our_quote(s, i + 1, s[i]);
-			else if ((s[i] == '\'' || s[i] == '\"') && s[i - 1] != ' ' && !(s[i
-					- 1] >= 9 && s[i - 1] <= 13))
-				i = our_quote(s, i + 1, s[i]);
-			i++;
+			if ((s[*i] == '\'' || s[*i] == '\"')
+				&& (s[*i - 1] == ' ' || (s[*i - 1] >= 9 && s[*i - 1] <= 13)))
+				*i = our_quote(s, *i + 1, s[*i]);
+			else if ((s[*i] == '\'' || s[*i] == '\"') && s[*i - 1] != ' '
+				&& !(s[*i - 1] >= 9 && s[*i - 1] <= 13))
+				*i = our_quote(s, *i + 1, s[*i]);
+			(*i)++;
 		}
 	}
 	return (word);
 }
-
-
 
 int	our_free(char **str, int t)
 {
@@ -174,20 +197,23 @@ char	**our_tokenize(char *s)
 {
 	char *r;
 	char **split;
-	// char *cmd;
 	// int j = 0;
+	int i;
+	int word;
 
+	i = 0;
+	word = 0;
 	r = ft_strtrim(s, " ");
 	if(r == NULL)
 		return NULL;
 	printf("\nafter_trim - {%s}\n", r);
-	int i = our_wount(r);
-	printf("\ntoken_count - %d\n", i);
-    split = ft_calloc(i + 1, sizeof(char *));
+	word = our_wount(r, &i, word);
+	printf("\ntoken_count - %d\n", word);
+    split = ft_calloc(word + 1, sizeof(char *));
     if(!split)
         return(NULL);
-    split[i] = 0;
-    if(our_fill(r, split, i) == -1)
+    split[word] = 0;
+    if(our_fill(r, split, word) == -1)
         return(NULL);
 	free(r);
 	return (split);
