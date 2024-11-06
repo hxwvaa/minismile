@@ -4,6 +4,21 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
+void our_tlistclear(t_toklist **tokens)
+{
+    t_toklist *temp;
+
+    // temp = tokens;
+	while (*tokens != NULL)
+	{
+		temp = (*tokens)->next;
+		free((*tokens)->token);
+		*tokens = temp;
+	}
+    free(*tokens);
+    *tokens = NULL;
+}
+
 void check_built_in(char **av, t_shell *data)
 {
     int i;
@@ -70,6 +85,108 @@ void init_shell(t_shell *data, char **envp)
     }
 }
 
+// int check_syntax(char **av, int i)
+// {
+//     i = 0;
+//     while(av[i])
+//     {
+//         if(ft_strncmp(av[i], ">", 2) == 0 || ft_strncmp(av[i], "<", 2) == 0)
+//         {
+//             if(av[i + 1])
+//             {
+//                 if(ft_strncmp(av[i + 1], ">", 2) == 0 || ft_strncmp(av[i +1], "<", 2) == 0)
+//                     {
+//                         if(av[i + 2])
+//                         {
+//                             if(ft_strncmp(av[i + 2], ">", 2) == 0 || ft_strncmp(av[i + 2], "<", 2) == 0)
+//                             {
+//                                 write(2, "syntax error near unexpected token `>'\n", 39);
+//                                 //exit code = 258 ?
+//                                 return (1);
+//                             }
+//                         }
+//                     }
+//             }
+//         }
+//         i++;
+//     }
+//     return (0);
+// }
+
+
+int	check_syntax_redirect(char **av, int i)
+{
+	if (ft_strncmp(av[i + 1], ">", 2) == 0 || ft_strncmp(av[i + 1], "<",
+			2) == 0)
+	{
+		if (av[i + 2])
+		{
+			if (ft_strncmp(av[i + 2], ">", 2) == 0 || ft_strncmp(av[i + 2], "<",
+					2) == 0)
+			{
+				return (1);
+				// write(2, "syntax error near unexpected token `>'\n", 39);
+				// //exit code = 258 ?
+				// return (1);
+			}
+		}
+	}
+	return (0);
+}
+int check_syntax_pipe(char **av, int i)
+{
+    if(ft_strncmp(av[i + 1], "|", 2) == 0)
+    {
+        write(2, "syntax error near unexpected token `|'\n", 39);
+        //exit code = 258
+        return(1);
+    }
+    return(0);
+}
+int	check_syntax(char **av, int i)
+{
+	i = 0;
+	while (av[i])
+	{
+        if(ft_strncmp(av[i], "|", 2) == 0)
+        {
+            if(av[i] + 1)
+            {
+                if(check_syntax_pipe(av, i) == 1)
+                    return(1);
+            }
+        }
+		if (ft_strncmp(av[i], ">", 2) == 0 || ft_strncmp(av[i], "<", 2) == 0)
+		{
+			if (av[i + 1])
+			{
+				if (check_syntax_redirect(av, i) == 1)
+				{
+					write(2, "syntax error near unexpected token `>' or `<'\n", 46);
+					// exit code = 258 ?
+					return (1);
+				}
+			}
+		}
+		i++;
+	}
+	return (0);
+}
+
+void free_arr(char **arr)
+{
+    int i;
+
+    i = 0;
+    while(arr[i])
+    {
+        free(arr[i]);
+        arr[i] = NULL;
+        i++;
+    }
+    free(arr);
+    arr = NULL;
+}
 int main(int ac, char **av, char **envp)
 {
     t_shell data;
@@ -104,12 +221,17 @@ int main(int ac, char **av, char **envp)
         }
         i--;
         //tokens = array_to_token_array(av, i);
-        tokens = array_token_list(av, i);
-        tmp = tokens;
-        while(tmp)
+        if(check_syntax(av, i) == 1)
+            free_arr(av);
+        else   
         {
-            printf("token: %s, type: %d\n", tmp->token, tmp->type);
-            tmp = tmp->next;
+            tokens = array_token_list(av, i);
+            tmp = tokens;
+            while(tmp)
+            {
+                printf("token: %s, type: %d\n", tmp->token, tmp->type);
+                tmp = tmp->next;
+            }
         }
         // while(tokens[j].token)
         // {
@@ -121,7 +243,11 @@ int main(int ac, char **av, char **envp)
             check_args(av, &data);
         if(line)
             add_history(line);
-        free(line);
+        if (av)
+            free_arr(av);
+        // if (tokens)
+            our_tlistclear(&tokens);
+        // free(line);
         //we need clean everything before next line the allocations
     }
     return(0);

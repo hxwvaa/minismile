@@ -1,43 +1,5 @@
 #include "minishell.h"
 
-
-int set_token_type(char *token, int *i, char **tokens, int *first)
-{
-    if(ft_strncmp(token, "|", 2) == 0)
-    {
-        (*first) = 1;
-        return (PIPE);
-    }
-    if(ft_strncmp(token, "<", 2) == 0)
-    {
-        if(ft_strncmp(tokens[(*i) + 1], "<", 2) == 0)
-        {
-            (*i)++;
-            return(HERE_DOC);
-        }
-        else 
-            return (REDIR_IN);
-    }
-    if(ft_strncmp(token, ">", 2) == 0)
-    {
-        if(ft_strncmp(tokens[(*i) + 1], ">", 2) == 0)
-        {
-            (*i)++;
-            return (APPEND);
-        }
-        else
-            return (REDIR_OUT);
-    }
-    if (token[0] == '-' && !*first)
-        return (FLAG);
-    if (*first)
-    {
-        *first = 0;
-        return(CMD);
-    }
-    return (ARGS);
-}
-
 // t_token *array_to_token_array(char **split, int count)
 // {
 //     int i;
@@ -83,6 +45,52 @@ int set_token_type(char *token, int *i, char **tokens, int *first)
 //     return (tokens);
 // }
 //t_cmd set_token_type(char **)
+
+
+int set_token_type(char *token, int *i, char **tokens, int *first)
+{
+    if(ft_strncmp(token, "|", 2) == 0)
+    {
+        (*first) = 1;
+        return (PIPE);
+    }
+    else if(ft_strncmp(token, "<", 2) == 0)
+    {
+        if(tokens[(*i) + 1])
+        {
+            if(ft_strncmp(tokens[(*i) + 1], "<", 2) == 0)
+            {
+                (*i)++;
+                return (HERE_DOC);
+            }
+        }
+        //else 
+            return (REDIR_IN);
+    }
+    else if(ft_strncmp(token, ">", 2) == 0)
+    {
+       if(tokens[(*i) + 1])
+        {
+            if(ft_strncmp(tokens[(*i) + 1], ">", 2) == 0)
+            {
+                (*i)++;
+                return (APPEND);
+            }
+        }
+        //else
+            return (REDIR_OUT);
+    }
+    else if (token[0] == '-' && !*first)
+        return (FLAG);
+    else if (*first)
+    {
+        *first = 0;
+        return(CMD);
+    }
+    //else
+        return (ARGS);
+}
+
 
 t_toklist *our_tlstlast(t_toklist *lst)
 {
@@ -131,9 +139,9 @@ t_toklist *array_token_list(char **split, int count)
     tokens = NULL;
     while(split[i] && i <= count)
     {
-        if((ft_strncmp(split[i], ">", 2) == 0) && (ft_strncmp(split[i + 1], ">", 2) == 0))
+        if((ft_strncmp(split[i], ">", 2) == 0) && split[i + 1] && (ft_strncmp(split[i + 1], ">", 2) == 0))
             new = our_tlstnew(ft_strdup(">>"), set_token_type(split[i], &i, split, &first));
-        else if((ft_strncmp(split[i], "<", 2) == 0) && (ft_strncmp(split[i + 1], "<", 2) == 0))
+        else if((ft_strncmp(split[i], "<", 2) == 0) && split[i + 1] && (ft_strncmp(split[i + 1], "<", 2) == 0))
             new = our_tlstnew(ft_strdup("<<"), set_token_type(split[i], &i, split, &first));
         else    
             new = our_tlstnew(ft_strdup(split[i]), set_token_type(split[i], &i, split, &first));

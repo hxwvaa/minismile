@@ -267,7 +267,9 @@ char	**our_tokenize(char *s)
         return(NULL);
     split[word] = 0;
     if(our_fill(r, split, word) == -1)
+	{
         return(NULL);
+	}
 	free(r);
 	return (split);
 }
