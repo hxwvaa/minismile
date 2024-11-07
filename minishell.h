@@ -90,10 +90,12 @@ t_toklist *array_token_list(t_shell *data, char **split, int count);
 
 t_cmd *our_toklist_cmdlist(t_toklist *list, t_shell *data);
 int count_args(t_toklist *list);
+
 //---------------------free_arr_list------------------//
 void	free_arr(char **arr);
 void	our_envlistclear(t_list **envir);
 void	our_toklistclear(t_toklist **tokens);
+void    our_cmdlistclear(t_cmd **list);
 
 void	exit_shell(char **av, t_shell *data);
 

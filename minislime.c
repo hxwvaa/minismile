@@ -5,6 +5,20 @@
 #include <readline/history.h>
 
 
+int count_cargs(t_cmd *cmd)
+{
+    int i;
+    t_cmd *temp;
+
+    i = 0;
+    temp = cmd;
+    while(temp->cargs[i])
+    {  
+            i++;
+    }
+    return (i);
+}
+
 // int count_args(t_toklist *list)
 // {
 //     int i;
@@ -74,6 +88,7 @@ void init_shell(t_shell *data, char **envp)
     data->our_args = NULL;
     data->exit_code = 0;
     data->tokens= NULL;
+    data->cmds = NULL;
 
     i = 0;
     if (envp)
@@ -207,6 +222,7 @@ int main(int ac, char **av, char **envp)
     t_toklist *tokens;
     // t_toklist *tmp;
     t_cmd *tmp;
+    int count;
 
     init_shell(&data, envp);
     while(1)
@@ -249,13 +265,16 @@ int main(int ac, char **av, char **envp)
                 printf("token: %s, type: %d\n", tokens->token, tokens->type);
                 tokens = tokens->next;
             }
-            int count = count_args(data.tokens);
+            // data.count = count_all_args(data.tokens);
             tmp = our_toklist_cmdlist(data.tokens, &data);
+            //our_toklist_cmdlist(data.tokens, &data);
             // printf("args count: %d\n", count);
             int u = 0;
             while(tmp)
             {
-                //count = count_args(data.tokens)
+                count = 0;
+                count = count_cargs(tmp);
+                printf("count: %d\n", count);
                 u = 0;
                 printf("cmd:%s ", tmp->cmd);
                 while(u < count)
@@ -285,6 +304,8 @@ int main(int ac, char **av, char **envp)
         // if (tokens)
         if (data.tokens)
             our_toklistclear(&data.tokens);
+        if(data.cmds)
+            our_cmdlistclear(&data.cmds);
         free(line);
         //we need clean everything before next line the allocations
     }

@@ -17,8 +17,8 @@ void	free_arr(char **arr)
 	int	i;
 
 	i = 0;
-	if(!*arr || !arr)
-		return;
+	// if (!*arr || !arr)
+	// 	return ;
 	while (arr[i])
 	{
 		free(arr[i]);
@@ -28,6 +28,7 @@ void	free_arr(char **arr)
 	free(arr);
 	arr = NULL;
 }
+
 
 void	our_envlistclear(t_list **envir)
 {
@@ -53,8 +54,31 @@ void	our_toklistclear(t_toklist **tokens)
 		free((*tokens)->token);
 		(*tokens)->token = NULL;
 		free(*tokens);
-		*tokens=NULL;
+		*tokens = NULL;
 		*tokens = temp;
 	}
 	*tokens = NULL;
+}
+
+void	our_cmdlistclear(t_cmd **list)
+{
+	t_cmd	*tmp;
+
+	while (*list != NULL)
+	{
+		tmp = (*list)->next;
+		if ((*list)->cmd)
+			free((*list)->cmd);
+		if ((*list)->cargs)
+			free_arr((*list)->cargs);
+		if ((*list)->inf)
+			free((*list)->inf);
+		if ((*list)->outf)
+			free((*list)->outf);
+		if ((*list)->limiter)
+			free((*list)->limiter);
+		free(*list);
+		(*list) = tmp;
+	}
+	*list = NULL;
 }

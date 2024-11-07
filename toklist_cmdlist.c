@@ -25,18 +25,20 @@ t_cmd *our_clistnew(char *cmd, int count)
 {
     t_cmd   *list;
 
-    list = malloc(sizeof(t_cmd));
+    //list = malloc(sizeof(t_cmd));
+    list = ft_calloc(1, sizeof(t_cmd));
     if(!list)
         return (NULL);
     list->cmd = ft_strdup(cmd);
     if(!list->cmd)
-        return (NULL);
-    list->cargs = malloc((sizeof (char *)) * (count + 1));
+        return (free(list), (NULL));
+    //list->cargs = malloc((sizeof (char *)) * (count + 1));
+    list->cargs = ft_calloc((count + 1), sizeof(char *));
     if(!list->cargs)
-        return (NULL);
+        return (free(list->cmd), free(list), (NULL));
     list->cargs[0] = ft_strdup(cmd);
-    if(!list->cargs)
-        return (NULL);
+    if(!list->cargs[0])
+        return (free(list->cargs), free(list->cmd), free(list), NULL);
     list->cargs[1] = NULL;
     list->app = 0;
     list->inf = NULL;
@@ -62,6 +64,20 @@ int count_args(t_toklist *list)
     return (i);
 }
 
+// int count_cargs(t_cmd *cmd)
+// {
+//     int i;
+//     t_cmd*temp;
+
+//     i = 0;
+//     temp = list;
+//     while(temp->cargs[i])
+//     {  
+//             i++;
+//     }
+//     return (i);
+// }
+
 
 t_cmd *our_toklist_cmdlist(t_toklist *list, t_shell *data)
 {
@@ -70,6 +86,8 @@ t_cmd *our_toklist_cmdlist(t_toklist *list, t_shell *data)
     t_cmd *curr;
     t_toklist *temp;
 
+    new = NULL;
+    curr = NULL;
     i = 0;
     temp = list;
     while(temp)
@@ -87,11 +105,14 @@ t_cmd *our_toklist_cmdlist(t_toklist *list, t_shell *data)
             while(temp && temp->type != PIPE)
             {
                 if(temp->type == FLAG || temp->type == ARGS)
-                    curr->cargs[i++] = ft_strdup(temp->token);
+                {
+                    if(i < count_args(list))
+                        curr->cargs[i++] = ft_strdup(temp->token);
                 //printf("dsf\n");
+                }
                 else if(temp->type == REDIR_IN || temp->type == HERE_DOC)
                 {
-                    if(temp->type == HERE_DOC)
+                    if(temp && temp->type == HERE_DOC)
                     {
                         temp = temp->next;
                         curr->limiter = ft_strdup(temp->token);
@@ -104,7 +125,7 @@ t_cmd *our_toklist_cmdlist(t_toklist *list, t_shell *data)
                 }
                 if(temp->type == REDIR_OUT || temp->type == APPEND)
                 {
-                    if(temp->type == APPEND)
+                    if(temp && temp->type == APPEND)
                     {
                         temp = temp->next;
                         curr->outf = ft_strdup(temp->token);

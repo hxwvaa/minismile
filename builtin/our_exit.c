@@ -100,7 +100,7 @@ void	exit_shell(char **av, t_shell *data)
 	while (av[i])
 		i++;
 	if (i == 1)
-		(printf("exit\n"), free_arr(av), our_toklistclear(&data->tokens), our_envlistclear(&data->envir), exit(0)); 
+		(printf("exit\n"), free_arr(av), our_toklistclear(&data->tokens), our_envlistclear(&data->envir),  our_cmdlistclear(&data->cmds), exit(0)); 
 	else if (i == 2)
 		exit_av_is_equal_2(av);
 	else
