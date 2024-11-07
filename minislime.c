@@ -4,20 +4,28 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-void our_tlistclear(t_toklist **tokens)
-{
-    t_toklist *temp;
 
-    // temp = tokens;
-	while (*tokens != NULL)
-	{
-		temp = (*tokens)->next;
-		free((*tokens)->token);
-		*tokens = temp;
-	}
-    free(*tokens);
-    *tokens = NULL;
-}
+// int count_args(t_toklist *list)
+// {
+//     int i;
+//     t_toklist *temp;
+
+//     i = 1;
+//     temp = list;
+//     while(temp && temp->type != PIPE)
+//     {
+//         // while(temp->type != PIPE)
+//         // {
+//         if(temp->type == FLAG || temp->type == ARGS)
+//             i++;
+//         //     temp=temp->next;
+//         // }
+//         // if(temp->type == PIPE)
+//         //     break ;
+//         temp = temp->next;
+//     }
+//     return (i);
+// }
 
 void check_built_in(char **av, t_shell *data)
 {
@@ -25,7 +33,7 @@ void check_built_in(char **av, t_shell *data)
 
     i = 0;
     if (ft_strncmp(av[i], "exit", 5) == 0)
-        exit_shell(av);
+        exit_shell(av, data);
     else if(ft_strncmp(av[i], "env", 4) == 0)
         our_env(data->envir);
     else if(ft_strncmp(av[i], "unset", 6) == 0)
@@ -52,7 +60,6 @@ void check_args(char **av, t_shell *data)
     // int i;
 
     // i = 0;
-
     check_built_in(av, data);
 
 }
@@ -66,6 +73,7 @@ void init_shell(t_shell *data, char **envp)
     data->envir = NULL;
     data->our_args = NULL;
     data->exit_code = 0;
+    data->tokens= NULL;
 
     i = 0;
     if (envp)
@@ -117,19 +125,20 @@ void init_shell(t_shell *data, char **envp)
 int	check_syntax_redirect(char **av, int i)
 {
 	if (ft_strncmp(av[i + 1], ">", 2) == 0 || ft_strncmp(av[i + 1], "<",
-			2) == 0)
+			2) == 0  || ft_strncmp(av[i + 1], ">>", 3) == 0 || ft_strncmp(av[i + 1], "<<", 3) == 0)
 	{
-		if (av[i + 2])
-		{
-			if (ft_strncmp(av[i + 2], ">", 2) == 0 || ft_strncmp(av[i + 2], "<",
-					2) == 0)
-			{
-				return (1);
-				// write(2, "syntax error near unexpected token `>'\n", 39);
-				// //exit code = 258 ?
-				// return (1);
-			}
-		}
+		// if (av[i + 2])
+		// {
+		// 	if (ft_strncmp(av[i + 2], ">", 2) == 0 || ft_strncmp(av[i + 2], "<",
+		// 			2) == 0)
+		// 	{
+		// 		return (1);
+		// 		// write(2, "syntax error near unexpected token `>'\n", 39);
+		// 		// //exit code = 258 ?
+		// 		// return (1);
+		// 	}
+		// }
+        return (1);
 	}
 	return (0);
 }
@@ -150,43 +159,41 @@ int	check_syntax(char **av, int i)
 	{
         if(ft_strncmp(av[i], "|", 2) == 0)
         {
-            if(av[i] + 1)
+            if(av[i +1])
             {
                 if(check_syntax_pipe(av, i) == 1)
                     return(1);
             }
+            else
+            {
+                write(2, "syntax error near unexpected token `|'\n", 39);
+                return(1);
+            }
+
         }
-		if (ft_strncmp(av[i], ">", 2) == 0 || ft_strncmp(av[i], "<", 2) == 0)
+		if (ft_strncmp(av[i], ">", 2) == 0 || ft_strncmp(av[i], "<", 2) == 0 || ft_strncmp(av[i], ">>", 3) == 0 || ft_strncmp(av[i], "<<", 3) == 0)
 		{
 			if (av[i + 1])
 			{
 				if (check_syntax_redirect(av, i) == 1)
 				{
 					write(2, "syntax error near unexpected token `>' or `<'\n", 46);
-					// exit code = 258 ?
+                    //data->exit_code = 258;
 					return (1);
 				}
 			}
+            else
+            {
+                write(2, "syntax error near unexpected token `newline'\n", 45);
+                //data->exit_code = 258
+                return (1);
+            }
 		}
 		i++;
 	}
 	return (0);
 }
 
-void free_arr(char **arr)
-{
-    int i;
-
-    i = 0;
-    while(arr[i])
-    {
-        free(arr[i]);
-        arr[i] = NULL;
-        i++;
-    }
-    free(arr);
-    arr = NULL;
-}
 int main(int ac, char **av, char **envp)
 {
     t_shell data;
@@ -198,7 +205,8 @@ int main(int ac, char **av, char **envp)
     //t_token *tokens;
     //int j = 0;
     t_toklist *tokens;
-    t_toklist *tmp;
+    // t_toklist *tmp;
+    t_cmd *tmp;
 
     init_shell(&data, envp);
     while(1)
@@ -222,16 +230,40 @@ int main(int ac, char **av, char **envp)
         i--;
         //tokens = array_to_token_array(av, i);
         if(check_syntax(av, i) == 1)
+        {
             free_arr(av);
+            free(line);
+            continue;
+            printf("syntax\n");
+            // free_arr(av);
+        }
         else   
         {
-            tokens = array_token_list(av, i);
-            tmp = tokens;
+            printf("else syntax\n");
+            tokens = array_token_list(&data, av, i);
+            //array_token_list(&data, av, i);
+            // tmp = tokens;
+            tokens = data.tokens;
+            while(tokens)
+            {
+                printf("token: %s, type: %d\n", tokens->token, tokens->type);
+                tokens = tokens->next;
+            }
+            int count = count_args(data.tokens);
+            tmp = our_toklist_cmdlist(data.tokens, &data);
+            // printf("args count: %d\n", count);
+            int u = 0;
             while(tmp)
             {
-                printf("token: %s, type: %d\n", tmp->token, tmp->type);
+                //count = count_args(data.tokens)
+                u = 0;
+                printf("cmd:%s ", tmp->cmd);
+                while(u < count)
+                    printf("args:%s ", tmp->cargs[u++]);
+                printf("inf:%s, out:%s, limit:%s\n", tmp->inf, tmp->outf, tmp->limiter);
                 tmp = tmp->next;
             }
+            
         }
         // while(tokens[j].token)
         // {
@@ -240,14 +272,20 @@ int main(int ac, char **av, char **envp)
         //     j++;
         // }
         if (av && av[0])
+        {
+            printf("before check_args\n");
             check_args(av, &data);
+        }
         if(line)
             add_history(line);
         if (av)
+        {
             free_arr(av);
+        }
         // if (tokens)
-            our_tlistclear(&tokens);
-        // free(line);
+        if (data.tokens)
+            our_toklistclear(&data.tokens);
+        free(line);
         //we need clean everything before next line the allocations
     }
     return(0);

@@ -189,6 +189,16 @@ int our_help_fill(int *j, int *i, char *s)
 	{
 		(*j) = (*i);
 		(*i)++;
+		if(s[(*i) - 1] == '<' && s[*i] == '<')
+		{
+			(*i)++;
+			return -1;
+		}
+		else if(s[(*i) - 1] == '>' && s[*i] == '>')
+		{
+			(*i)++;
+			return -1;
+		}
 		return -1;
 	}
 	if ((s[*i] == '\'' || s[*i] == '\"')
@@ -268,6 +278,8 @@ char	**our_tokenize(char *s)
     split[word] = 0;
     if(our_fill(r, split, word) == -1)
 	{
+		//free array
+		//free r
         return(NULL);
 	}
 	free(r);

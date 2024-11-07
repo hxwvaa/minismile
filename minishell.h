@@ -48,6 +48,8 @@ typedef struct s_cmd{
     char **cargs;
     char *inf;
     char *outf;
+    char *limiter;
+    int app;
     struct s_cmd *next;
 }t_cmd;
 
@@ -55,6 +57,8 @@ typedef struct s_shell{
     
     char **envi;
     t_list *envir;
+    t_toklist *tokens;
+    t_cmd *cmds;
     char **our_args;
     int     exit_code;
     
@@ -81,9 +85,21 @@ void our_expand(char *var, t_shell *data);
 //---------------------pre_execute------------------//
 t_token *array_to_token_array(char **split, int count);
 
-t_toklist *array_token_list(char **split, int count);
+t_toklist *array_token_list(t_shell *data, char **split, int count);
+//void array_token_list(t_shell *data, char **split, int count);
 
-void exit_shell(char **av);
+t_cmd *our_toklist_cmdlist(t_toklist *list, t_shell *data);
+int count_args(t_toklist *list);
+//---------------------free_arr_list------------------//
+void	free_arr(char **arr);
+void	our_envlistclear(t_list **envir);
+void	our_toklistclear(t_toklist **tokens);
+
+void	exit_shell(char **av, t_shell *data);
+
+
+
+
 
 
 #endif

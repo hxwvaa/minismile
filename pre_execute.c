@@ -47,7 +47,7 @@
 //t_cmd set_token_type(char **)
 
 
-int set_token_type(char *token, int *i, char **tokens, int *first)
+int set_token_type(char *token, int *first)
 {
     if(ft_strncmp(token, "|", 2) == 0)
     {
@@ -55,31 +55,13 @@ int set_token_type(char *token, int *i, char **tokens, int *first)
         return (PIPE);
     }
     else if(ft_strncmp(token, "<", 2) == 0)
-    {
-        if(tokens[(*i) + 1])
-        {
-            if(ft_strncmp(tokens[(*i) + 1], "<", 2) == 0)
-            {
-                (*i)++;
-                return (HERE_DOC);
-            }
-        }
-        //else 
-            return (REDIR_IN);
-    }
+        return (REDIR_IN);
     else if(ft_strncmp(token, ">", 2) == 0)
-    {
-       if(tokens[(*i) + 1])
-        {
-            if(ft_strncmp(tokens[(*i) + 1], ">", 2) == 0)
-            {
-                (*i)++;
-                return (APPEND);
-            }
-        }
-        //else
-            return (REDIR_OUT);
-    }
+        return (REDIR_OUT);
+    else if(ft_strncmp(token, ">>", 3) == 0)
+        return (APPEND);
+    else if(ft_strncmp(token, "<<", 3) == 0)
+        return (HERE_DOC);
     else if (token[0] == '-' && !*first)
         return (FLAG);
     else if (*first)
@@ -87,9 +69,56 @@ int set_token_type(char *token, int *i, char **tokens, int *first)
         *first = 0;
         return(CMD);
     }
-    //else
-        return (ARGS);
+    return (ARGS);
 }
+
+// int set_token_type(char *token, int *i, char **tokens, int *first)
+// {
+//     if(ft_strncmp(token, "|", 2) == 0)
+//     {
+//         (*first) = 1;
+//         return (PIPE);
+//     }
+//     else if(ft_strncmp(token, "<", 2) == 0)
+//     {
+//         // if(tokens[(*i) + 1])
+//         // {
+//         //     if(ft_strncmp(tokens[(*i) + 1], "<", 2) == 0)
+//         //     {
+//         //         (*i)++;
+//         //         return (HERE_DOC);
+//         //     }
+//         // }
+//         //else 
+//             return (REDIR_IN);
+//     }
+//     else if(ft_strncmp(token, ">", 2) == 0)
+//     {
+//     //    if(tokens[(*i) + 1])
+//     //     {
+//     //         if(ft_strncmp(tokens[(*i) + 1], ">", 2) == 0)
+//     //         {
+//     //             (*i)++;
+//     //             return (APPEND);
+//     //         }
+//     //     }
+//         //else
+//             return (REDIR_OUT);
+//     }
+//     else if(ft_strncmp(token, ">>", 3) == 0)
+//         return (APPEND);
+//     else if(ft_strncmp(token, "<<", 3) == 0)
+//         return (HERE_DOC);
+//     else if (token[0] == '-' && !*first)
+//         return (FLAG);
+//     else if (*first)
+//     {
+//         *first = 0;
+//         return(CMD);
+//     }
+//     //else
+//         return (ARGS);
+// }
 
 
 t_toklist *our_tlstlast(t_toklist *lst)
@@ -127,30 +156,28 @@ t_toklist	*our_tlstnew(char *token, int type)
 	list->next = NULL;
 	return (list);
 }
-t_toklist *array_token_list(char **split, int count)
+t_toklist *array_token_list(t_shell *data, char **split, int count)
 {
     int i;
     int first;
-    t_toklist *tokens;
     t_toklist *new;
 
     i = 0;
     first = 1;
-    tokens = NULL;
     while(split[i] && i <= count)
     {
-        if((ft_strncmp(split[i], ">", 2) == 0) && split[i + 1] && (ft_strncmp(split[i + 1], ">", 2) == 0))
-            new = our_tlstnew(ft_strdup(">>"), set_token_type(split[i], &i, split, &first));
-        else if((ft_strncmp(split[i], "<", 2) == 0) && split[i + 1] && (ft_strncmp(split[i + 1], "<", 2) == 0))
-            new = our_tlstnew(ft_strdup("<<"), set_token_type(split[i], &i, split, &first));
-        else    
-            new = our_tlstnew(ft_strdup(split[i]), set_token_type(split[i], &i, split, &first));
+        // if((ft_strncmp(split[i], ">", 2) == 0) && split[i + 1] && (ft_strncmp(split[i + 1], ">", 2) == 0))
+        //     new = our_tlstnew(ft_strdup(">>"), set_token_type(split[i], &i, split, &first));
+        // else if((ft_strncmp(split[i], "<", 2) == 0) && split[i + 1] && (ft_strncmp(split[i + 1], "<", 2) == 0))
+        //     new = our_tlstnew(ft_strdup("<<"), set_token_type(split[i], &i, split, &first));
+        // else    
+            new = our_tlstnew(ft_strdup(split[i]), set_token_type(split[i], &first));
         if(!new)
             return(perror("malloc"), NULL);
         if(new)
-            our_tlstadd_back(&tokens, new);
+            our_tlstadd_back(&data->tokens, new);
         i++;
     }
     //free split array
-    return(tokens);
+    return(data->tokens);
 }
