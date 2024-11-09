@@ -53,6 +53,7 @@ typedef struct s_cmd{
 
 typedef struct s_shell{
     
+    t_list *user_set;
     char **envi;
     t_list *envir;
     char **our_args;
@@ -74,16 +75,18 @@ char *get_pwd(void);
 bool our_unset(char *var, t_list **envir);
 bool our_export(char **arg, t_shell *data);
 void our_cdir(char *path, t_shell *data);
+void exit_shell(char **av);
 
 
-void our_expand(char *var, t_shell *data);
+char *our_expand(char *var, t_shell *data);
 
 //---------------------pre_execute------------------//
 t_token *array_to_token_array(char **split, int count);
 
 t_toklist *array_token_list(char **split, int count);
 
-void exit_shell(char **av);
+
+int user_set(char **av, t_shell *data);
 
 
 #endif

@@ -4,42 +4,53 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-void check_built_in(char **av, t_shell *data)
+void prit_user_set(t_shell *data)
 {
-    int i;
+    t_list *temp = data->user_set;
 
-    i = 0;
-    if (ft_strncmp(av[i], "exit", 5) == 0)
-        exit_shell(av);
-    else if(ft_strncmp(av[i], "env", 4) == 0)
-        our_env(data->envir);
-    else if(ft_strncmp(av[i], "unset", 6) == 0)
-        our_unset(av[i + 1], &data->envir);
-    else if(ft_strncmp(av[i], "echo", 5) == 0)
-        our_echo(av);
-    else if(ft_strncmp(av[i], "export", 7)== 0)
-        our_export(av, data);
-    else if(ft_strncmp(av[i], "pwd", 4) == 0)
+    while(temp != NULL)
     {
-        if(av[i + 1] != NULL)
-            write(2, "pwd: too many arguments\n", 24);
-            //echo $?// data->exit_code = 1
-        else    
-            our_pwd();
+        printf("[[%s]]\n", temp->content);
+        temp = temp->next;
     }
-    else if(ft_strncmp(av[i], "cd", 3) == 0)
-        our_cdir(av[i + 1], data);
-
+}
+int check_built_in(char **av, t_shell *data)
+{
+    if (ft_strncmp(av[0], "exit", 5) == 0)
+        return(exit_shell(av), 1);
+    else if(ft_strncmp(av[0], "env", 4) == 0)
+        return(our_env(data->envir), 1);
+    else if(ft_strncmp(av[0], "unset", 6) == 0)
+        return(our_unset(av[1], &data->envir), 1);
+    else if(ft_strncmp(av[0], "echo", 5) == 0)
+        return(our_echo(av), 1);
+    else if(ft_strncmp(av[0], "export", 7)== 0)
+        return(our_export(av, data), 1);
+    else if(ft_strncmp(av[0], "pwd", 4) == 0)
+    {
+        if(av[1] != NULL)
+        {
+            write(2, "pwd: too many arguments\n", 24);
+            return(1);
+            //echo $?// data->exit_code = 1
+        }
+        else    
+            return(our_pwd(), 1);
+    }
+    else if(ft_strncmp(av[0], "cd", 3) == 0)
+        return(our_cdir(av[1], data), 1);
+    else if(ft_strncmp(av[0], "user_set", 9) == 0) //REMOVE LATER, IT IS JUST FOR TESTING USER_SET VARIABLES
+        return(prit_user_set(data), 1);
+    return(-1);
 }
 
 void check_args(char **av, t_shell *data)
 {
-    // int i;
+    int check;
 
-    // i = 0;
-
-    check_built_in(av, data);
-
+    check = check_built_in(av, data);
+    if (check == -1)
+        check = user_set(av, data);
 }
 // strdup the content so when u unset you free and set to NULL
 void init_shell(t_shell *data, char **envp)
@@ -49,6 +60,7 @@ void init_shell(t_shell *data, char **envp)
 
     data->envi = envp;
     data->envir = NULL;
+    data->user_set = NULL;
     data->our_args = NULL;
     data->exit_code = 0;
 
