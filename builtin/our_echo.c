@@ -2,13 +2,15 @@
 
 //need to deal with the quotes still
 
-void our_echo(char **arg)
+void our_echo(char **arg, t_shell *data)
 {
     int flag_n;
+    int flag_f;
     int i;
     char *echo_arg;
 
     i = 1;
+    flag_f = 0;
     flag_n = 1;
     if(!arg[i])
         write(1, " ", 1);
@@ -19,15 +21,25 @@ void our_echo(char **arg)
             flag_n = 0;
             i++;
         }
-        echo_arg = arg[i];
-        if (arg[i][0] == '$')
-            echo_arg = our_expand(); //NEED THE T_SHELL *DATA
         while(arg[i])
         {
-            write(1, arg[i], ft_strlen(arg[i]));
+            echo_arg = arg[i];
+            if (arg[i][0] == '$')
+            {
+                flag_f = 1;
+                echo_arg = our_expand(arg[i] + 1, data);
+                if (!echo_arg)
+                    printf("malloc fail\n"); //malloc fail check
+            }
+            write(1, echo_arg, ft_strlen(echo_arg));
             if((arg[i + 1]))
                 write(1, " ", 1);
             i++;
+            if (flag_f)
+            {
+                free(echo_arg);
+                flag_f = 0;
+            }
         }
     }
     if(flag_n)

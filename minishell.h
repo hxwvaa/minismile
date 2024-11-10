@@ -53,7 +53,7 @@ typedef struct s_cmd{
 
 typedef struct s_shell{
     
-    t_list *user_set;
+    // t_list *user_set;
     char **envi;
     t_list *envir;
     char **our_args;
@@ -67,7 +67,7 @@ char	*get_cmd_path(char *cmd, char **env);
 int	our_quote(char *str, int i, char quote);
 
 //---------------------builtins------------------//
-void our_echo(char **arg);
+void our_echo(char **arg, t_shell *data);
 void our_expenv(t_shell *data);
 void our_env(t_list *envir);
 bool our_pwd(void);
@@ -86,7 +86,7 @@ t_token *array_to_token_array(char **split, int count);
 t_toklist *array_token_list(char **split, int count);
 
 
-int user_set(char **av, t_shell *data);
+// int user_set(char **av, t_shell *data); //NOT NEEDED FOR MINISHELL
 
 
 #endif

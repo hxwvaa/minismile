@@ -4,16 +4,16 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-void prit_user_set(t_shell *data)
-{
-    t_list *temp = data->user_set;
+// void prit_user_set(t_shell *data)
+// {
+//     t_list *temp = data->user_set;
 
-    while(temp != NULL)
-    {
-        printf("[[%s]]\n", temp->content);
-        temp = temp->next;
-    }
-}
+//     while(temp != NULL)
+//     {
+//         printf("[[%s]]\n", temp->content);
+//         temp = temp->next;
+//     }
+// }
 int check_built_in(char **av, t_shell *data)
 {
     if (ft_strncmp(av[0], "exit", 5) == 0)
@@ -23,7 +23,7 @@ int check_built_in(char **av, t_shell *data)
     else if(ft_strncmp(av[0], "unset", 6) == 0)
         return(our_unset(av[1], &data->envir), 1);
     else if(ft_strncmp(av[0], "echo", 5) == 0)
-        return(our_echo(av), 1);
+        return(our_echo(av, data), 1);
     else if(ft_strncmp(av[0], "export", 7)== 0)
         return(our_export(av, data), 1);
     else if(ft_strncmp(av[0], "pwd", 4) == 0)
@@ -39,8 +39,8 @@ int check_built_in(char **av, t_shell *data)
     }
     else if(ft_strncmp(av[0], "cd", 3) == 0)
         return(our_cdir(av[1], data), 1);
-    else if(ft_strncmp(av[0], "user_set", 9) == 0) //REMOVE LATER, IT IS JUST FOR TESTING USER_SET VARIABLES
-        return(prit_user_set(data), 1);
+    // else if(ft_strncmp(av[0], "user_set", 9) == 0) //REMOVE LATER, IT IS JUST FOR TESTING USER_SET VARIABLES
+    //     return(prit_user_set(data), 1);
     return(-1);
 }
 
@@ -49,8 +49,8 @@ void check_args(char **av, t_shell *data)
     int check;
 
     check = check_built_in(av, data);
-    if (check == -1)
-        check = user_set(av, data);
+    // if (check == -1)
+    //     check = user_set(av, data);
 }
 // strdup the content so when u unset you free and set to NULL
 void init_shell(t_shell *data, char **envp)
@@ -60,7 +60,7 @@ void init_shell(t_shell *data, char **envp)
 
     data->envi = envp;
     data->envir = NULL;
-    data->user_set = NULL;
+    // data->user_set = NULL;
     data->our_args = NULL;
     data->exit_code = 0;
 
