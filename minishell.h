@@ -59,7 +59,10 @@ typedef struct s_shell{
     t_list *envir;
     t_toklist *tokens;
     t_cmd *cmds;
+    char *cmd_path;
     char **our_args;
+    int fd[2];
+    int   pid;
     int     exit_code;
     
 }t_shell;

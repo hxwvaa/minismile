@@ -83,12 +83,14 @@ void init_shell(t_shell *data, char **envp)
     t_list *new_node;
     int i;
 
-    data->envi = envp;
+    //data->envi = envp;
+    data->envi = NULL;
     data->envir = NULL;
     data->our_args = NULL;
     data->exit_code = 0;
     data->tokens= NULL;
     data->cmds = NULL;
+    data->cmd_path = NULL;
 
     i = 0;
     if (envp)
@@ -248,6 +250,8 @@ int main(int ac, char **av, char **envp)
         if(check_syntax(av, i) == 1)
         {
             free_arr(av);
+            if(line)
+                add_history(line);
             free(line);
             continue;
             printf("syntax\n");
@@ -282,7 +286,6 @@ int main(int ac, char **av, char **envp)
                 printf("inf:%s, out:%s, limit:%s\n", tmp->inf, tmp->outf, tmp->limiter);
                 tmp = tmp->next;
             }
-            
         }
         // while(tokens[j].token)
         // {
@@ -290,6 +293,8 @@ int main(int ac, char **av, char **envp)
         //     printf("token: %s, type:%d\n", (char *)tokens[j].token, (int)tokens[j].type);
         //     j++;
         // }
+        //if(data.cmds)
+            //our_execution(&data);
         if (av && av[0])
         {
             printf("before check_args\n");

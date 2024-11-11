@@ -106,6 +106,10 @@ t_cmd *our_toklist_cmdlist(t_toklist *list, t_shell *data)
             {
                 if(temp->type == FLAG || temp->type == ARGS)
                 {
+                    //memory leak if multiple redirection in command line ithink
+                    //eg.: asd > asd | asad >asdfdsd >agf 
+                    //idea for solution add enum for infile outfile & limiter,
+                    //and set token type when encountered
                     if(i < count_args(list))
                         curr->cargs[i++] = ft_strdup(temp->token);
                 //printf("dsf\n");

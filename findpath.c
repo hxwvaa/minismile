@@ -1,27 +1,34 @@
 #include "minishell.h"
 
+void	free_path_array(char **array)
+{
+	int	i;
+
+	i = 0;
+	while (array[i])
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
+}
+
 char	**findsplit_path(char **env)
 {
 	char	*pathy;
 	char	**paths;
-	// int		i;
+	int		i;
 
-	// i = 0;
+	i = 0;
 	pathy = NULL;
-    (void)env;
-	// while (env[i])
-	// {
-	// 	if (ftb_strncmp(env[i], "PATH=", 5) == 0)
-	// 	{
-	// 		pathy = env[i] + 5;
-	// 		break ;
-	// 	}
-	// 	i++;
-	// }
-    pathy = getenv("PATH");
-    if (!pathy)
+	while (env[i])
 	{
-        return(NULL);
+		if (ftb_strncmp(env[i], "PATH=", 6) == 0)
+		{
+			pathy = env[i] + 5;
+			break ;
+		}
+		i++;
 	}
 	paths = ft_split(pathy, ':');
 	return (paths);
@@ -41,12 +48,10 @@ int	only_space(char *s)
 	return (0);
 }
 int	accessible_p(char **array, char *fp)
-{
-    (void)array;
-    
+{   
 	if (access(fp, X_OK) == 0)
 	{
-		//free_array(array);
+		free_path_array(array);
 		return (1);
 	}
 	return (0);
@@ -77,6 +82,6 @@ char	*get_cmd_path(char *cmd, char **env)
 			return (full_path);
 		free(full_path);
 	}
-	//free_array(paths);
+	free_path_array(paths);
 	return (NULL);
 }
