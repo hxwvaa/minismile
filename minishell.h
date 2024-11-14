@@ -2,6 +2,7 @@
 #define MINISHELL_H
 
 #include "libft/libft.h"
+#include "gnl/get_next_line.h"
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdbool.h>
@@ -24,6 +25,7 @@ typedef enum S_TYPES{
     REDIR_IN,
     REDIR_OUT,
     HERE_DOC,
+    FILE_NAME,
     LIMITER,
     EXPAND,
     APPEND
@@ -49,7 +51,9 @@ typedef struct s_cmd{
     char *inf;
     char *outf;
     char *limiter;
+    char *hd_input;
     int app;
+    //int hd_fd; //to store here_doc fd 
     struct s_cmd *next;
 }t_cmd;
 
@@ -92,7 +96,13 @@ t_toklist *array_token_list(t_shell *data, char **split, int count);
 //void array_token_list(t_shell *data, char **split, int count);
 
 t_cmd *our_toklist_cmdlist(t_toklist *list, t_shell *data);
+char **envlist_envarray(t_list *env);
 int count_args(t_toklist *list);
+
+
+//void our_execution(t_shell *data);
+void execution(t_shell *data, int input, int output);
+
 
 //---------------------free_arr_list------------------//
 void	free_arr(char **arr);

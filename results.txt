@@ -1,0 +1,56 @@
+4
+please
+work
+total 192
+-rwxrwxrwx 1 gaz gaz  1040 Nov 12 16:00 Makefile
+-rwxrwxrwx 1 gaz gaz    12 Nov 12 00:42 README.md
+-rwxrwxrwx 1 gaz gaz   162 Nov 12 00:43 ak.sh
+drwxrwxrwx 1 gaz gaz  4096 Nov 13 19:28 builtin
+-rwxrwxrwx 1 gaz gaz  3560 Nov 12 00:43 execute.c
+-rwxrwxrwx 1 gaz gaz 15324 Nov 13 23:30 execution.c
+-rwxrwxrwx 1 gaz gaz 11504 Nov 13 23:30 execution.o
+-rwxrwxrwx 1 gaz gaz   416 Nov 12 00:43 expand.c
+-rwxrwxrwx 1 gaz gaz  1197 Nov 12 17:37 findpath.c
+-rwxrwxrwx 1 gaz gaz  3200 Nov 13 19:28 findpath.o
+-rwxrwxrwx 1 gaz gaz  2088 Nov 13 22:57 free_arr_list.c
+-rwxrwxrwx 1 gaz gaz  2736 Nov 13 22:57 free_arr_list.o
+drwxrwxrwx 1 gaz gaz  4096 Nov 13 19:28 gnl
+-rwxrwxrwx 1 gaz gaz  1664 Nov 12 00:43 hello.c
+-rwxrwxrwx 1 gaz gaz   173 Nov 12 00:43 ignore_readline_leaks.txt
+drwxrwxrwx 1 gaz gaz  4096 Nov 13 19:28 libft
+-rwxrwxrwx 1 gaz gaz 46104 Nov 13 23:30 minishell
+-rwxrwxrwx 1 gaz gaz  2483 Nov 13 04:30 minishell.h
+-rwxrwxrwx 1 gaz gaz  8449 Nov 13 19:41 minislime.c
+-rwxrwxrwx 1 gaz gaz  8312 Nov 13 19:41 minislime.o
+-rwxrwxrwx 1 gaz gaz  1355 Nov 12 00:43 notes.txt
+-r-xr-xr-x 1 gaz gaz     2 Nov 13 06:11 out
+-rwxrwxrwx 1 gaz gaz  1046 Nov 12 18:14 outfile
+-rwxrwxrwx 1 gaz gaz  1652 Nov 12 00:43 parsing.c
+-rwxrwxrwx 1 gaz gaz  6027 Nov 13 19:26 pre_execute.c
+-rwxrwxrwx 1 gaz gaz  3344 Nov 13 19:28 pre_execute.o
+-rwxrwxrwx 1 gaz gaz   142 Nov 13 23:31 result.txt
+-rwxrwxrwx 1 gaz gaz    14 Nov 13 23:24 results.txt
+-rwxrwxrwx 1 gaz gaz   665 Nov 13 19:04 test.c
+-rwxrwxrwx 1 gaz gaz    24 Nov 13 00:38 test.txt
+-rwxrwxrwx 1 gaz gaz  1807 Nov 12 00:43 testing.txt
+-rwxrwxrwx 1 gaz gaz  6290 Nov 12 18:08 tokenize.c
+-rwxrwxrwx 1 gaz gaz  5792 Nov 13 19:28 tokenize.o
+-rwxrwxrwx 1 gaz gaz  6450 Nov 13 04:31 toklist_cmdlist.c
+-rwxrwxrwx 1 gaz gaz  3904 Nov 13 19:28 toklist_cmdlist.o
+-rwxrwxrwx 1 gaz gaz     0 Nov 12 00:43 val.val
+5
+it should
+work
+now
+hopefully no fd
+leaks
+:)
+lol
+noll
+nol 
+lol
+me
+not
+ahmed
+nol\n
+5

@@ -42,6 +42,7 @@ void	our_envlistclear(t_list **envir)
 		*envir = temp;
 	}
 	*envir = NULL;
+	//printf("hi\n");
 }
 
 void	our_toklistclear(t_toklist **tokens)
@@ -58,6 +59,7 @@ void	our_toklistclear(t_toklist **tokens)
 		*tokens = temp;
 	}
 	*tokens = NULL;
+	printf("wow\n");
 }
 
 void	our_cmdlistclear(t_cmd **list)
@@ -69,6 +71,7 @@ void	our_cmdlistclear(t_cmd **list)
 		tmp = (*list)->next;
 		if ((*list)->cmd)
 			free((*list)->cmd);
+		(*list)->cmd = NULL;
 		if ((*list)->cargs)
 			free_arr((*list)->cargs);
 		if ((*list)->inf)
@@ -81,4 +84,5 @@ void	our_cmdlistclear(t_cmd **list)
 		(*list) = tmp;
 	}
 	*list = NULL;
+	//printf("cmdlist free\n");
 }

@@ -23,7 +23,7 @@ char	**findsplit_path(char **env)
 	pathy = NULL;
 	while (env[i])
 	{
-		if (ftb_strncmp(env[i], "PATH=", 6) == 0)
+		if (ft_strncmp(env[i], "PATH=", 5) == 0)
 		{
 			pathy = env[i] + 5;
 			break ;
@@ -47,6 +47,7 @@ int	only_space(char *s)
 		return (1);
 	return (0);
 }
+
 int	accessible_p(char **array, char *fp)
 {   
 	if (access(fp, X_OK) == 0)

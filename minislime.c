@@ -90,6 +90,8 @@ void init_shell(t_shell *data, char **envp)
     data->exit_code = 0;
     data->tokens= NULL;
     data->cmds = NULL;
+    data->fd[0] = -1;
+    data->fd[1] = -1;
     data->cmd_path = NULL;
 
     i = 0;
@@ -259,10 +261,11 @@ int main(int ac, char **av, char **envp)
         }
         else   
         {
-            printf("else syntax\n");
             tokens = array_token_list(&data, av, i);
             //array_token_list(&data, av, i);
             // tmp = tokens;
+            if (av)
+                free_arr(av);
             tokens = data.tokens;
             while(tokens)
             {
@@ -271,6 +274,7 @@ int main(int ac, char **av, char **envp)
             }
             // data.count = count_all_args(data.tokens);
             tmp = our_toklist_cmdlist(data.tokens, &data);
+            our_toklistclear(&data.tokens);
             //our_toklist_cmdlist(data.tokens, &data);
             // printf("args count: %d\n", count);
             int u = 0;
@@ -294,23 +298,28 @@ int main(int ac, char **av, char **envp)
         //     j++;
         // }
         //if(data.cmds)
-            //our_execution(&data);
-        if (av && av[0])
-        {
-            printf("before check_args\n");
-            check_args(av, &data);
-        }
+        data.envi = envlist_envarray(data.envir);
+        if(!data.envi)
+            perror("malloc");
+        //our_execution(&data);
+        execution(&data, STDIN_FILENO, -1);
+        // if (av && av[0])
+        // {
+        //     printf("before check_args\n");
+        //     check_args(av, &data);
+        // }
         if(line)
             add_history(line);
-        if (av)
-        {
-            free_arr(av);
-        }
+        // if (av)
+        // {
+        //     free_arr(av);
+        // }
         // if (tokens)
         if (data.tokens)
             our_toklistclear(&data.tokens);
         if(data.cmds)
             our_cmdlistclear(&data.cmds);
+        printf("in main before next line\n");
         free(line);
         //we need clean everything before next line the allocations
     }
