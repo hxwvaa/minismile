@@ -17,7 +17,7 @@
 int check_built_in(char **av, t_shell *data)
 {
     if (ft_strncmp(av[0], "exit", 5) == 0)
-        return(exit_shell(av), 1);
+        return(exit_shell(av, data), 1);
     else if(ft_strncmp(av[0], "env", 4) == 0)
         return(our_env(data->envir), 1);
     else if(ft_strncmp(av[0], "unset", 6) == 0)

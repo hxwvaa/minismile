@@ -75,7 +75,8 @@ char *get_pwd(void);
 bool our_unset(char *var, t_list **envir);
 bool our_export(char **arg, t_shell *data);
 void our_cdir(char *path, t_shell *data);
-void exit_shell(char **av);
+void	exit_shell(char **av, t_shell *data);
+
 
 
 char *our_expand(char *var, t_shell *data);

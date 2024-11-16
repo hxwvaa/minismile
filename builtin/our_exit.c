@@ -1,8 +1,5 @@
 #include "../minishell.h"
 
-// EXIT BASICALLY DONE EXCEPT FOR THE PART WHERE I NEED TO SET THE "EXIT STATUS" IN THE STRUCT TO 1 WHEN THERE ARE MULTIPLE ARGS AND 1ST ARG IS NUMBER
-// AND ALSO NEED TO PUT THIS IN THE BUILTINS FORLDER
-
 int	is_digit_exit_code(char **av)
 {
 	int	n;
@@ -48,12 +45,12 @@ bool	is_num_very_small(char *str)
 	return (false);
 }
 
-void	exit_av_more_than_2(char **av)
+void	exit_av_more_than_2(char **av, t_shell *data)
 {
 	if (is_digit_exit_code(av))
 	{
 		(printf("exit\n"), printf("shell: exit: too many arguments\n"));
-		// set exit status to 1
+		data->exit_code = 1;
 		return ;
 	}
 	else
@@ -92,7 +89,7 @@ void	exit_av_is_equal_2(char **av)
 	exit(255);
 }
 
-void	exit_shell(char **av)
+void	exit_shell(char **av, t_shell *data)
 {
 	int	i;
 
@@ -104,5 +101,5 @@ void	exit_shell(char **av)
 	else if (i == 2)
 		exit_av_is_equal_2(av);
 	else
-		exit_av_more_than_2(av);
+		exit_av_more_than_2(av, data);
 }

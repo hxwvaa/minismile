@@ -46,6 +46,8 @@ char *our_expand(char *var, t_shell *data)
     
     str = NULL;
     temp = data->envir;
+    if (ft_strncmp(var, "?", 2) == 0)
+        return(ft_itoa(data->exit_code));
     while(temp)
     {
         str = before_equal(temp->content);
