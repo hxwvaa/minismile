@@ -81,8 +81,8 @@ int	our_quote(char *str, int i, char quote);
 void our_echo(char **arg);
 void our_expenv(t_shell *data);
 void our_env(t_list *envir);
-//bool our_pwd(void);
-int our_pwd();
+bool our_pwd(void);
+//int our_pwd();
 char *get_pwd(void);
 bool our_unset(char *var, t_list **envir);
 bool our_export(char **arg, t_shell *data);
@@ -101,6 +101,10 @@ t_cmd *our_toklist_cmdlist(t_toklist *list, t_shell *data);
 char **envlist_envarray(t_list *env);
 int count_args(t_toklist *list);
 
+
+int is_builtin(char *cmd);
+int execute_one_cmd(t_cmd *curr, t_shell *data);
+int only_one_cmd(t_cmd *cmd);
 
 //void our_execution(t_shell *data);
 void execution(t_shell *data, int input, int output);

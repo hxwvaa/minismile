@@ -41,33 +41,33 @@ int count_cargs(t_cmd *cmd)
 //     return (i);
 // }
 
-// void check_built_in(char **av, t_shell *data)
-// {
-//     int i;
+void check_built_in(char **av, t_shell *data)
+{
+    int i;
 
-//     i = 0;
-//     if (ft_strncmp(av[i], "exit", 5) == 0)
-//         exit_shell(av, data);
-//     else if(ft_strncmp(av[i], "env", 4) == 0)
-//         our_env(data->envir);
-//     else if(ft_strncmp(av[i], "unset", 6) == 0)
-//         our_unset(av[i + 1], &data->envir);
-//     else if(ft_strncmp(av[i], "echo", 5) == 0)
-//         our_echo(av);
-//     else if(ft_strncmp(av[i], "export", 7)== 0)
-//         our_export(av, data);
-//     else if(ft_strncmp(av[i], "pwd", 4) == 0)
-//     {
-//         if(av[i + 1] != NULL)
-//             write(2, "pwd: too many arguments\n", 24);
-//             //echo $?// data->exit_code = 1
-//         else    
-//             our_pwd();
-//     }
-//     else if(ft_strncmp(av[i], "cd", 3) == 0)
-//         our_cdir(av[i + 1], data);
+    i = 0;
+    if (ft_strncmp(av[i], "exit", 5) == 0)
+        exit_shell(av, data);
+    else if(ft_strncmp(av[i], "env", 4) == 0)
+        our_env(data->envir);
+    else if(ft_strncmp(av[i], "unset", 6) == 0)
+        our_unset(av[i + 1], &data->envir);
+    else if(ft_strncmp(av[i], "echo", 5) == 0)
+        our_echo(av);
+    else if(ft_strncmp(av[i], "export", 7)== 0)
+        our_export(av, data);
+    else if(ft_strncmp(av[i], "pwd", 4) == 0)
+    {
+        if(av[i + 1] != NULL)
+            write(2, "pwd: too many arguments\n", 24);
+            //echo $?// data->exit_code = 1
+        else    
+            our_pwd();
+    }
+    else if(ft_strncmp(av[i], "cd", 3) == 0)
+        our_cdir(av[i + 1], data);
 
-// }
+}
 
 // void check_args(char **av, t_shell *data)
 // {
@@ -240,7 +240,7 @@ int main(int ac, char **av, char **envp)
         // }
         if(!line)
             exit(1);
-        printf("\nbefore_trim - {%s}\n", line);
+        // printf("\nbefore_trim - {%s}\n", line);
         av = our_tokenize(line);
         while(av[i])
         {
@@ -298,11 +298,19 @@ int main(int ac, char **av, char **envp)
         //     j++;
         // }
         //if(data.cmds)
+        // if(only_one_cmd(data.cmds) == 1) //need to change the if statement < Makefile cat | << lol > result.txt | pwd | <<world >> result.txt
+        // {
+        //     if(is_builtin(av[0]) == 1)
+        //         check_built_in(av, &data);
+        // }
+        // else
+        //{
         data.envi = envlist_envarray(data.envir);
         if(!data.envi)
             perror("malloc");
         //our_execution(&data);
         execution(&data, STDIN_FILENO, -1);
+        //}
         // if (av && av[0])
         // {
         //     printf("before check_args\n");

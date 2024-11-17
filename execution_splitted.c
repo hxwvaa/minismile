@@ -184,14 +184,19 @@ int execute_one_cmd(t_cmd *curr, t_shell *data)
         our_export(curr->cargs, data);
     else if(ft_strncmp(curr->cmd, "pwd", 4) == 0)
     {
-        if(curr->cargs[i + 1] != NULL)
-            write(2, "pwd: too many arguments\n", 24);
+        // if(curr->cargs[i + 1] != NULL)
+        //     write(2, "pwd: too many arguments\n", 24);
             //echo $?// data->exit_code = 1
-        else    
+        //else    
             j = our_pwd();
     }
     else if(ft_strncmp(curr->cmd, "cd", 3) == 0)
+    {
+        write(2, "before cd\n", 10);
+        printf("before cd\n");
         our_cdir(curr->cargs[i + 1], data);
+        printf("after cd\n");
+    }
     return(j);
 }
 
@@ -229,7 +234,7 @@ int input_file(t_cmd *curr, int *input)
     {
         int hdpipe[2];
 
-        if(*input != STDIN_FILENO)
+        if(*input != STDIN_FILENO && *input != -1)
             close(*input);
         pipe(hdpipe);
         write(hdpipe[1], curr->hd_input, ft_strlen(curr->hd_input));
@@ -282,8 +287,8 @@ void set_redirection(t_cmd *curr, t_shell *data, int *input, int *output)
         printf("inside stdout\n");
         if(dup2(data->fd[1], STDOUT_FILENO) == -1)
             write(2, "error dup2\n", 11);
-        printf("fd[1]: %d std: %d\n", data->fd[1], STDIN_FILENO);
-        close(data->fd[1]);
+        if(data->fd[1] != -1)    
+            close(data->fd[1]);
         //close(data->fd[0]);
         data->fd[1] = -1;
         // if(data->fd[0] != -1)
@@ -314,7 +319,7 @@ void builtin_pipeline(t_cmd *curr, t_shell *data)
     r = execute_one_cmd(curr, data);
     if(r == 0) 
     {
-        printf("inside r\n");
+        //printf("inside r\n");
         if(data->envir)
             our_envlistclear(&data->envir);
         if(data->cmds) 
@@ -335,10 +340,10 @@ void builtin_pipeline(t_cmd *curr, t_shell *data)
     exit(1);
 }
 
-void handle_sigpipe(int sig)
-{
-    (void)sig;
-}
+// void handle_sigpipe(int sig)
+// {
+//     (void)sig;
+// }
 
 void execute_child(t_shell *data, t_cmd *curr, int *input, int *output)
 {
@@ -348,10 +353,12 @@ void execute_child(t_shell *data, t_cmd *curr, int *input, int *output)
     {
         if (is_builtin(curr->cmd))
             builtin_pipeline(curr, data); 
-        close(data->fd[0]); //sigpipe signal 13 is non-builtin | < Makefile wc -l // if i dont add it fd leaks
+        if(data->fd[0] != -1)    
+            close(data->fd[0]);// not needed ? //sigpipe signal 13 is non-builtin | < Makefile wc -l // if i dont add it fd leaks
         data->cmd_path = get_cmd_path(curr->cmd, data->envi);
         if (!data->cmd_path)
             invalid_lstcmd(curr->cmd, input, output, data);
+        //printf("cmd_path: %s\n", data->cmd_path);
         if (execve(data->cmd_path, curr->cargs, data->envi) == -1) // if it fails even  though it is a valid command maybe because i malloc more space??
             invalid_lstcmd(curr->cmd, input, output, data); // dont forget to free data->envi, and change exit_code var 127
     }
@@ -360,7 +367,8 @@ void execute_child(t_shell *data, t_cmd *curr, int *input, int *output)
 	    close(*input);
     if(*output != -1)
 	    close(*output);
-    close(data->fd[0]);
+    close(data->fd[0]); // if there is no cmd i need to close it or i get fd leak
+    //close(data->fd[0]); // maybe i dont need this aswell
     if(data->envir)
         our_envlistclear(&data->envir);
     if(data->cmds) 
@@ -437,38 +445,28 @@ void execution(t_shell *data, int input, int output)
 
     process_heredoc(data->cmds);
     curr = data->cmds;
-    data->fd[0] = -1;
-    data->fd[1] = -1;
+    // data->fd[0] = -1;
+    // data->fd[1] = -1; i already initialize it in init shell
     while(curr)
     {
         if(curr->inf || curr->hd_input)
         {
             //input = input_file(curr, input);
-            int j;
-            j = input_file(curr, &input);
-            if(j == -1)
+            // int j;
+            // j = input_file(curr, &input);
+            if(input_file(curr, &input) == -1)
             {
-                printf("hello\n");
                 curr = curr->next;
                 continue ;
             }
         }
-        // if(curr->next && (curr->next->inf || curr->next->hd_input)) // it stops the sigpipe but output of pwd goes STDOUT
-        // {
-        //     if(input != STDIN_FILENO)
-        //         close(input);
-        //     int fd[2];
-        //     pipe(fd);
-        //     close(fd[1]);
-        //     input = fd[0];
-        // }
         if(curr->next && pipe(data->fd) == -1)
+        {   
             perror("pipe");
+           // fork_execute_child(data, curr, &input, &output);
+        }
         if(is_builtin(curr->cmd) && only_one_cmd(data->cmds) == 1) //need to change the if statement < Makefile cat | << lol > result.txt | pwd | <<world >> result.txt
-            {
-                printf("shouldnt be here\n");
-                execute_one_cmd(curr, data);
-            }
+            execute_one_cmd(curr, data);
         else
             fork_execute_child(data, curr, &input, &output);
         prepare_fds(&input, &output, data, curr);
