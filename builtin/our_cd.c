@@ -23,7 +23,7 @@ char *get_pwd_value(t_shell *data)
     current = data->envir;
     while(current)
     {
-        if(ft_strncmp(current->content, "PWD=", 5) == 0)
+        if(ft_strncmp(current->content, "PWD=", 4) == 0)
             return(ft_strdup(current->content + 4));
         current = current->next;
     }
@@ -37,7 +37,7 @@ void update_pwd(t_shell *data, char *pwd)
     current = data->envir;
     while(current)
     {
-        if(ft_strncmp(current->content, "PWD=", 5) == 0)
+        if(ft_strncmp(current->content, "PWD=", 4) == 0)
         {
             free(current->content);
             //current->content = ft_strdup(pwd);
@@ -58,7 +58,7 @@ void update_oldpwd(t_shell *data, char *oldpwd)
     current = data->envir;
     while(current)
     {
-        if(ft_strncmp(current->content, "OLDPWD=", 8) == 0)
+        if(ft_strncmp(current->content, "OLDPWD=", 7) == 0)
             {
                 free(current->content);
                 current->content = ft_strjoin("OLDPWD=", oldpwd);
@@ -97,7 +97,6 @@ void change_dir(char * path, t_shell *data)
     prevdir = get_pwd_value(data);
     if(!prevdir)
          return ; // or remove return
-    //printf("hrllo\n");
     i = chdir(path);
     if(i == -1)
     {
@@ -153,6 +152,7 @@ void our_cdir(char *path, t_shell *data)
             return ;
         }
     }
+    // printf("our_cdir\n");
     change_dir(path, data);
     // maybe add a case for if path is '..'
 

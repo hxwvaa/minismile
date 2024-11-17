@@ -25,8 +25,6 @@ bool	is_num_very_small(char *str)
 
 	i = 0;
 	nb = 0;
-	i = 0;
-	nb = 0;
 	if (ft_atol(str) == LONG_MIN)
 		return (false);
 	if (str[i] == '-')

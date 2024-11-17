@@ -25,7 +25,7 @@ int check_built_in(char **av, t_shell *data)
     else if(ft_strncmp(av[0], "echo", 5) == 0)
         return(our_echo(av, data), 1);
     else if(ft_strncmp(av[0], "export", 7)== 0)
-        return(our_export(av, data), 1);
+        return(our_export(av, data, 0), 1);
     else if(ft_strncmp(av[0], "pwd", 4) == 0)
     {
         if(av[1] != NULL)
@@ -42,6 +42,15 @@ int check_built_in(char **av, t_shell *data)
     // else if(ft_strncmp(av[0], "user_set", 9) == 0) //REMOVE LATER, IT IS JUST FOR TESTING USER_SET VARIABLES
     //     return(prit_user_set(data), 1);
     return(-1);
+}
+
+void handle_signal(int sig)
+{
+    //i think we need to create a global variable and set the signal value and then check in execution
+    if (sig == SIGINT)
+        printf("ctrl + c");
+    else if (sig == SIGQUIT)
+        printf("ctrl + \\");
 }
 
 void check_args(char **av, t_shell *data)
@@ -96,11 +105,13 @@ int main(int ac, char **av, char **envp)
     t_toklist *tmp;
 
     init_shell(&data, envp);
+    signal(SIGINT, handle_signal); //use sigaction instaed maybe
+    signal(SIGQUIT, handle_signal); //use sigaction instead maybe
     while(1)
     {
         i = 0;
         line = readline("minishell♣\n");
-        // if(ft_strncmp(line, "exit", 4) == 0)
+        // if(ft_strncmp(line, "exit", 4) == 0)`
         // {
         //     free(line);
         //     exit(0);

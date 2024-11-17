@@ -37,85 +37,85 @@
 //     }
 // }
 
-bool our_export(char **arg, t_shell *data)
+bool if_equal(char *arg, t_list *current, char *key, int *found)
 {
-    int i;
+    int varl;
+    
+    varl = (int)(key - arg);
+    while(current)
+    {
+        if(ft_strncmp(current->content, arg, varl) == 0)
+        {
+            free(current->content);
+            current->content = ft_strdup(arg);
+            if(!current->content)
+            {
+                write(2, "error malloc\n", 13);
+                return (false);
+            }
+            *found = 1;
+            break ;
+        }
+        current = current->next;
+    }
+    return(true);
+}
+
+bool if_not_equal(char *arg, t_list *current, int *found)
+{
+    while(current)
+    {
+        if(ft_strncmp(current->content, arg, ft_strlen(arg)) == 0)
+        {
+            if(ft_strlen(current->content) == ft_strlen(arg))
+            {
+                free(current->content);
+                current->content = ft_strdup(arg);
+                if(!current->content)
+                {
+                    write(2, "error malloc\n", 13);
+                    return (false);
+                }
+                *found = 1;
+                break ;
+            }
+            else
+                *found = 1;
+        }
+        current = current->next;
+    }
+    return(true);
+}
+
+// bool our_export_extend(char **arg, t_shell *data)
+// {
+    
+// }
+
+bool our_export(char **arg, t_shell *data, int i)
+{
     t_list *current;
     t_list *new;
     char *key;
-    int varl;
     int found;
 
-    i = 1;
-    //found = 0;
-    if(!arg[i]) // if export with no args, print export list
+    if(!arg[1]) // if export with no args, print export list
+        return (our_expenv(data), true);
+    while(arg[++i])
     {
-        our_expenv(data);
-        return (true);
-    }
-    else
-    {
-        while(arg[i])
+        current = data->envir;
+        found = 0;
+        key = ft_strchr(arg[i], '=');
+        if(key && !if_equal(arg[i], current, key, &found))
+            return(false);
+        else if(!key && !if_not_equal(arg[i], current, &found))
+            return(false);
+        if(!found)
         {
-            current = data->envir;
-            found = 0;
-            key = ft_strchr(arg[i], '=');
-            if(key)
-            {
-                varl = (int)(key - arg[i]);
-                while(current)
-                {
-                    if(ft_strncmp(current->content, arg[i], varl) == 0)
-                    {
-                        free(current->content);
-                        current->content = ft_strdup(arg[i]);
-                        if(!current->content)
-                        {
-                            write(2, "error malloc\n", 13);
-                            return (false);
-                        }
-                        found = 1;
-                        break ;
-                    }
-                    current = current->next;
-                }
-            }
-            else if(!key)
-            {
-                while(current)
-                {
-                    if(ft_strncmp(current->content, arg[i], ft_strlen(arg[i])) == 0)
-                    {
-                        if(ft_strlen(current->content) == ft_strlen(arg[i]))
-                        {
-                            free(current->content);
-                            current->content = ft_strdup(arg[i]);
-                            if(!current->content)
-                            {
-                                write(2, "error malloc\n", 13);
-                                return (false);
-                            }
-                            found = 1;
-                            break ;
-                        }
-                        else
-                            found = 1;
-                    }
-                    current = current->next;
-                }
-            }
-            
-            if(!found)
-            {
-                new = ft_lstnew(ft_strdup(arg[i]));
-                if(!new)
-                {
-                    write(2, "error malloc\n", 13);
-                    return false ;
-                }
-                ft_lstadd_back(&data->envir, new);
-            }
-            i++;
+            new = ft_lstnew(ft_strdup(arg[i])); 
+            if(!new)
+                return (write(2, "error malloc\n", 13), false);
+            ft_lstadd_back(&data->envir, new);
         }
     }
     return true;

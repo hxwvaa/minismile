@@ -42,8 +42,8 @@ typedef struct s_toklist{
     struct s_toklist *next;
 }t_toklist;
 
-typedef struct s_cmd{
-    
+typedef struct s_cmd
+{
     char *cmd;
     char **cargs;
     char *inf;
@@ -73,7 +73,7 @@ void our_env(t_list *envir);
 bool our_pwd(void);
 char *get_pwd(void);
 bool our_unset(char *var, t_list **envir);
-bool our_export(char **arg, t_shell *data);
+bool our_export(char **arg, t_shell *data, int i);
 void our_cdir(char *path, t_shell *data);
 void	exit_shell(char **av, t_shell *data);
 
