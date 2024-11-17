@@ -13,6 +13,7 @@
 # include <sys/wait.h>
 #include <stdbool.h>
 #include <errno.h>
+#include <signal.h>
 
 // define a macro for cd error message
 
@@ -80,7 +81,8 @@ int	our_quote(char *str, int i, char quote);
 void our_echo(char **arg);
 void our_expenv(t_shell *data);
 void our_env(t_list *envir);
-bool our_pwd(void);
+//bool our_pwd(void);
+int our_pwd();
 char *get_pwd(void);
 bool our_unset(char *var, t_list **envir);
 bool our_export(char **arg, t_shell *data);

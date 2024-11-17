@@ -41,42 +41,42 @@ int count_cargs(t_cmd *cmd)
 //     return (i);
 // }
 
-void check_built_in(char **av, t_shell *data)
-{
-    int i;
+// void check_built_in(char **av, t_shell *data)
+// {
+//     int i;
 
-    i = 0;
-    if (ft_strncmp(av[i], "exit", 5) == 0)
-        exit_shell(av, data);
-    else if(ft_strncmp(av[i], "env", 4) == 0)
-        our_env(data->envir);
-    else if(ft_strncmp(av[i], "unset", 6) == 0)
-        our_unset(av[i + 1], &data->envir);
-    else if(ft_strncmp(av[i], "echo", 5) == 0)
-        our_echo(av);
-    else if(ft_strncmp(av[i], "export", 7)== 0)
-        our_export(av, data);
-    else if(ft_strncmp(av[i], "pwd", 4) == 0)
-    {
-        if(av[i + 1] != NULL)
-            write(2, "pwd: too many arguments\n", 24);
-            //echo $?// data->exit_code = 1
-        else    
-            our_pwd();
-    }
-    else if(ft_strncmp(av[i], "cd", 3) == 0)
-        our_cdir(av[i + 1], data);
+//     i = 0;
+//     if (ft_strncmp(av[i], "exit", 5) == 0)
+//         exit_shell(av, data);
+//     else if(ft_strncmp(av[i], "env", 4) == 0)
+//         our_env(data->envir);
+//     else if(ft_strncmp(av[i], "unset", 6) == 0)
+//         our_unset(av[i + 1], &data->envir);
+//     else if(ft_strncmp(av[i], "echo", 5) == 0)
+//         our_echo(av);
+//     else if(ft_strncmp(av[i], "export", 7)== 0)
+//         our_export(av, data);
+//     else if(ft_strncmp(av[i], "pwd", 4) == 0)
+//     {
+//         if(av[i + 1] != NULL)
+//             write(2, "pwd: too many arguments\n", 24);
+//             //echo $?// data->exit_code = 1
+//         else    
+//             our_pwd();
+//     }
+//     else if(ft_strncmp(av[i], "cd", 3) == 0)
+//         our_cdir(av[i + 1], data);
 
-}
+// }
 
-void check_args(char **av, t_shell *data)
-{
-    // int i;
+// void check_args(char **av, t_shell *data)
+// {
+//     // int i;
 
-    // i = 0;
-    check_built_in(av, data);
+//     // i = 0;
+//     check_built_in(av, data);
 
-}
+//}
 // strdup the content so when u unset you free and set to NULL
 void init_shell(t_shell *data, char **envp)
 {

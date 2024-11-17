@@ -36,17 +36,22 @@ char *do_heredoc(char *delimiter)
     return (input);
 }
 
-int only_one_cmd(t_cmd *cmd)
+int only_one_cmd(t_cmd *cmd) // change this function
 {
     t_cmd *curr;
     int i;
 
     i = 0;
     curr = cmd;
-    while(curr && curr->cmd)
+    // while(curr && curr->cmd)
+    // {
+    //     i++;
+    //     curr = curr->next;
+    // }
+    while(curr)
     {
         i++;
-        curr = curr->next;
+        curr= curr->next;
     }
     printf("cmd count:%d\n", i);    
     if(i == 1)
@@ -139,6 +144,8 @@ void invalid_lstcmd(char *file, int *input, int *output, t_shell *data)
 
 int is_builtin(char *cmd)
 {
+    if(!cmd)
+        return(0);
     if (ft_strncmp(cmd, "exit", 5) == 0)
         return (1);
     else if(ft_strncmp(cmd, "env", 4) == 0)
@@ -157,11 +164,14 @@ int is_builtin(char *cmd)
         return (0);
 }
 
-void execute_one_cmd(t_cmd *curr, t_shell *data)
+int execute_one_cmd(t_cmd *curr, t_shell *data)
 {
     int i;
+    int j;
 
     i = 0;
+    j = 0;
+    write(2, "inside execute builtin\n", 23);
     if (ft_strncmp(curr->cmd, "exit", 5) == 0)
         exit_shell(curr->cargs, data);
     else if(ft_strncmp(curr->cmd, "env", 4) == 0)
@@ -178,11 +188,11 @@ void execute_one_cmd(t_cmd *curr, t_shell *data)
             write(2, "pwd: too many arguments\n", 24);
             //echo $?// data->exit_code = 1
         else    
-            our_pwd();
+            j = our_pwd();
     }
     else if(ft_strncmp(curr->cmd, "cd", 3) == 0)
         our_cdir(curr->cargs[i + 1], data);
-
+    return(j);
 }
 
 void process_heredoc(t_cmd *cmds)
@@ -208,40 +218,49 @@ void process_heredoc(t_cmd *cmds)
     
 }
 
-int input_file(t_cmd *curr, int input)
+int input_file(t_cmd *curr, int *input)
 {
+    if(*input != STDIN_FILENO && *input != -1)
+    {
+        close(*input);
+        *input = -1;
+    }
     if(curr->hd_input)
     {
         int hdpipe[2];
 
-        if(input != STDIN_FILENO)
-            close(input);
+        if(*input != STDIN_FILENO)
+            close(*input);
         pipe(hdpipe);
         write(hdpipe[1], curr->hd_input, ft_strlen(curr->hd_input));
         close(hdpipe[1]);
         //input = hdpipe[0];
         free(curr->hd_input);
         curr->hd_input = NULL;
-        return (hdpipe[0]);
+        *input = hdpipe[0];
+        //return (hdpipe[0]);
+        return (0);
     }
-    else if(curr->inf)
+    if(curr->inf) // else
     {
-        input = open(curr->inf, O_RDONLY, 0777);
-        if(input == -1)
+        *input = open(curr->inf, O_RDONLY, 0777);
+        if(*input == -1)
         {
             input_invalid(curr->inf);
             //input = open("/dev/null", O_RDONLY);
             int pipefd[2];
             pipe(pipefd);
             close(pipefd[1]);
-            return (pipefd[0]);
+            *input = pipefd[0];
+            return (-1);
             //without this it would make the program hang cause it waits for input
             // mycommand line is < asd cat | wc -l, it will run forever because wc -l waits for
             // input
             //return (-1);
         }
     }
-    return (input);
+    //return (input);
+    return (0);
 }
 void set_redirection(t_cmd *curr, t_shell *data, int *input, int *output)
 {
@@ -250,13 +269,26 @@ void set_redirection(t_cmd *curr, t_shell *data, int *input, int *output)
         dup2(*input, STDIN_FILENO);
         close(*input);
     }
-    if(curr->next)
+    // if(curr->next)
+    // {
+    //     dup2(data->fd[1], STDOUT_FILENO);
+    //     if(data->fd[1] != -1)
+    //         close(data->fd[1]);
+    //     if(data->fd[0] != -1)
+    //         close(data->fd[0]);
+    // }
+    if(curr->next && data->fd[1] != -1)
     {
-        dup2(data->fd[1], STDOUT_FILENO);
-        if(data->fd[1] != -1)
-            close(data->fd[1]);
-        if(data->fd[0] != -1)
-            close(data->fd[0]);
+        printf("inside stdout\n");
+        if(dup2(data->fd[1], STDOUT_FILENO) == -1)
+            write(2, "error dup2\n", 11);
+        printf("fd[1]: %d std: %d\n", data->fd[1], STDIN_FILENO);
+        close(data->fd[1]);
+        //close(data->fd[0]);
+        data->fd[1] = -1;
+        // if(data->fd[0] != -1)
+        //     close(data->fd[0]); // this causing sigpipe but if remove it i have fd leak
+        // data->fd[0] = -1;
     }
     if(curr->outf)
     {
@@ -276,28 +308,70 @@ void set_redirection(t_cmd *curr, t_shell *data, int *input, int *output)
 
 void builtin_pipeline(t_cmd *curr, t_shell *data)
 {
-    execute_one_cmd(curr, data);
+    //execute_one_cmd(curr, data);
+    int r;
+    
+    r = execute_one_cmd(curr, data);
+    if(r == 0) 
+    {
+        printf("inside r\n");
+        if(data->envir)
+            our_envlistclear(&data->envir);
+        if(data->cmds) 
+            our_cmdlistclear(&data->cmds);
+        if(data->envi)
+            free_arr(data->envi);
+        close(data->fd[0]); // to close read end after writing to the pipe
+        exit(0);
+    }
+    printf("outside r\n");
     if(data->envir)
         our_envlistclear(&data->envir);
     if(data->cmds) 
         our_cmdlistclear(&data->cmds);
     if(data->envi)
         free_arr(data->envi);
-    exit(0);
+    close(data->fd[0]);
+    exit(1);
+}
+
+void handle_sigpipe(int sig)
+{
+    (void)sig;
 }
 
 void execute_child(t_shell *data, t_cmd *curr, int *input, int *output)
 {
+    //signal(SIGPIPE, handle_sigpipe);
     set_redirection(curr, data, input, output);
-    if (is_builtin(curr->cmd))
-        builtin_pipeline(curr, data); 
-    data->cmd_path = get_cmd_path(curr->cmd, data->envi);
-    if (!data->cmd_path)
-        invalid_lstcmd(curr->cmd, input, output, data);
-    if (execve(data->cmd_path, curr->cargs, data->envi) == -1) // if it fails even  though it is a valid command maybe because i malloc more space??
-        invalid_lstcmd(curr->cmd, input, output, data); // dont forget to free data->envi, and change exit_code var 127
-
+    if(curr->cmd)
+    {
+        if (is_builtin(curr->cmd))
+            builtin_pipeline(curr, data); 
+        close(data->fd[0]); //sigpipe signal 13 is non-builtin | < Makefile wc -l // if i dont add it fd leaks
+        data->cmd_path = get_cmd_path(curr->cmd, data->envi);
+        if (!data->cmd_path)
+            invalid_lstcmd(curr->cmd, input, output, data);
+        if (execve(data->cmd_path, curr->cargs, data->envi) == -1) // if it fails even  though it is a valid command maybe because i malloc more space??
+            invalid_lstcmd(curr->cmd, input, output, data); // dont forget to free data->envi, and change exit_code var 127
+    }
+    write(2, "before closing and cleaning\n", 28);
+    if(*input != -1)
+	    close(*input);
+    if(*output != -1)
+	    close(*output);
+    close(data->fd[0]);
+    if(data->envir)
+        our_envlistclear(&data->envir);
+    if(data->cmds) 
+        our_cmdlistclear(&data->cmds);
+    if(data->envi)
+        free_arr(data->envi);
+    data->exit_code = 0;
+    //exit_shell(data->cmds->cargs, data);
+	exit(0);
 }
+
 void prepare_fds(int *input, int *output, t_shell *data, t_cmd *curr)
 {
     if(*input != STDIN_FILENO)
@@ -306,9 +380,16 @@ void prepare_fds(int *input, int *output, t_shell *data, t_cmd *curr)
             close(*input);
     }
     if(curr->next)
-        close(data->fd[1]);
-    *input = data->fd[0];
-    data->fd[0] = -1;
+    {    
+        if(data->fd[1] != -1)
+            close(data->fd[1]);
+        *input = data->fd[0];
+    }
+    else if (data->fd[0] != -1)
+    {
+        close(data->fd[0]);
+        data->fd[0] = -1;
+    }
     data->fd[1] = -1;
     if(*output != STDOUT_FILENO)
     {
@@ -326,9 +407,15 @@ void close_clean(t_shell *data, int input, int output)
     if (output != STDOUT_FILENO && output != -1)
         close(output);
     if(data->fd[0] != -1)
+    {
         close(data->fd[0]);
+        data->fd[0] = -1;
+    }
     if(data->fd[1] != -1)
+    {
         close(data->fd[1]);
+        data->fd[1] = -1;
+    }
     if(data->envi)
       free_arr(data->envi);
 }
@@ -350,21 +437,38 @@ void execution(t_shell *data, int input, int output)
 
     process_heredoc(data->cmds);
     curr = data->cmds;
+    data->fd[0] = -1;
+    data->fd[1] = -1;
     while(curr)
     {
         if(curr->inf || curr->hd_input)
         {
-            input = input_file(curr, input);
-            if(input == -1)
+            //input = input_file(curr, input);
+            int j;
+            j = input_file(curr, &input);
+            if(j == -1)
             {
+                printf("hello\n");
                 curr = curr->next;
                 continue ;
             }
         }
+        // if(curr->next && (curr->next->inf || curr->next->hd_input)) // it stops the sigpipe but output of pwd goes STDOUT
+        // {
+        //     if(input != STDIN_FILENO)
+        //         close(input);
+        //     int fd[2];
+        //     pipe(fd);
+        //     close(fd[1]);
+        //     input = fd[0];
+        // }
         if(curr->next && pipe(data->fd) == -1)
             perror("pipe");
-        if(is_builtin(curr->cmd) && only_one_cmd(data->cmds) == 1)
-            execute_one_cmd(curr, data);
+        if(is_builtin(curr->cmd) && only_one_cmd(data->cmds) == 1) //need to change the if statement < Makefile cat | << lol > result.txt | pwd | <<world >> result.txt
+            {
+                printf("shouldnt be here\n");
+                execute_one_cmd(curr, data);
+            }
         else
             fork_execute_child(data, curr, &input, &output);
         prepare_fds(&input, &output, data, curr);

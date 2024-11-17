@@ -80,6 +80,8 @@ void	our_cmdlistclear(t_cmd **list)
 			free((*list)->outf);
 		if ((*list)->limiter)
 			free((*list)->limiter);
+		if((*list)->hd_input)
+			free((*list)->hd_input);
 		free(*list);
 		(*list) = tmp;
 	}

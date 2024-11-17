@@ -183,6 +183,8 @@ void invalid_lstcmd(char *file, int input, int output, t_shell *data)
 
 int is_builtin(char *cmd)
 {
+    if(!cmd)
+        return (0);
     if (ft_strncmp(cmd, "exit", 5) == 0)
         return (1);
     else if(ft_strncmp(cmd, "env", 4) == 0)
@@ -333,7 +335,7 @@ void our_execution(t_shell *data)
         }
         if(curr->next && pipe(data->fd) == -1)
             perror("pipe");
-        if(is_builtin(curr->cmd) && only_one_cmd(data->cmds) == 1)
+        if(curr->cmd && is_builtin(curr->cmd) && only_one_cmd(data->cmds) == 1)
         {
             //if(only_one_cmd(data->cmds) == 1)
                 execute_one_cmd(curr, data);
