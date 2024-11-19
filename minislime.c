@@ -19,6 +19,7 @@ int count_cargs(t_cmd *cmd)
     return (i);
 }
 
+
 // int count_args(t_toklist *list)
 // {
 //     int i;
@@ -266,7 +267,7 @@ int main(int ac, char **av, char **envp)
             // tmp = tokens;
             if (av)
                 free_arr(av);
-            tokens = data.tokens;
+            //tokens = data.tokens;
             while(tokens)
             {
                 printf("token: %s, type: %d\n", tokens->token, tokens->type);
@@ -274,7 +275,7 @@ int main(int ac, char **av, char **envp)
             }
             // data.count = count_all_args(data.tokens);
             tmp = our_toklist_cmdlist(data.tokens, &data);
-            our_toklistclear(&data.tokens);
+            //our_toklistclear(&data.tokens);
             //our_toklist_cmdlist(data.tokens, &data);
             // printf("args count: %d\n", count);
             int u = 0;
@@ -287,10 +288,28 @@ int main(int ac, char **av, char **envp)
                 printf("cmd:%s ", tmp->cmd);
                 while(u < count)
                     printf("args:%s ", tmp->cargs[u++]);
-                printf("inf:%s, out:%s, limit:%s\n", tmp->inf, tmp->outf, tmp->limiter);
+                printf("\n");
+                t_redir *tmp_in = tmp->inputs;
+                while(tmp_in)
+                {
+                    printf("input: %s flag:%d ", tmp_in->file, tmp_in->app);
+                    tmp_in = tmp_in->next;
+                }
+                printf("\n");
+                t_redir *tmp_out = tmp->outputs;
+                while(tmp_out)
+                {
+                    printf("output: %s flag:%d ", tmp_out->file, tmp_out->app);
+                    tmp_out = tmp_out->next;
+                }
+                printf("\n");
                 tmp = tmp->next;
             }
         }
+        //     u = 0;
+        // while(tmp->inf[u])
+        //     printf("inf:%s ", tmp->inf[u++]);
+        
         // while(tokens[j].token)
         // {
         //     printf("hello\n");
@@ -309,7 +328,8 @@ int main(int ac, char **av, char **envp)
         if(!data.envi)
             perror("malloc");
         //our_execution(&data);
-        execution(&data, STDIN_FILENO, -1);
+        //execution(&data, STDIN_FILENO, -1);
+        execution(&data, STDIN_FILENO, STDOUT_FILENO);
         //}
         // if (av && av[0])
         // {

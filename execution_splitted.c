@@ -101,6 +101,8 @@ void output_invalid(char *file, int ifd, t_shell *data)
         close(ifd);
     if(data->envir)
         our_envlistclear(&data->envir);
+    if(data->tokens)
+        our_toklistclear(&data->tokens);
     if(data->cmds) 
         our_cmdlistclear(&data->cmds);
     if(data->envi)
@@ -203,66 +205,79 @@ int execute_one_cmd(t_cmd *curr, t_shell *data)
 void process_heredoc(t_cmd *cmds)
 {
     t_cmd *curr;
+    t_redir *temp;
 
     curr = cmds;
     while(curr)
     {
-        if(curr->limiter)
+        temp = curr->inputs; // maybe check if curr->inputs is null before assigning
+        while(temp)
         {
-            curr->hd_input = do_heredoc(curr->limiter);
-            if(!curr->hd_input)
+            if(temp->app == 2)
             {
-                perror("malloc");
-                return ;
+                temp->hd_input = do_heredoc(temp->file);
+                if(!temp->hd_input)
+                {
+                    perror("malloc");
+                    return ;
+                }
             }
+            else
+                temp->hd_input = NULL;
+            temp = temp->next;
         }
-        else
-            curr->hd_input = NULL;
         curr = curr->next;
     }
-    
 }
 
 int input_file(t_cmd *curr, int *input)
 {
+    t_redir *n_inp;
     if(*input != STDIN_FILENO && *input != -1)
     {
         close(*input);
         *input = -1;
     }
-    if(curr->hd_input)
+    n_inp = curr->inputs;
+    while(n_inp) 
     {
-        int hdpipe[2];
-
-        if(*input != STDIN_FILENO && *input != -1)
-            close(*input);
-        pipe(hdpipe);
-        write(hdpipe[1], curr->hd_input, ft_strlen(curr->hd_input));
-        close(hdpipe[1]);
-        //input = hdpipe[0];
-        free(curr->hd_input);
-        curr->hd_input = NULL;
-        *input = hdpipe[0];
-        //return (hdpipe[0]);
-        return (0);
-    }
-    if(curr->inf) // else
-    {
-        *input = open(curr->inf, O_RDONLY, 0777);
-        if(*input == -1)
+        if(n_inp->hd_input)
         {
-            input_invalid(curr->inf);
-            //input = open("/dev/null", O_RDONLY);
-            int pipefd[2];
-            pipe(pipefd);
-            close(pipefd[1]);
-            *input = pipefd[0];
-            return (-1);
-            //without this it would make the program hang cause it waits for input
-            // mycommand line is < asd cat | wc -l, it will run forever because wc -l waits for
-            // input
-            //return (-1);
+            int hdpipe[2];
+
+            if(*input != STDIN_FILENO && *input != -1)
+                close(*input);
+            pipe(hdpipe);
+            write(hdpipe[1], n_inp->hd_input, ft_strlen(n_inp->hd_input));
+            close(hdpipe[1]);
+            //input = hdpipe[0];
+            free(n_inp->hd_input);
+            n_inp->hd_input = NULL;
+            *input = hdpipe[0];
+            //return (hdpipe[0]);
+            //return (0);
         }
+        else if(!n_inp->hd_input) // else
+        {
+            if(*input != STDIN_FILENO && *input != -1)
+                close(*input);
+            *input = open(n_inp->file, O_RDONLY, 0777);
+            if(*input == -1)
+            {
+                input_invalid(n_inp->file);
+                //input = open("/dev/null", O_RDONLY);
+                int pipefd[2];
+                pipe(pipefd);
+                close(pipefd[1]);
+                *input = pipefd[0];
+                return (-1);
+                //without this it would make the program hang cause it waits for input
+                // mycommand line is < asd cat | wc -l, it will run forever because wc -l waits for
+                // input
+                //return (-1);
+            }
+        }
+        n_inp = n_inp->next;
     }
     //return (input);
     return (0);
@@ -295,18 +310,27 @@ void set_redirection(t_cmd *curr, t_shell *data, int *input, int *output)
         //     close(data->fd[0]); // this causing sigpipe but if remove it i have fd leak
         // data->fd[0] = -1;
     }
-    if(curr->outf)
+    if(curr->outputs)
     {
-        if(curr->app)
-            *output = open(curr->outf, O_WRONLY | O_CREAT | O_APPEND, 0644);
-        else
-            *output = open(curr->outf, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-        if(*output == -1)
-            output_invalid(curr->outf, data->fd[0], data);
-        if (*output != STDOUT_FILENO)
+        t_redir *out;
+
+        out = curr->outputs;
+        while(out)
         {
-            dup2(*output, STDOUT_FILENO);
-            close(*output);
+            if(*output != STDOUT_FILENO && *output != -1)
+                close(*output);
+            if(out->app == 1)
+                *output = open(out->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+            else
+                *output = open(out->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+            if(*output == -1)
+                output_invalid(out->file, data->fd[0], data);
+            if (*output != STDOUT_FILENO)
+            {
+                dup2(*output, STDOUT_FILENO);
+                close(*output);
+            }
+            out = out->next;
         }
     }
 }
@@ -352,13 +376,12 @@ void execute_child(t_shell *data, t_cmd *curr, int *input, int *output)
     if(curr->cmd)
     {
         if (is_builtin(curr->cmd))
-            builtin_pipeline(curr, data); 
+            builtin_pipeline(curr, data);
         if(data->fd[0] != -1)    
             close(data->fd[0]);// not needed ? //sigpipe signal 13 is non-builtin | < Makefile wc -l // if i dont add it fd leaks
         data->cmd_path = get_cmd_path(curr->cmd, data->envi);
         if (!data->cmd_path)
             invalid_lstcmd(curr->cmd, input, output, data);
-        //printf("cmd_path: %s\n", data->cmd_path);
         if (execve(data->cmd_path, curr->cargs, data->envi) == -1) // if it fails even  though it is a valid command maybe because i malloc more space??
             invalid_lstcmd(curr->cmd, input, output, data); // dont forget to free data->envi, and change exit_code var 127
     }
@@ -437,10 +460,11 @@ void fork_execute_child(t_shell *data, t_cmd *curr, int *input, int *output)
         execute_child(data, curr, input, output);
 }
 //before calling the function initialize data->envi
-//when calling the function, pass STDIN_FILENO and -1
+//when calling the function, pass STDIN_FILENO and -1 as output
 void execution(t_shell *data, int input, int output)
 {
     t_cmd *curr;
+    //t_redir *inp;
     int status;
 
     process_heredoc(data->cmds);
@@ -449,12 +473,13 @@ void execution(t_shell *data, int input, int output)
     // data->fd[1] = -1; i already initialize it in init shell
     while(curr)
     {
-        if(curr->inf || curr->hd_input)
+        if(curr->inputs)
         {
+            //inp = curr->inputs;
             //input = input_file(curr, input);
             // int j;
             // j = input_file(curr, &input);
-            if(input_file(curr, &input) == -1)
+            if(input_file(curr, &input) == -1) // i can send curr->inputs and change the function declaration
             {
                 curr = curr->next;
                 continue ;

@@ -62,6 +62,23 @@ void	our_toklistclear(t_toklist **tokens)
 	printf("wow\n");
 }
 
+void our_redirclear(t_redir **list)
+{
+	t_redir *temp;
+
+	while(*list != NULL)
+	{
+		temp = (*list)->next;
+		if((*list)->file)
+			free((*list)->file);
+		if((*list)->hd_input)
+			free((*list)->hd_input);
+		free(*list);
+		*list = temp;
+	}
+	*list = NULL;
+}
+
 void	our_cmdlistclear(t_cmd **list)
 {
 	t_cmd	*tmp;
@@ -74,14 +91,10 @@ void	our_cmdlistclear(t_cmd **list)
 		(*list)->cmd = NULL;
 		if ((*list)->cargs)
 			free_arr((*list)->cargs);
-		if ((*list)->inf)
-			free((*list)->inf);
-		if ((*list)->outf)
-			free((*list)->outf);
-		if ((*list)->limiter)
-			free((*list)->limiter);
-		if((*list)->hd_input)
-			free((*list)->hd_input);
+		if((*list)->inputs)
+			our_redirclear(&(*list)->inputs);
+		if((*list)->outputs)
+			our_redirclear(&(*list)->outputs);
 		free(*list);
 		(*list) = tmp;
 	}

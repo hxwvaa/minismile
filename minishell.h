@@ -45,16 +45,19 @@ typedef struct s_toklist{
     struct s_toklist *next;
 }t_toklist;
 
+typedef struct s_redir{
+    char *file;
+    char *hd_input;
+    int app;
+    struct s_redir *next;
+}t_redir;
+
 typedef struct s_cmd{
     
     char *cmd;
     char **cargs;
-    char *inf;
-    char *outf;
-    char *limiter;
-    char *hd_input;
-    int app;
-    //int hd_fd; //to store here_doc fd 
+    t_redir *inputs;
+    t_redir *outputs;
     struct s_cmd *next;
 }t_cmd;
 
@@ -99,7 +102,7 @@ t_toklist *array_token_list(t_shell *data, char **split, int count);
 
 t_cmd *our_toklist_cmdlist(t_toklist *list, t_shell *data);
 char **envlist_envarray(t_list *env);
-int count_args(t_toklist *list);
+
 
 
 int is_builtin(char *cmd);
