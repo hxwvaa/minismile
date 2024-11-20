@@ -179,6 +179,11 @@ int	check_syntax(char **av, int i)
 	{
         if(ft_strncmp(av[i], "|", 2) == 0)
         {
+            if(i == 0)
+            {
+                write(2, "syntax error near unexpected token `|'\n", 39);
+                return(1);
+            }
             if(av[i +1])
             {
                 if(check_syntax_pipe(av, i) == 1)

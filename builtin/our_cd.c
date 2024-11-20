@@ -9,8 +9,12 @@ char *get_value_env(char *var, t_shell *data)
     current = data->envir;
     while(current)
     {
-        if(ft_strncmp(current->content, var, (ft_strlen(var) + 1)) == 0)
-            return(ft_strdup(current->content + 4));
+        if(ft_strncmp(current->content, var, (ft_strlen(var))) == 0)
+        {
+            if(((char *)current->content)[5] == '\0')
+                return(get_pwd());
+            return(ft_strdup(current->content + 5));
+        }
         current = current->next;
     }
     return (NULL);
@@ -83,7 +87,7 @@ void update_oldpwd(t_shell *data, char *oldpwd)
 
 
 
-void change_dir(char * path, t_shell *data)
+void change_dir(char *path, t_shell *data)
 {
     int i;
     char *curdir;
@@ -146,7 +150,8 @@ void our_cdir(char *path, t_shell *data)
 
     if(!path)
     {
-        path = getenv("HOME");
+        //path = getenv("HOME");
+        path = get_value_env("HOME=", data);
         if(!path)
         {
             write(2, "cd : HOME is not set\n", 21);
