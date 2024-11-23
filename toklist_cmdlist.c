@@ -62,7 +62,7 @@ t_redir *our_redirlast(t_redir *lst)
     return(ptr);
 }
 
-t_redir *our_redirnew(char *file, int app)
+t_redir *our_redirnew(char *file, int flag)
 {
     t_redir *new;
 
@@ -73,16 +73,16 @@ t_redir *our_redirnew(char *file, int app)
     if(!new->file)
         return(free(new), NULL);
     new->hd_input = NULL;
-    new->app = app;
+    new->flag = flag;
     new->next = NULL;
     return(new);
 }
 
-void our_rediradd(t_redir **lst, char *file, int app)
+void our_rediradd(t_redir **lst, char *file, int flag)
 {
     t_redir *new;
 
-    new = our_redirnew(file, app);
+    new = our_redirnew(file, flag);
     if(!new)
         return ;
     if(!*lst)
@@ -103,8 +103,10 @@ t_cmd *our_clistnew(int count)
     if(!list->cargs)
         return (free(list), (NULL));
     list->cargs[0] = NULL;
-    list->inputs = NULL;
-    list->outputs = NULL;
+    list->redirs = NULL;
+    list->redir_out = 0;
+    //list->inputs = NULL;
+   // list->outputs = NULL;
     list->next = NULL;
     return(list);
 }
@@ -125,115 +127,211 @@ int count_args(t_toklist *list)
     return (i);
 }
 
-t_cmd *new_node();
+t_cmd *new_node(t_toklist *temp, t_shell *data, int *new_cmd)
+{
+    t_cmd *new;
+    new = our_clistnew(count_args(temp));
+    if(!new)
+        return (perror("malloc"), NULL);
+    if(new)
+        our_clstadd_back(&data->cmds, new);
+    *new_cmd = 0;
+    return (new);
+}
+
+t_toklist *redirect_found(t_toklist *temp, t_cmd *curr)
+{
+    int flag;
+
+    if(temp->type == HERE_DOC)
+        flag = 2;
+    else if(temp->type == APPEND)
+        flag = 1;
+    else if(temp->type == REDIR_OUT)
+        flag = 3;
+    else
+        flag = 0;
+    temp = temp->next;
+    if(temp && temp->token)
+        our_rediradd(&curr->redirs, temp->token, flag);
+    return(temp);
+}
+
+t_toklist *cmd_found(t_toklist *temp, t_cmd *curr)
+{
+    int i;
+    int j;
+
+    i = 1;
+    j = count_args(temp);
+    curr->cmd = ft_strdup(temp->token); // protect mallocs
+    curr->cargs[0] = ft_strdup(temp->token);
+    temp = temp->next;
+    while(temp && temp->type != PIPE)
+    {
+        if(temp->type == CMD || temp->type == FLAG || temp->type == ARGS)
+        {
+            if(i <= j)
+                curr->cargs[i++] = ft_strdup(temp->token);
+        }
+        if(temp->type == REDIR_IN || temp->type == REDIR_OUT || temp->type == APPEND || temp->type == HERE_DOC)
+            temp = redirect_found(temp, curr);
+        temp = temp->next;
+    }
+    curr->cargs[i] = NULL;
+    return(temp);
+}
+
+t_toklist *cmd_redirect(t_toklist *temp, t_cmd **curr, int *new_cmd)
+{
+    if(temp->type == CMD)
+        temp = cmd_found(temp, *curr);
+    else if(temp->type == REDIR_IN || temp->type == REDIR_OUT || temp->type == APPEND || temp->type == HERE_DOC)
+        temp = redirect_found(temp, *curr);
+    else if(temp->type == PIPE)
+    {
+        *new_cmd = 1;
+        curr = NULL;
+        temp= temp->next;
+    }
+    else
+        temp = temp->next;
+    return (temp);
+}
 
 t_cmd *our_toklist_cmdlist(t_toklist *list, t_shell *data)
 {
-    int i;
-    t_cmd *new;
     t_cmd *curr;
     t_toklist *temp;
+    int new_cmd;
 
-    new = NULL;
     curr = NULL;
-    //i = 1;
-    int j = 1;
     temp = list;
+    new_cmd = 1;
     while(temp)
     {
-        if (j == 1)
+        if(new_cmd == 1)
         {
-            new = our_clistnew(count_args(temp));
-            if(!new)
-                return (perror("malloc"), NULL);
-            if(new)
-                our_clstadd_back(&data->cmds, new);
-            curr = new;
-            j = 0;
+            curr = new_node(temp, data, &new_cmd);
+            if(!curr)
+                return(perror("malloc"), NULL);
         }
-        if(temp->type == CMD)
-        {
- 
-            curr->cmd = ft_strdup(temp->token); // protect mallocs
-            curr->cargs[0] = ft_strdup(temp->token);
-            i = 1;
-            int j = count_args(temp);
-            temp = temp->next;
-            while(temp && temp->type != PIPE)
-            {
-                if(temp->type == CMD || temp->type == FLAG || temp->type == ARGS)
-                {
-                    if(i <= j)
-                        curr->cargs[i++] = ft_strdup(temp->token);
-                }
-                if(temp->type == REDIR_IN || temp->type == HERE_DOC)
-                {
-                    if(temp && temp->type == HERE_DOC)
-                    {
-                        temp = temp->next;
-                        our_rediradd(&curr->inputs, temp->token, 2);
-                    }
-                    else
-                    {
-                        temp = temp->next;
-                        our_rediradd(&curr->inputs, temp->token, 0);
-                    }
-                }
-                if(temp->type == REDIR_OUT || temp->type == APPEND)
-                {
-                    if(temp && temp->type == APPEND)
-                    {
-                        temp = temp->next;
-                        our_rediradd(&curr->outputs, temp->token, 1);
-                    }
-                    else
-                    {
-                        temp = temp->next;
-                        our_rediradd(&curr->outputs, temp->token, 0);
-                    }
-                }
-                temp = temp->next;
-            }
-            curr->cargs[i] = NULL;    
-        }
-        else if(temp->type == REDIR_IN || temp->type == HERE_DOC)
-        {
-            if(temp && temp->type == HERE_DOC)
-            {
-                temp = temp->next;
-                our_rediradd(&curr->inputs, temp->token, 2);
-            }
-            else
-            {
-                temp = temp->next;
-                our_rediradd(&curr->inputs, temp->token, 0);
-            }
-        }
-        else if(temp->type == REDIR_OUT || temp->type == APPEND)
-        {
-            if(temp && temp->type == APPEND)
-            {
-                temp = temp->next;
-                our_rediradd(&curr->outputs, temp->token, 1);
-            }
-            else
-            {
-                temp = temp->next;
-                our_rediradd(&curr->outputs, temp->token, 0);
-            }
-        }
-        else if(temp->type == PIPE)
-        {
-            curr = NULL;
-            j = 1;
-            temp = temp->next;
-        }
-        else
-            temp = temp->next;
+        temp = cmd_redirect(temp, &curr, &new_cmd);
     }
-    
     return(data->cmds);
 }
+
+//last working cmdlist, but redirect stored separate which wrong
+// t_cmd *our_toklist_cmdlist(t_toklist *list, t_shell *data)
+// {
+//     int i;
+//     t_cmd *new;
+//     t_cmd *curr;
+//     t_toklist *temp;
+
+//     new = NULL;
+//     curr = NULL;
+//     //i = 1;
+//     int j = 1;
+//     temp = list;
+//     while(temp)
+//     {
+//         if (j == 1)
+//         {
+//             new = our_clistnew(count_args(temp));
+//             if(!new)
+//                 return (perror("malloc"), NULL);
+//             if(new)
+//                 our_clstadd_back(&data->cmds, new);
+//             curr = new;
+//             j = 0;
+//         }
+//         if(temp->type == CMD)
+//         {
+ 
+//             curr->cmd = ft_strdup(temp->token); // protect mallocs
+//             curr->cargs[0] = ft_strdup(temp->token);
+//             i = 1;
+//             int j = count_args(temp);
+//             temp = temp->next;
+//             while(temp && temp->type != PIPE)
+//             {
+//                 if(temp->type == CMD || temp->type == FLAG || temp->type == ARGS)
+//                 {
+//                     if(i <= j)
+//                         curr->cargs[i++] = ft_strdup(temp->token);
+//                 }
+//                 if(temp->type == REDIR_IN || temp->type == HERE_DOC)
+//                 {
+//                     if(temp && temp->type == HERE_DOC)
+//                     {
+//                         temp = temp->next;
+//                         our_rediradd(&curr->inputs, temp->token, 2);
+//                     }
+//                     else
+//                     {
+//                         temp = temp->next;
+//                         our_rediradd(&curr->inputs, temp->token, 0);
+//                     }
+//                 }
+//                 if(temp->type == REDIR_OUT || temp->type == APPEND)
+//                 {
+//                     if(temp && temp->type == APPEND)
+//                     {
+//                         temp = temp->next;
+//                         our_rediradd(&curr->outputs, temp->token, 1);
+//                     }
+//                     else
+//                     {
+//                         temp = temp->next;
+//                         our_rediradd(&curr->outputs, temp->token, 0);
+//                     }
+//                 }
+//                 temp = temp->next;
+//             }
+//             curr->cargs[i] = NULL;    
+//         }
+//         else if(temp->type == REDIR_IN || temp->type == HERE_DOC)
+//         {
+//             if(temp && temp->type == HERE_DOC)
+//             {
+//                 temp = temp->next;
+//                 our_rediradd(&curr->inputs, temp->token, 2);
+//             }
+//             else
+//             {
+//                 temp = temp->next;
+//                 our_rediradd(&curr->inputs, temp->token, 0);
+//             }
+//         }
+//         else if(temp->type == REDIR_OUT || temp->type == APPEND)
+//         {
+//             if(temp && temp->type == APPEND)
+//             {
+//                 temp = temp->next;
+//                 our_rediradd(&curr->outputs, temp->token, 1);
+//             }
+//             else
+//             {
+//                 temp = temp->next;
+//                 our_rediradd(&curr->outputs, temp->token, 0);
+//             }
+//         }
+//         else if(temp->type == PIPE)
+//         {
+//             curr = NULL;
+//             j = 1;
+//             temp = temp->next;
+//         }
+//         else
+//             temp = temp->next;
+//     }
+    
+//     return(data->cmds);
+// }
+
+
+
 // //working code before
 // t_cmd *our_toklist_cmdlist(t_toklist *list, t_shell *data)
 // {

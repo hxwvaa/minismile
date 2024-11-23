@@ -48,7 +48,7 @@ typedef struct s_toklist{
 typedef struct s_redir{
     char *file;
     char *hd_input;
-    int app;
+    int flag;
     struct s_redir *next;
 }t_redir;
 
@@ -56,8 +56,8 @@ typedef struct s_cmd{
     
     char *cmd;
     char **cargs;
-    t_redir *inputs;
-    t_redir *outputs;
+    t_redir *redirs;
+    int redir_out;
     struct s_cmd *next;
 }t_cmd;
 
@@ -70,6 +70,7 @@ typedef struct s_shell{
     char *cmd_path;
     char **our_args;
     int fd[2];
+    int std[2];
     int   pid;
     int     exit_code;
     
@@ -104,7 +105,7 @@ t_cmd *our_toklist_cmdlist(t_toklist *list, t_shell *data);
 char **envlist_envarray(t_list *env);
 
 
-
+//---------------------execution------------------//
 int is_builtin(char *cmd);
 int execute_one_cmd(t_cmd *curr, t_shell *data);
 int only_one_cmd(t_cmd *cmd);
@@ -127,5 +128,3 @@ void	exit_shell(char **av, t_shell *data);
 
 
 #endif
-
-//// askjdsakjdh asldkhas d> ask<sajdg " " | dksa | sadlasd > asdk ;

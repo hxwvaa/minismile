@@ -59,7 +59,7 @@ void	our_toklistclear(t_toklist **tokens)
 		*tokens = temp;
 	}
 	*tokens = NULL;
-	printf("wow\n");
+	//printf("wow\n");
 }
 
 void our_redirclear(t_redir **list)
@@ -91,10 +91,12 @@ void	our_cmdlistclear(t_cmd **list)
 		(*list)->cmd = NULL;
 		if ((*list)->cargs)
 			free_arr((*list)->cargs);
-		if((*list)->inputs)
-			our_redirclear(&(*list)->inputs);
-		if((*list)->outputs)
-			our_redirclear(&(*list)->outputs);
+		if((*list)->cargs)
+			our_redirclear(&(*list)->redirs);
+		// if((*list)->inputs)
+		// 	our_redirclear(&(*list)->inputs);
+		// if((*list)->outputs)
+		// 	our_redirclear(&(*list)->outputs);
 		free(*list);
 		(*list) = tmp;
 	}

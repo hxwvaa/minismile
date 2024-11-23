@@ -245,7 +245,7 @@ int main(int ac, char **av, char **envp)
         //     exit(0);
         // }
         if(!line)
-            exit(1);
+            (our_envlistclear(&data.envir), exit(0));
         // printf("\nbefore_trim - {%s}\n", line);
         av = our_tokenize(line);
         while(av[i])
@@ -294,18 +294,11 @@ int main(int ac, char **av, char **envp)
                 while(u < count)
                     printf("args:%s ", tmp->cargs[u++]);
                 printf("\n");
-                t_redir *tmp_in = tmp->inputs;
-                while(tmp_in)
+                t_redir *tmp_redir = tmp->redirs;
+                while(tmp_redir)
                 {
-                    printf("input: %s flag:%d ", tmp_in->file, tmp_in->app);
-                    tmp_in = tmp_in->next;
-                }
-                printf("\n");
-                t_redir *tmp_out = tmp->outputs;
-                while(tmp_out)
-                {
-                    printf("output: %s flag:%d ", tmp_out->file, tmp_out->app);
-                    tmp_out = tmp_out->next;
+                    printf("redirect: %s flag:%d ", tmp_redir->file, tmp_redir->flag);
+                    tmp_redir = tmp_redir->next;
                 }
                 printf("\n");
                 tmp = tmp->next;
@@ -352,7 +345,7 @@ int main(int ac, char **av, char **envp)
             our_toklistclear(&data.tokens);
         if(data.cmds)
             our_cmdlistclear(&data.cmds);
-        printf("in main before next line\n");
+        //printf("in main before next line\n");
         free(line);
         //we need clean everything before next line the allocations
     }
