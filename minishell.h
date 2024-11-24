@@ -106,13 +106,23 @@ char **envlist_envarray(t_list *env);
 
 
 //---------------------execution------------------//
-int is_builtin(char *cmd);
-int execute_one_cmd(t_cmd *curr, t_shell *data);
-int only_one_cmd(t_cmd *cmd);
-
+// int is_builtin(char *cmd);
+// int execute_one_cmd(t_cmd *curr, t_shell *data);
+// int only_one_cmd(t_cmd *cmd);
 //void our_execution(t_shell *data);
-void execution(t_shell *data, int input, int output);
-
+//void execution(t_shell *data, int input, int output);
+void pre_execute(t_shell *data, int input, int output);
+void process_heredoc(t_cmd *cmds);
+int process_redir(t_cmd *curr, int *input, int *output);
+int is_builtin(char *cmd);
+int only_one_cmd(t_cmd *cmd);
+int execute_one_cmd(t_cmd *curr, t_shell *data);
+void set_redirection(t_cmd *curr, t_shell *data, int *input, int *output);
+void fork_execute_child(t_shell *data, t_cmd *curr, int *input, int *output);
+void builtin_pipeline(t_cmd *curr, t_shell *data);
+void prepare_fds(int *input, int *output, t_shell *data, t_cmd *curr);
+void close_clean(t_shell *data, int input, int output);
+void invalid_lstcmd(char *file, int *input, int *output, t_shell *data);
 
 //---------------------free_arr_list------------------//
 void	free_arr(char **arr);

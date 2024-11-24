@@ -1,10 +1,15 @@
 NAME = minishell
 
+EXEC = execution
+
 SRC = minislime.c tokenize.c findpath.c builtin/our_echo.c\
 		builtin/our_env.c builtin/our_pwd.c builtin/our_unset.c\
 		builtin/our_export.c builtin/our_cd.c builtin/our_exit.c\
 		pre_execute.c free_arr_list.c toklist_cmdlist.c\
-		gnl/get_next_line.c execution_splitted.c\
+		gnl/get_next_line.c $(EXEC)/execution.c $(EXEC)/process_hd.c\
+		$(EXEC)/process_redir.c $(EXEC)/builtin_execute.c\
+		$(EXEC)/execute_child.c $(EXEC)/execute_parent.c\
+		$(EXEC)/exec_utils.c $(EXEC)/findpath.c
 
 
 OBJ = $(SRC:.c=.o)

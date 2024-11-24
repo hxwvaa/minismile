@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute_child.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/24 10:19:55 by mshaheen          #+#    #+#             */
+/*   Updated: 2024/11/24 13:48:38 by mshaheen         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 
 void close_clean(t_shell *data, int input, int output)
 {
-    write(2, "inside close clean\n", 19);
+    //write(2, "inside close clean\n", 19);
     if(input != STDIN_FILENO && input != -1)
             close(input);
     if (output != STDOUT_FILENO && output != -1)
@@ -50,6 +62,7 @@ void set_redirection(t_cmd *curr, t_shell *data, int *input, int *output)
         data->fd[1] = -1;
     }
 }
+
 void cleanup_child(t_shell *data, int *input, int *output)
 {
     if(data->std[0] != -1)
@@ -71,6 +84,7 @@ void cleanup_child(t_shell *data, int *input, int *output)
     if(data->envi)
         free_arr(data->envi);
 }
+
 void execute_child(t_shell *data, t_cmd *curr, int *input, int *output)
 {
     //signal(SIGPIPE, handle_sigpipe);

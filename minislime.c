@@ -327,7 +327,8 @@ int main(int ac, char **av, char **envp)
             perror("malloc");
         //our_execution(&data);
         //execution(&data, STDIN_FILENO, -1);
-        execution(&data, STDIN_FILENO, STDOUT_FILENO);
+        //execution(&data, STDIN_FILENO, STDOUT_FILENO);
+        pre_execute(&data, STDIN_FILENO, STDOUT_FILENO);
         //}
         // if (av && av[0])
         // {

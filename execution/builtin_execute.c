@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_execute.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/24 10:19:47 by mshaheen          #+#    #+#             */
+/*   Updated: 2024/11/24 10:19:48 by mshaheen         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 // change this function
@@ -90,16 +102,16 @@ int execute_one_cmd(t_cmd *curr, t_shell *data)
     return(j);
 }
 
-
 void builtin_pipeline(t_cmd *curr, t_shell *data)
 {
     int r;
     
-    close(data->fd[0]);//this causes sigpipe
+    close(data->fd[0]);
     r = execute_one_cmd(curr, data);
     if(r == 0) 
         clean_exit(data, r);
     else
         clean_exit(data, r);
 }
+//close(data->fd[0]);//this causes sigpipe
 

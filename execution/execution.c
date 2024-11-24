@@ -1,70 +1,56 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execution.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/24 10:20:06 by mshaheen          #+#    #+#             */
+/*   Updated: 2024/11/24 10:59:20 by mshaheen         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 //need to norm still
-char *do_heredoc(char *delimiter)
-{
-    char *limit;
-    char *line;
-    char *input;
-    char *temp;
+// char *do_heredoc(char *delimiter)
+// {
+//     char *limit;
+//     char *line;
+//     char *input;
+//     char *temp;
 
-    input = ft_strdup("");
-    limit = ft_strjoin(delimiter, "\n");
-    if(!limit)
-        return (NULL);
-    while(1)
-    {
-        line = get_next_line(0);
-        if(line)//idk if this how we do it, it doesnt segfault now
-        {
-            if(ft_strncmp(limit, line, ft_strlen(limit)) == 0)
-            {
-                free(limit);
-                free(line);
-                break ;
-            }
-            temp = ft_strjoin(input, line);
-            free(input);
-            if(!temp)
-                return (free(line), free(limit), NULL);
-            input = temp;
-            free(line);
-        }
-        else
-        {
-            free(limit);
-            break ;
-        } // idk if this how it should be
-    }
-    return (input);
-}
-void process_heredoc(t_cmd *cmds)
-{
-    t_cmd *curr;
-    t_redir *temp;
+//     input = ft_strdup("");
+//     limit = ft_strjoin(delimiter, "\n");
+//     if(!limit)
+//         return (NULL);
+//     while(1)
+//     {
+//         line = get_next_line(0);
+//         if(line)//idk if this how we do it, it doesnt segfault now
+//         {
+//             if(ft_strncmp(limit, line, ft_strlen(limit)) == 0)
+//             {
+//                 free(limit);
+//                 free(line);
+//                 break ;
+//             }
+//             temp = ft_strjoin(input, line);
+//             free(input);
+//             if(!temp)
+//                 return (free(line), free(limit), NULL);
+//             input = temp;
+//             free(line);
+//         }
+//         else
+//         {
+//             free(limit);
+//             break ;
+//         } // idk if this how it should be
+//     }
+//     return (input);
+// }
 
-    curr = cmds;
-    while(curr)
-    {
-        temp = curr->redirs; // maybe check if curr->inputs is null before assigning
-        while(temp)
-        {
-            if(temp->flag == 2)
-            {
-                temp->hd_input = do_heredoc(temp->file);
-                if(!temp->hd_input)
-                {
-                    perror("malloc");
-                    return ;
-                }
-            }
-            else
-                temp->hd_input = NULL;
-            temp = temp->next;
-        }
-        curr = curr->next;
-    }
-}
 
 void reset_stds(t_shell *data)
 {

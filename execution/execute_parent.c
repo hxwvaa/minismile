@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute_parent.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/24 10:20:00 by mshaheen          #+#    #+#             */
+/*   Updated: 2024/11/24 10:21:08 by mshaheen         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 void close_inp_fd(int *input)
@@ -20,6 +32,7 @@ void close_out_fd(int *output)
 void empty_pipe(int *input, t_shell *data)
 {
     int em_fd[2];
+    
     pipe(em_fd);
     if(data->fd[1] != -1)
         close(data->fd[1]);

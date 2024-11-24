@@ -1,14 +1,33 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   process_redir.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/24 10:20:13 by mshaheen          #+#    #+#             */
+/*   Updated: 2024/11/24 14:08:27 by mshaheen         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
+void empty_pipe_input(int *input)
+{
+    int pipefd[2];
+    
+    pipe(pipefd); // need to protect if fails
+    close(pipefd[1]);
+    *input = pipefd[0]; 
+}
 
-
-int handle_here_doc(t_redir *temp, int *input)
+int handle_heredoc(t_redir *temp, int *input)
 {
     int hdpipe[2];
 
     if(*input != STDIN_FILENO && *input != -1)
         close(*input);
-    pipe(hdpipe); // protect 
+    pipe(hdpipe); // protect pipe fails
     write(hdpipe[1], temp->hd_input, ft_strlen(temp->hd_input));
     close(hdpipe[1]);
     free(temp->hd_input);
@@ -19,7 +38,7 @@ int handle_here_doc(t_redir *temp, int *input)
 
 int handle_redir_in(t_redir *temp, int *input, int *output, t_cmd *curr)
 {
-    int pipefd[2]; // idk if it will compile it might say unused variable
+   // idk if it will compile it might say unused variable // if it is, i create empty pipe in a separate function and call it
 
 	if(*input != STDIN_FILENO && *input != -1)
         close(*input);
@@ -27,9 +46,11 @@ int handle_redir_in(t_redir *temp, int *input, int *output, t_cmd *curr)
     if(*input == -1)
     {
         perror(temp->file);
-        pipe(pipefd); // need to protect
-        close(pipefd[1]);
-        *input = pipefd[0];
+        // int pipefd[2]; 
+        // pipe(pipefd); // need to protect if fails
+        // close(pipefd[1]);
+        // *input = pipefd[0];
+        empty_pipe_input(input);
         if(*output != STDOUT_FILENO && *output != -1)
         {
             close(*output);
