@@ -248,6 +248,10 @@ int main(int ac, char **av, char **envp)
             (our_envlistclear(&data.envir), exit(0));
         // printf("\nbefore_trim - {%s}\n", line);
         av = our_tokenize(line);
+        // if (!av)
+        // {
+        //     ;//protect & free then exit
+        // } 
         while(av[i])
         {
             printf("%d - [%s]\n", i + 1, av[i]);
@@ -273,6 +277,7 @@ int main(int ac, char **av, char **envp)
             if (av)
                 free_arr(av);
             //tokens = data.tokens;
+            rm_quotes(tokens);
             while(tokens)
             {
                 printf("token: %s, type: %d\n", tokens->token, tokens->type);

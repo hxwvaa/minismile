@@ -181,6 +181,10 @@ t_toklist	*our_tlstnew(char *token, int type)
 {
 	t_toklist	*list;
 
+    if(!token)
+    {
+        return (NULL);
+    }
 	list = malloc(sizeof(t_toklist));
 	if (list == NULL)
 		return (NULL);
@@ -206,6 +210,7 @@ t_toklist *array_token_list(t_shell *data, char **split, int count)
         // else if((ft_strncmp(split[i], "<", 2) == 0) && split[i + 1] && (ft_strncmp(split[i + 1], "<", 2) == 0))
         //     new = our_tlstnew(ft_strdup("<<"), set_token_type(split[i], &i, split, &first));
         // else    
+        // if $
             new = our_tlstnew(ft_strdup(split[i]), set_token_type(split[i], &first, &file));
         if(!new)
             return(perror("malloc"), NULL);

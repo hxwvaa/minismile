@@ -80,7 +80,7 @@ char	*ft_strtrim(char const *s1, char const *set);
 char **our_tokenize(char *s);
 char	*get_cmd_path(char *cmd, char **env);
 int	our_quote(char *str, int i, char quote);
-
+void rm_quotes(t_toklist *tokens);
 //---------------------builtins------------------//
 void our_echo(char **arg);
 void our_expenv(t_shell *data);

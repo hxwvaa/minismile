@@ -129,10 +129,10 @@ int our_help_wount(int *word, int *i, char *s)
 		return -1;
 	}
 	if ((s[*i] == '\'' || s[*i] == '\"')
-		&& (s[*i - 1] == ' ' || (s[*i - 1] >= 9 && s[*i - 1] <= 13)))
+		&& (s[*i - 1] == ' ' || (s[*i - 1] >= 9 && s[*i - 1] <= 13))) // maybe this is it
 		*i = our_quote(s, *i + 1, s[*i]);
 	else if ((s[*i] == '\'' || s[*i] == '\"') && s[*i - 1] != ' '
-		&& !(s[*i - 1] >= 9 && s[*i - 1] <= 13))
+		&& !(s[*i - 1] >= 9 && s[*i - 1] <= 13)) // maybe this is it // pretty sure
 		*i = our_quote(s, *i + 1, s[*i]);
 	return(0);
 }

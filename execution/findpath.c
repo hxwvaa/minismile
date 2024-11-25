@@ -6,7 +6,7 @@
 /*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:24:30 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/11/24 11:24:35 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/11/25 19:08:15 by mshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ char	*get_cmd_path(char *cmd, char **env)
 		return (NULL);
 	while (paths[i])
 	{
-		tmp = ft_strjoin(paths[i++], "/");
-		full_path = ft_strjoin(tmp, cmd);
+		tmp = ft_strjoin(paths[i++], "/"); //protecgt
+		full_path = ft_strjoin(tmp, cmd); //protecgt
 		free(tmp);
 		if (accessible_p(paths, full_path) == 1)
 			return (full_path);
