@@ -2,6 +2,8 @@
     "files.associations": {
         "libft.h": "c",
         "iterator": "c",
-        "minishell.h": "c"
+        "minishell.h": "c",
+        "complex": "c",
+        "__node_handle": "c"
     }
 }

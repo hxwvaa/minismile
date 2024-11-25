@@ -82,18 +82,18 @@ char	*get_cmd_path(char *cmd, char **env);
 int	our_quote(char *str, int i, char quote);
 
 //---------------------builtins------------------//
-void our_echo(char **arg);
+void our_echo(char **arg, t_shell *data);
 void our_expenv(t_shell *data);
 void our_env(t_list *envir);
 bool our_pwd(void);
 //int our_pwd();
 char *get_pwd(void);
 bool our_unset(char *var, t_list **envir);
-bool our_export(char **arg, t_shell *data);
+bool our_export(char **arg, t_shell *data, int i);
 void our_cdir(char *path, t_shell *data);
 
 
-void our_expand(char *var, t_shell *data);
+char *our_expand(char *var, t_shell *data);
 
 //---------------------pre_execute------------------//
 t_token *array_to_token_array(char **split, int count);

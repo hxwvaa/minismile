@@ -42,32 +42,46 @@ int count_cargs(t_cmd *cmd)
 //     return (i);
 // }
 
-void check_built_in(char **av, t_shell *data)
+// void check_built_in(char **av, t_shell *data)
+// {
+//     int i;
+
+//     i = 0;
+//     if (ft_strncmp(av[i], "exit", 5) == 0)
+//         exit_shell(av, data);
+//     else if(ft_strncmp(av[i], "env", 4) == 0)
+//         our_env(data->envir);
+//     else if(ft_strncmp(av[i], "unset", 6) == 0)
+//         our_unset(av[i + 1], &data->envir);
+//     else if(ft_strncmp(av[i], "echo", 5) == 0)
+//         our_echo(av, data);
+//     else if(ft_strncmp(av[i], "export", 7)== 0)
+//         our_export(av, data, 1);
+//     else if(ft_strncmp(av[i], "pwd", 4) == 0)
+//     {
+//         if(av[1] != NULL)
+//         {
+//             write(2, "pwd: too many arguments\n", 24);
+//             return(1);
+//             //echo $?// data->exit_code = 1
+//         }
+//         else    
+//             return(our_pwd(), 1);
+//     }
+//     else if(ft_strncmp(av[0], "cd", 3) == 0)
+//         return(our_cdir(av[1], data), 1);
+//     // else if(ft_strncmp(av[0], "user_set", 9) == 0) //REMOVE LATER, IT IS JUST FOR TESTING USER_SET VARIABLES
+//     //     return(prit_user_set(data), 1);
+//     return(-1);
+// }
+
+void handle_signal(int sig)
 {
-    int i;
-
-    i = 0;
-    if (ft_strncmp(av[i], "exit", 5) == 0)
-        exit_shell(av, data);
-    else if(ft_strncmp(av[i], "env", 4) == 0)
-        our_env(data->envir);
-    else if(ft_strncmp(av[i], "unset", 6) == 0)
-        our_unset(av[i + 1], &data->envir);
-    else if(ft_strncmp(av[i], "echo", 5) == 0)
-        our_echo(av);
-    else if(ft_strncmp(av[i], "export", 7)== 0)
-        our_export(av, data);
-    else if(ft_strncmp(av[i], "pwd", 4) == 0)
-    {
-        if(av[i + 1] != NULL)
-            write(2, "pwd: too many arguments\n", 24);
-            //echo $?// data->exit_code = 1
-        else    
-            our_pwd();
-    }
-    else if(ft_strncmp(av[i], "cd", 3) == 0)
-        our_cdir(av[i + 1], data);
-
+    //i think we need to create a global variable and set the signal value and then check in execution
+    if (sig == SIGINT)
+        printf("ctrl + c");
+    else if (sig == SIGQUIT)
+        printf("ctrl + \\");
 }
 
 // void check_args(char **av, t_shell *data)
@@ -87,6 +101,7 @@ void init_shell(t_shell *data, char **envp)
     //data->envi = envp;
     data->envi = NULL;
     data->envir = NULL;
+    // data->user_set = NULL;
     data->our_args = NULL;
     data->exit_code = 0;
     data->tokens= NULL;
@@ -235,11 +250,13 @@ int main(int ac, char **av, char **envp)
     int count;
 
     init_shell(&data, envp);
+    signal(SIGINT, handle_signal); //use sigaction instaed maybe
+    signal(SIGQUIT, handle_signal); //use sigaction instead maybe
     while(1)
     {
         i = 0;
         line = readline("minishell♣\n");
-        // if(ft_strncmp(line, "exit", 4) == 0)
+        // if(ft_strncmp(line, "exit", 4) == 0)`
         // {
         //     free(line);
         //     exit(0);
