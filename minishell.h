@@ -29,7 +29,9 @@ typedef enum S_TYPES{
     FILE_NAME,
     LIMITER,
     EXPAND,
-    APPEND
+    APPEND,
+    SQ,
+    DQ
 
 }t_type;
 
@@ -37,11 +39,13 @@ typedef struct s_token{
 
     char *token;
     int type;
+    int q_type;
 }t_token;
 
 typedef struct s_toklist{
     char *token;
     int type;
+    int q_type;
     struct s_toklist *next;
 }t_toklist;
 
@@ -80,7 +84,8 @@ char	*ft_strtrim(char const *s1, char const *set);
 char **our_tokenize(char *s);
 char	*get_cmd_path(char *cmd, char **env);
 int	our_quote(char *str, int i, char quote);
-
+void rm_quotes(t_toklist *tokens);
+int expand_tokens(t_toklist *tokens, t_shell *data);
 //---------------------builtins------------------//
 void our_echo(char **arg, t_shell *data);
 void our_expenv(t_shell *data);

@@ -164,22 +164,30 @@ t_toklist *cmd_found(t_toklist *temp, t_cmd *curr)
 
     i = 1;
     j = count_args(temp);
-    curr->cmd = ft_strdup(temp->token); // protect mallocs
-    curr->cargs[0] = ft_strdup(temp->token);
-    temp = temp->next;
-    while(temp && temp->type != PIPE)
-    {
-        if(temp->type == CMD || temp->type == FLAG || temp->type == ARGS)
-        {
-            if(i <= j)
-                curr->cargs[i++] = ft_strdup(temp->token);
-        }
-        if(temp->type == REDIR_IN || temp->type == REDIR_OUT || temp->type == APPEND || temp->type == HERE_DOC)
-            temp = redirect_found(temp, curr);
+    // if(!temp->token)
+    // {
+    //     curr->cmd = ft_strdup("''"); // not sure about this for case ""
+    //     curr->cargs[0] = ft_strdup("''"); //not sure about this 
+    // }
+    // else
+    // {
+        curr->cmd = ft_strdup(temp->token); // protect mallocs
+        curr->cargs[0] = ft_strdup(temp->token);
+    //}
         temp = temp->next;
-    }
-    curr->cargs[i] = NULL;
-    return(temp);
+        while(temp && temp->type != PIPE)
+        {
+            if(temp->type == CMD || temp->type == FLAG || temp->type == ARGS)
+            {
+                if(i <= j)
+                    curr->cargs[i++] = ft_strdup(temp->token);
+            }
+            if(temp->type == REDIR_IN || temp->type == REDIR_OUT || temp->type == APPEND || temp->type == HERE_DOC)
+                temp = redirect_found(temp, curr);
+            temp = temp->next;
+        }
+        curr->cargs[i] = NULL;
+        return(temp);
 }
 
 t_toklist *cmd_redirect(t_toklist *temp, t_cmd **curr, int *new_cmd)

@@ -250,8 +250,8 @@ int main(int ac, char **av, char **envp)
     int count;
 
     init_shell(&data, envp);
-    signal(SIGINT, handle_signal); //use sigaction instaed maybe
-    signal(SIGQUIT, handle_signal); //use sigaction instead maybe
+    // signal(SIGINT, handle_signal); //use sigaction instaed maybe
+    // signal(SIGQUIT, handle_signal); //use sigaction instead maybe
     while(1)
     {
         i = 0;
@@ -290,6 +290,8 @@ int main(int ac, char **av, char **envp)
             if (av)
                 free_arr(av);
             //tokens = data.tokens;
+            rm_quotes(tokens);
+            expand_tokens(tokens, &data);
             while(tokens)
             {
                 printf("token: %s, type: %d\n", tokens->token, tokens->type);

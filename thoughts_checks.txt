@@ -1,0 +1,7 @@
+26/11/2024-Tuesday
+"ech'o'"|"" d'f'wpr" segfault if unclosed quotes, no segfault anymore
+"echo| d'f'wpr segfault if unclosed quotes, no segfault anymore
+for tomorrow, 
+-syntax error the quotes,
+-test expansion more, incase of  ''check for cmd if its cmd 
+-strdup('') else just strdup() 

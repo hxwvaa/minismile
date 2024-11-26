@@ -47,6 +47,11 @@ void invalid_lstcmd(char *file, int *input, int *output, t_shell *data)
     write(2, "\n", 1);
 	//ft_putendl_fd(file, 2);
 	//free_array(array);
+	if (data->cmd_path)
+	{
+		free(data->cmd_path);
+		data->cmd_path = NULL;
+	}
     if (*input != -1)
 	    close(*input);
     if (*output != -1)

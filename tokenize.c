@@ -122,18 +122,30 @@ int	our_quote(char *str, int i, char quote)
 
 int our_help_wount(int *word, int *i, char *s)
 {
+	if(!s[*i])
+		return(-1);
 	if ((s[*i] == '<' || s[*i] == '>' || s[*i] == '|'))
 	{
 		(*word)++;
 		(*i)++;
 		return -1;
 	}
-	if ((s[*i] == '\'' || s[*i] == '\"')
+	if(*i > 0) // we were decrementing -1 always
+	{
+		if ((s[*i] == '\'' || s[*i] == '\"')
 		&& (s[*i - 1] == ' ' || (s[*i - 1] >= 9 && s[*i - 1] <= 13)))
-		*i = our_quote(s, *i + 1, s[*i]);
-	else if ((s[*i] == '\'' || s[*i] == '\"') && s[*i - 1] != ' '
+			*i = our_quote(s, *i + 1, s[*i]);
+		else if ((s[*i] == '\'' || s[*i] == '\"') && s[*i - 1] != ' '
 		&& !(s[*i - 1] >= 9 && s[*i - 1] <= 13))
-		*i = our_quote(s, *i + 1, s[*i]);
+			*i = our_quote(s, *i + 1, s[*i]);
+	}
+	else
+	{
+		if ((s[*i] == '\'' || s[*i] == '\"'))
+			*i = our_quote(s, *i + 1, s[*i]);
+		else if ((s[*i] == '\'' || s[*i] == '\"'))
+			*i = our_quote(s, *i + 1, s[*i]);
+	}
 	return(0);
 }
 
@@ -150,7 +162,8 @@ int	our_wount(char *s, int *i, int word)
 		{
 			if (our_help_wount(&word, i, s) == -1)
 				break;
-			(*i)++;
+			if(s[*i])
+				(*i)++; //we were incrementing always
 		}
 	}
 	return (word);
@@ -185,6 +198,8 @@ void	our_strcpy(char *des, char *src, int j)
 
 int our_help_fill(int *j, int *i, char *s)
 {
+	if(s[*i] == '\0')
+		return(-1);
 	if ((s[*i] == '<' || s[*i] == '>' || s[*i] == '|'))
 	{
 		(*j) = (*i);
@@ -201,13 +216,25 @@ int our_help_fill(int *j, int *i, char *s)
 		}
 		return -1;
 	}
-	if ((s[*i] == '\'' || s[*i] == '\"')
+
+	if(*i > 0) // we were decrementing -1 always
+	{
+		if ((s[*i] == '\'' || s[*i] == '\"')
 		&& (s[*i - 1] == ' ' || (s[*i - 1] >= 9 && s[*i - 1] <= 13)))
-		*i = our_quote(s, *i + 1, s[*i]);
-	else if ((s[*i] == '\'' || s[*i] == '\"') && s[*i - 1] != ' '
+			*i = our_quote(s, *i + 1, s[*i]);
+		else if ((s[*i] == '\'' || s[*i] == '\"') && s[*i - 1] != ' '
 		&& !(s[*i - 1] >= 9 && s[*i - 1] <= 13))
-		*i = our_quote(s, *i + 1, s[*i]);
-	(*i)++;
+			*i = our_quote(s, *i + 1, s[*i]);
+	}
+	else
+	{
+		if ((s[*i] == '\'' || s[*i] == '\"'))
+			*i = our_quote(s, *i + 1, s[*i]);
+		else if ((s[*i] == '\'' || s[*i] == '\"'))
+			*i = our_quote(s, *i + 1, s[*i]);
+	}
+	if(s[*i])
+		(*i)++; // we were incrementing always
 	if ((s[*i] == '<' || s[*i] == '>' || s[*i] == '|'))
 		return -1;
 	return(0);
@@ -266,7 +293,7 @@ char	**our_tokenize(char *s)
 
 	i = 0;
 	word = 0;
-	r = ft_strtrim(s, " ");
+	r = ft_strtrim(s, " "); //need to check if s is empty
 	if(r == NULL)
 		return NULL;
 	printf("\nafter_trim - {%s}\n", r); //SAVE

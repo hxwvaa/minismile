@@ -180,12 +180,16 @@ void    our_tlstadd_back(t_toklist **lst, t_toklist *new)
 t_toklist	*our_tlstnew(char *token, int type)
 {
 	t_toklist	*list;
-
+    if(!token)
+    {
+        return (NULL);
+    }
 	list = malloc(sizeof(t_toklist));
 	if (list == NULL)
 		return (NULL);
 	list->token = token;
     list->type = type;
+    list->q_type = 0;
 	list->next = NULL;
 	return (list);
 }
