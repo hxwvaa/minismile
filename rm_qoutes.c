@@ -131,7 +131,8 @@ int expand_tokens(t_toklist *tokens, t_shell *data)
                     {   
                         free(bef_do);
                         int i = ft_strlen(temp->token);
-                        bef_do = ft_substr(temp->token, 0, (i - doll) -1);
+                        int j = ft_strlen(temp->token + doll);
+                        bef_do = ft_substr(temp->token, 0, (i - j)); // it was -1
                         if(!bef_do)
                            return(perror("malloc"), -1); // exit cleanly
                         //bef_do = ft_strdup(temp->token - doll);

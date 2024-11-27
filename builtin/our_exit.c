@@ -97,7 +97,7 @@ void	exit_shell(char **av, t_shell *data)
 	close(data->std[0]);
 	close(data->std[1]);//maybe add checks or something // now no fd leaks
 	if (i == 1)
-		(printf("exit\n"), free_arr(data->envi), our_toklistclear(&data->tokens), our_envlistclear(&data->envir),  our_cmdlistclear(&data->cmds), exit(0));
+		(write(2,"exit\n", 5), free_arr(data->envi), our_toklistclear(&data->tokens), our_envlistclear(&data->envir),  our_cmdlistclear(&data->cmds), exit(0));
 	//(printf("exit\n"), free_arr(av), our_toklistclear(&data->tokens), our_envlistclear(&data->envir),  our_cmdlistclear(&data->cmds), exit(0));  
 	else if (i == 2)
 		exit_av_is_equal_2(av);

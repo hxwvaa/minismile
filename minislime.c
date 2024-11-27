@@ -255,7 +255,7 @@ int main(int ac, char **av, char **envp)
     while(1)
     {
         i = 0;
-        line = readline("minishell♣\n");
+        line = readline("minishell♣ ");
         // if(ft_strncmp(line, "exit", 4) == 0)`
         // {
         //     free(line);

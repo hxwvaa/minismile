@@ -60,5 +60,5 @@ char *our_expand(char *var, t_shell *data)
         free(str);
         temp = temp->next;
     }
-    return(ft_strdup(" "));
+    return(ft_strdup(""));
 }
