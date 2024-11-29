@@ -90,7 +90,7 @@ void update_oldpwd(t_shell *data, char *oldpwd)
 
 
 
-void change_dir(char *path, t_shell *data)
+int change_dir(char *path, t_shell *data)
 {
     int i;
     char *curdir;
@@ -103,7 +103,7 @@ void change_dir(char *path, t_shell *data)
     //inside a unfound directory
     prevdir = get_pwd_value(data);
     if(!prevdir)
-         return ; // or remove return
+         return (-1); // or remove return
     i = chdir(path);
     if(i == -1)
     {
@@ -111,7 +111,7 @@ void change_dir(char *path, t_shell *data)
         write(2, path, ft_strlen(path));
         write(2, ": No such file or directory\n", 28);
         free(prevdir);
-        return ;
+        return (1);
         // set variable to echo $? to 1;
         //exit(1);
     }
@@ -128,7 +128,7 @@ void change_dir(char *path, t_shell *data)
         update_oldpwd(data, prevdir);
         free(pwd);
         free(prevdir);
-        return ;
+        return (-1);
     }
     // oldpwd = ft_strjoin("OLDPWD=", prevdir);
     // pwd = ft_strjoin("PWD=", curdir);
@@ -141,10 +141,10 @@ void change_dir(char *path, t_shell *data)
     free(prevdir);
     // update_pwd(data, pwd);
     // update_oldpwd(data, oldpwd);
-
+    return (0);
 }
 
-void our_cdir(char *path, t_shell *data)
+int our_cdir(char *path, t_shell *data)
 {
 //     int i;
 //     i = 0;
@@ -158,11 +158,13 @@ void our_cdir(char *path, t_shell *data)
         {
             write(2, "cd : HOME is not set\n", 21);
             //data->exit_code = 1;
-            return ;
+            return (1);
         }
     }
     printf("inside cd before cd\n");
-    change_dir(path, data);
+    if (change_dir(path, data) == 1)
+        return (1);
+    return (0);
     // maybe add a case for if path is '..'
 
 

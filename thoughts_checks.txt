@@ -5,3 +5,24 @@ for tomorrow,
 -syntax error the quotes,
 -test expansion more, incase of  ''check for cmd if its cmd 
 -strdup('') else just strdup() 
+
+
+to do list:
+* start working on exit codes, use WIFEXITED, WEXITSTATUS, WIFSIGNAL or something and signal one for segfault ctrlc and stuff(DONE, i guess)
+* fix echo -n flag
+* expand the here_doc input, so before storing it check if there is a dollar sign, if there do the same process of expand_tokens function, is call our expand
+* create a function that cleans everything 
+
+
+ok command not found done 127,
+invalid input done 1
+for builtins its not working, invalid command | builtin, exit code stays 127, if its ls | cd asdas, exit code =1 works fine
+need also the 126 
+
+asdasd <sd | pwd invalid file descriptor -1 in syscall close(), so i think its if i have a builtin after a invalid input file, because invalid or normal commands doesnt have the error
+syscall solved it was inside builtin_pipeline function closing fd[0] without checking and in that case there fd[0] wasnt open to begin with
+
+126 done, error messages i think is done aswell, just check with mac when u go tomorrow or today,
+solved invalid command | builtin issue,
+i catch segfault and change exit_code to that
+i think exit_codes is done

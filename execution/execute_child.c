@@ -17,7 +17,7 @@ void close_clean(t_shell *data, int input, int output)
 {
     //write(2, "inside close clean\n", 19);
     if(input != STDIN_FILENO && input != -1)
-            close(input);
+        close(input);
     if (output != STDOUT_FILENO && output != -1)
         close(output);
     if(data->fd[0] != -1)
@@ -99,6 +99,8 @@ void execute_child(t_shell *data, t_cmd *curr, int *input, int *output)
             builtin_pipeline(curr, data);
         if(data->fd[0] != -1)    
             close(data->fd[0]);// not needed ? //sigpipe signal 13 is non-builtin | < Makefile wc -l // if i dont add it fd leaks
+        if(ft_strchr(curr->cmd, '/') && check_if_directory(curr->cmd)) // maybe i need to check if there is / first, because if i write builtin it shows the dir error idk if its correct or no
+            invalid_cmd_dir(curr->cmd, input, output, data);
         data->cmd_path = get_cmd_path(curr->cmd, data->envi);
         if (!data->cmd_path)
             invalid_lstcmd(curr->cmd, input, output, data);
@@ -118,4 +120,6 @@ void fork_execute_child(t_shell *data, t_cmd *curr, int *input, int *output)
     if(data->pid == 0)
         execute_child(data, curr, input, output);
     prepare_fds(input, output, data, curr);
+    if(!curr->next)
+        data->lpid = data->pid; // do i need to initialize in init_shell ?
 }

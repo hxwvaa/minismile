@@ -40,13 +40,25 @@ char	**envlist_envarray(t_list *env)
 	return (env_arr);
 }
 
+void error_message(char *file)
+{
+	if(ft_strchr(file, '/'))
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(file, 2);
+		ft_putendl_fd(": No such file or directory", 2);
+	}
+	else
+    {
+		write(2, "minishell: command not found: ", 30);
+    	ft_putstr_fd(file, 2);
+    	write(2, "\n", 1);
+	}
+}
+
 void invalid_lstcmd(char *file, int *input, int *output, t_shell *data)
 {
-    write(2, "minishell: command not found: ", 30);
-    ft_putstr_fd(file, 2);
-    write(2, "\n", 1);
-	//ft_putendl_fd(file, 2);
-	//free_array(array);
+	error_message(file);
 	if (data->cmd_path)
 	{
 		free(data->cmd_path);
@@ -66,5 +78,36 @@ void invalid_lstcmd(char *file, int *input, int *output, t_shell *data)
         free_arr(data->envi);
     data->exit_code = 127;
     //exit_shell(data->cmds->cargs, data);
-	exit(1);
+	exit(127);
+}
+void invalid_cmd_dir(char *file, int *input, int *output, t_shell *data)
+{
+	write(2, "shell: ", 7);
+	ft_putstr_fd(file, 2);
+	ft_putendl_fd(": Is a directory", 2);
+	if (*input != -1)
+	    close(*input);
+    if (*output != -1)
+	    close(*output);
+    if (data->tokens)
+        our_toklistclear(&data->tokens);
+    if (data->envir)
+        our_envlistclear(&data->envir);
+    if (data->cmds) 
+        our_cmdlistclear(&data->cmds);
+    if (data->envi)
+        free_arr(data->envi);
+    data->exit_code = 126;
+    //exit_shell(data->cmds->cargs, data);
+	exit(126);
+}
+
+int check_if_directory(char *cmd)
+{
+	struct stat status;
+
+	if(stat(cmd, &status) != 0)
+		return (-1);
+	return (S_ISDIR(status.st_mode)); // this returns 1, if its a directory or 0 if its not a directory
+
 }

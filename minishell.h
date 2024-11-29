@@ -13,6 +13,7 @@
 # include <sys/wait.h>
 #include <stdbool.h>
 #include <errno.h>
+#include <sys/stat.h>
 #include <signal.h>
 
 // define a macro for cd error message
@@ -77,6 +78,7 @@ typedef struct s_shell{
     int std[2];
     int   pid;
     int     exit_code;
+    int lpid; // didnt initialize in init shell yet but it is working fine without initializing
     
 }t_shell;
 
@@ -95,7 +97,7 @@ bool our_pwd(void);
 char *get_pwd(void);
 bool our_unset(char *var, t_list **envir);
 bool our_export(char **arg, t_shell *data, int i);
-void our_cdir(char *path, t_shell *data);
+int our_cdir(char *path, t_shell *data);
 
 
 char *our_expand(char *var, t_shell *data);
@@ -128,6 +130,8 @@ void builtin_pipeline(t_cmd *curr, t_shell *data);
 void prepare_fds(int *input, int *output, t_shell *data, t_cmd *curr);
 void close_clean(t_shell *data, int input, int output);
 void invalid_lstcmd(char *file, int *input, int *output, t_shell *data);
+void invalid_cmd_dir(char *file, int *input, int *output, t_shell *data);
+int check_if_directory(char *cmd);
 
 //---------------------free_arr_list------------------//
 void	free_arr(char **arr);

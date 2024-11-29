@@ -38,8 +38,10 @@ void empty_pipe(int *input, t_shell *data)
         close(data->fd[1]);
     if(data->fd[0] != -1) 
         close(data->fd[0]);
-    close(em_fd[1]);
-    close(*input);
+    if(em_fd[1] != -1)    
+        close(em_fd[1]);
+    if(*input != -1)
+        close(*input);
     *input = em_fd[0];
 }
 

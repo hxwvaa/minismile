@@ -17,6 +17,7 @@ void empty_pipe_input(int *input)
     int pipefd[2];
     
     pipe(pipefd); // need to protect if fails
+    //if(pipefd[1] != -1)
     close(pipefd[1]);
     *input = pipefd[0]; 
 }

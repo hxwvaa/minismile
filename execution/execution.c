@@ -64,13 +64,14 @@ void reset_stds(t_shell *data)
 void our_execution(t_shell *data, int input, int output)
 {
     t_cmd *curr;
-    int status;
 
     curr = data->cmds;
     while(curr)
     {
+
         if(process_redir(curr, &input, &output) == -1)
         {
+            data->exit_code = 1;
             curr = curr->next;
             continue ;
         }
@@ -85,15 +86,34 @@ void our_execution(t_shell *data, int input, int output)
             fork_execute_child(data, curr, &input, &output);
         curr = curr->next;
     }
-    close_clean(data, input, output);
-    while(wait(&status) > 0);
-    reset_stds(data);
+    close_clean(data, input, output); // if i move it out i get fd leaks
 }
 
 void pre_execute(t_shell *data, int input, int output)
 {
+    int status;
+    int sig;
+    pid_t pid;
+
     data->std[0] = dup(STDIN_FILENO);
     data->std[1] = dup(STDOUT_FILENO);
     process_heredoc(data->cmds);
     our_execution(data, input, output);
+    while((pid = wait(&status)) > 0)
+    {
+        if(pid == data->lpid)
+        {
+            if(WIFEXITED(status))
+                data->exit_code = WEXITSTATUS(status);
+            else if(WIFSIGNALED(status))
+            {
+                sig = WTERMSIG(status);
+                if(sig == SIGINT) // still need to handle ctrl+c
+                    data->exit_code = 130;
+                else if(sig == SIGSEGV)
+                    data->exit_code = 139; // i think this will catch the segfault
+            }
+        }
+    }
+    reset_stds(data);
 }

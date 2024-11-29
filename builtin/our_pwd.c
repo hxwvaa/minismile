@@ -22,11 +22,11 @@ bool	our_pwd()
 	if (getcwd(pwd, sizeof(pwd)) == NULL)
 	{
 		write(2, "pwd: Path too long\n", 19);	
-		return (false);
+		return (true);
 	}
 	if(printf("%s\n", pwd) < 0)
-		return (false);
-	return (true);
+		return (true);
+	return (false);
 }
 
 // int	our_pwd()

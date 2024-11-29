@@ -45,11 +45,17 @@ void clean_exit(t_shell *data, int r)
         our_cmdlistclear(&data->cmds);
     if(data->envi)
         free_arr(data->envi);
-    //close(data->fd[0]); // to close read end after writing to the pipe
-    if(r == 0)
-        exit(0);
-    else    
-        exit(1);
+    //close(data->fd[0]); // to close read end after writing to the pipe// dont delete this comment yet
+    // if(r == 0)
+    // {
+        data->exit_code = r;
+        exit(r);
+    // }
+    // else    
+    // {
+    //     data->exit_code = 1;
+    //     exit(1);
+    // }
 }
 
 int is_builtin(char *cmd)
@@ -97,8 +103,9 @@ int execute_one_cmd(t_cmd *curr, t_shell *data)
     }
     else if(ft_strncmp(curr->cmd, "cd", 3) == 0)
     {
-        our_cdir(curr->cargs[i + 1], data);
+        j = our_cdir(curr->cargs[i + 1], data);
     }
+    data->exit_code = j;
     return(j);
 }
 
@@ -106,12 +113,13 @@ void builtin_pipeline(t_cmd *curr, t_shell *data)
 {
     int r;
     
-    close(data->fd[0]);
+    if(data->fd[0] != -1)
+        close(data->fd[0]);
     r = execute_one_cmd(curr, data);
-    if(r == 0) 
+    //if(r == 0) 
         clean_exit(data, r);
-    else
-        clean_exit(data, r);
+    // else
+    //     clean_exit(data, r);
 }
 //close(data->fd[0]);//this causes sigpipe
 
