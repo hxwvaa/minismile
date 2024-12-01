@@ -97,8 +97,8 @@ void execute_child(t_shell *data, t_cmd *curr, int *input, int *output)
             close(data->std[0]);
         if(data->std[1] != -1)
             close(data->std[1]);
-        // if (is_builtin(curr->cmd))
-        //     builtin_pipeline(curr, data);
+        if (is_builtin(curr->cmd))
+            builtin_pipeline(curr, data);
         if(data->fd[0] != -1)    
             close(data->fd[0]);// not needed ? //sigpipe signal 13 is non-builtin | < Makefile wc -l // if i dont add it fd leaks
         //if(check_if_directory(curr->cmd)) // maybe i need to check if there is / first, because if i write builtin it shows the dir error idk if its correct or no
