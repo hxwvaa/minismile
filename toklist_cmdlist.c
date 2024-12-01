@@ -105,6 +105,7 @@ t_cmd *our_clistnew(int count)
     list->cargs[0] = NULL;
     list->redirs = NULL;
     list->redir_out = 0;
+    //list->em_expand =0
     //list->inputs = NULL;
    // list->outputs = NULL;
     list->next = NULL;
@@ -171,20 +172,29 @@ t_toklist *cmd_found(t_toklist *temp, t_cmd *curr)
     // }
     // else
     // {
+        // if(temp->em_ex) 
+        // {
+        //     curr->em_expand = 1;
+        //     if(temp->next)
+        //         return(temp = temp->next);
+        // }
         if(temp->em_ex && temp->next)
-            temp= temp->next;
+            return (temp = temp->next);
         curr->cmd = ft_strdup(temp->token); // protect mallocs
         curr->cargs[0] = ft_strdup(temp->token);
-        // if(temp->em_ex)
-        //     curr->em_expand = 1;
+        if(temp->em_ex)
+            curr->em_expand = 1;
     //}
         temp = temp->next;
         while(temp && temp->type != PIPE)
         {
             if(temp->type == CMD || temp->type == FLAG || temp->type == ARGS)
             {
-                if(i <= j)
-                    curr->cargs[i++] = ft_strdup(temp->token);
+                if(!temp->em_ex)//to skip empty args
+                {
+                    if(i <= j)
+                        curr->cargs[i++] = ft_strdup(temp->token);
+                }
             }
             if(temp->type == REDIR_IN || temp->type == REDIR_OUT || temp->type == APPEND || temp->type == HERE_DOC)
                 temp = redirect_found(temp, curr);
