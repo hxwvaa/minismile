@@ -44,7 +44,7 @@ bool if_equal(char *arg, t_list *current, char *key, int *found)
     varl = (int)(key - arg);
     while(current)
     {
-        if(ft_strncmp(current->content, arg, varl) == 0)
+        if(ft_strncmp(current->content, arg, varl + 1) == 0)
         {
             free(current->content);
             current->content = ft_strdup(arg);
@@ -65,7 +65,7 @@ bool if_not_equal(char *arg, t_list *current, int *found)
 {
     while(current)
     {
-        if(ft_strncmp(current->content, arg, ft_strlen(arg)) == 0)
+        if(ft_strncmp(current->content, arg, ft_strlen(arg) + 1) == 0)
         {
             if(ft_strlen(current->content) == ft_strlen(arg))
             {
