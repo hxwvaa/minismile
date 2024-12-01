@@ -6,7 +6,7 @@
 /*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:25:26 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/11/24 11:27:57 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/12/01 17:33:42 by mshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,10 @@ void invalid_cmd_dir(char *file, int *input, int *output, t_shell *data)
 int check_if_directory(char *cmd)
 {
 	struct stat status;
-
+	// printf("\033[32;1m%s\033[0m", cmd);
+    // fprintf(stderr, "\033[32;1m%s\033[0m\n", cmd);
 	if(stat(cmd, &status) != 0)
-		return (-1);
+		return (0);
 	return (S_ISDIR(status.st_mode)); // this returns 1, if its a directory or 0 if its not a directory
 
 }

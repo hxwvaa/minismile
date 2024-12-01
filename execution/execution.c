@@ -6,7 +6,7 @@
 /*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 10:20:06 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/11/24 10:59:20 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/12/01 19:18:01 by mshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void our_execution(t_shell *data, int input, int output)
             set_redirection(curr, data, &input, &output);
             execute_one_cmd(curr, data);
         }
-        else
+        else      
             fork_execute_child(data, curr, &input, &output);
         curr = curr->next;
     }
@@ -111,7 +111,10 @@ void pre_execute(t_shell *data, int input, int output)
                 if(sig == SIGINT) // still need to handle ctrl+c
                     data->exit_code = 130;
                 else if(sig == SIGSEGV)
+                {
+                    write(2, "Segmentation fault: 11\n", 23);
                     data->exit_code = 139; // i think this will catch the segfault
+                }
             }
         }
     }

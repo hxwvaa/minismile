@@ -65,7 +65,6 @@ void update_oldpwd(t_shell *data, char *oldpwd)
     while(current)
     {
         if(ft_strncmp(current->content, "OLDPWD=", 7) == 0)
-        if(ft_strncmp(current->content, "OLDPWD=", 7) == 0)
             {
                 free(current->content);
                 current->content = ft_strjoin("OLDPWD=", oldpwd);

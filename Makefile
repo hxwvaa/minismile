@@ -2,9 +2,9 @@ NAME = minishell
 
 EXEC = execution
 
-SRC = minislime.c tokenize.c findpath.c builtin/our_echo.c\
-		builtin/our_env.c builtin/our_pwd.c builtin/our_unset.c\
-		builtin/our_export.c builtin/our_cd.c builtin/our_exit.c\
+SRC = minislime.c tokenize.c findpath.c builtins/our_echo.c\
+		builtins/our_env.c builtins/our_pwd.c builtins/our_unset.c\
+		builtins/our_export.c builtins/our_cd.c builtins/our_exit.c\
 		pre_execute.c free_arr_list.c expand.c toklist_cmdlist.c\
 		gnl/get_next_line.c $(EXEC)/execution.c $(EXEC)/process_hd.c\
 		$(EXEC)/process_redir.c $(EXEC)/builtin_execute.c\

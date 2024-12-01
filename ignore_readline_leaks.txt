@@ -1,4 +1,18 @@
 {
+   bin_suppressions
+   Memcheck:Leak
+   match-leak-kinds:all
+   fun:*
+   obj:/bin/*
+}
+{
+   usr_bin_suppressions
+   Memcheck:Leak
+   match-leak-kinds:all
+   fun:*
+   obj:/usr/bin/*
+}
+{
    readline
    Memcheck:Leak
    ...

@@ -6,7 +6,7 @@
 /*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 10:19:55 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/11/24 13:48:38 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/12/01 17:33:02 by mshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,10 @@ void execute_child(t_shell *data, t_cmd *curr, int *input, int *output)
             builtin_pipeline(curr, data);
         if(data->fd[0] != -1)    
             close(data->fd[0]);// not needed ? //sigpipe signal 13 is non-builtin | < Makefile wc -l // if i dont add it fd leaks
-        if(ft_strchr(curr->cmd, '/') && check_if_directory(curr->cmd)) // maybe i need to check if there is / first, because if i write builtin it shows the dir error idk if its correct or no
+        //if(check_if_directory(curr->cmd)) // maybe i need to check if there is / first, because if i write builtin it shows the dir error idk if its correct or no
+        // fprintf(stderr, "\033[32;1m%s\033[0m\n", curr->cmd);
+        
+        if(ft_strchr(curr->cmd, '/') && check_if_directory(curr->cmd))
             invalid_cmd_dir(curr->cmd, input, output, data);
         data->cmd_path = get_cmd_path(curr->cmd, data->envi);
         if (!data->cmd_path)

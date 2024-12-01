@@ -278,6 +278,7 @@ int main(int ac, char **av, char **envp)
             if(line)
                 add_history(line);
             free(line);
+            data.exit_code = 258;
             continue;
             printf("syntax\n");
             // free_arr(av);
