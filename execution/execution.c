@@ -6,7 +6,7 @@
 /*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 10:20:06 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/12/01 19:18:01 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/12/01 20:50:46 by mshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,12 @@ void our_execution(t_shell *data, int input, int output)
             data->exit_code = 1;
             curr = curr->next;
             continue ;
+        }
+        if(curr->em_expand)
+        {
+            data->exit_code = 0;
+            curr = curr->next;
+            continue;
         }
         if(curr->next && pipe(data->fd) == -1)
             perror("pipe");

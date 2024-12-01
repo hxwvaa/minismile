@@ -171,8 +171,12 @@ t_toklist *cmd_found(t_toklist *temp, t_cmd *curr)
     // }
     // else
     // {
+        if(temp->em_ex && temp->next)
+            temp= temp->next;
         curr->cmd = ft_strdup(temp->token); // protect mallocs
         curr->cargs[0] = ft_strdup(temp->token);
+        // if(temp->em_ex)
+        //     curr->em_expand = 1;
     //}
         temp = temp->next;
         while(temp && temp->type != PIPE)

@@ -190,6 +190,7 @@ t_toklist	*our_tlstnew(char *token, int type)
 	list->token = token;
     list->type = type;
     list->q_type = 0;
+    list->em_ex = 0;
 	list->next = NULL;
 	return (list);
 }

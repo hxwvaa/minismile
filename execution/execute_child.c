@@ -6,7 +6,7 @@
 /*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 10:19:55 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/12/01 17:33:02 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/12/01 20:58:38 by mshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void set_redirection(t_cmd *curr, t_shell *data, int *input, int *output)
             write(2, "error dup2\n", 11);
         if(data->fd[1] != -1)    
             close(data->fd[1]);
-        //close(data->fd[0]); // casuses the sigpipe
+        close(data->fd[0]); // casuses the sigpipe // pwd | ls doesnt sigpipe in our_minishell
         data->fd[1] = -1;
     }
 }

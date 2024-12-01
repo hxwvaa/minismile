@@ -47,6 +47,7 @@ typedef struct s_toklist{
     char *token;
     int type;
     int q_type;
+    int em_ex;
     struct s_toklist *next;
 }t_toklist;
 
@@ -63,6 +64,7 @@ typedef struct s_cmd{
     char **cargs;
     t_redir *redirs;
     int redir_out;
+    int em_expand;
     struct s_cmd *next;
 }t_cmd;
 

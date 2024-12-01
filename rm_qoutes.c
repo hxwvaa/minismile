@@ -142,7 +142,22 @@ int expand_tokens(t_toklist *tokens, t_shell *data)
                     if(!new_tok)
                         return (perror("malloc"), free(bef_do), -1); // exit cleanly
                     free(temp->token);
+                    printf("expanded string: {%s}\n", new_tok);
                     temp->token = ft_strjoin(bef_do, new_tok);
+                    if(ft_strncmp(temp->token, "", 2) == 0)
+                    {
+                        printf("temp->token: {%s}\n", temp->token);
+                        temp->em_ex = 1;
+                        if(temp->next && (temp->next->type == FLAG || temp->next->type == ARGS))
+                        {
+                            //temp = temp->next;
+                            printf("next token: %s", temp->token);
+                            temp->next->type = CMD;
+                            printf("type: %d\n", temp->type);
+                            //temp->next->em_ex = 0;
+                        }
+                    }
+                    //printf("temp->token: {%s}\n", temp->token);
                     if(!temp->token)
                         return (perror("malloc"), free(bef_do), free(new_tok), -1); // exit cleanly
                     free(new_tok);
