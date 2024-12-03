@@ -90,6 +90,9 @@ char	*get_cmd_path(char *cmd, char **env);
 int	our_quote(char *str, int i, char quote);
 void rm_quotes(t_toklist *tokens);
 int expand_tokens(t_toklist *tokens, t_shell *data);
+int our_extok(t_toklist *tokens, t_shell *data);
+int find_dollar(char *str);
+char *pre_dollar(char *str, char *bef_do);
 //---------------------builtins------------------//
 void our_echo(char **arg, t_shell *data);
 void our_expenv(t_shell *data);
@@ -114,6 +117,14 @@ t_cmd *our_toklist_cmdlist(t_toklist *list, t_shell *data);
 char **envlist_envarray(t_list *env);
 
 
+//-----------hd_expansions && hd_ex_utiils---------//
+char    *expand_hd(char *line, t_shell *data, int len);
+int append_input(char **input, char *line);
+char *join_strs(char *s1, char *s2, char *line);
+char *expand_what(char *line, int start, int *len);
+char *final_string(char *line, char *res);
+char *update_line(char *line, char *res, int len);
+char    *handle_expand(char *line, t_shell *data, int *len, char *res);
 //---------------------execution------------------//
 // int is_builtin(char *cmd);
 // int execute_one_cmd(t_cmd *curr, t_shell *data);
@@ -121,7 +132,7 @@ char **envlist_envarray(t_list *env);
 //void our_execution(t_shell *data);
 //void execution(t_shell *data, int input, int output);
 void pre_execute(t_shell *data, int input, int output);
-void process_heredoc(t_cmd *cmds);
+void process_heredoc(t_cmd *cmds, t_shell *data);
 int process_redir(t_cmd *curr, int *input, int *output);
 int is_builtin(char *cmd);
 int only_one_cmd(t_cmd *cmd);

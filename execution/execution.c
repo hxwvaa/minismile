@@ -103,7 +103,7 @@ void pre_execute(t_shell *data, int input, int output)
 
     data->std[0] = dup(STDIN_FILENO);
     data->std[1] = dup(STDOUT_FILENO);
-    process_heredoc(data->cmds);
+    process_heredoc(data->cmds, data);
     our_execution(data, input, output);
     while((pid = wait(&status)) > 0)
     {

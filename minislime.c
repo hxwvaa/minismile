@@ -291,8 +291,9 @@ int main(int ac, char **av, char **envp)
             if (av)
                 free_arr(av);
             //tokens = data.tokens;
-            rm_quotes(tokens);
-            expand_tokens(tokens, &data);
+            //rm_quotes(tokens);
+            //expand_tokens(tokens, &data);
+            our_extok(tokens, &data);
             while(tokens)
             {
                 printf("token: %s, type: %d\n", tokens->token, tokens->type);

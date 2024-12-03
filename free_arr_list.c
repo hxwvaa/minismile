@@ -70,9 +70,15 @@ void our_redirclear(t_redir **list)
 	{
 		temp = (*list)->next;
 		if((*list)->file)
+		{
 			free((*list)->file);
+			(*list)->file = NULL;
+		}
 		if((*list)->hd_input)
+		{
 			free((*list)->hd_input);
+			(*list)->hd_input = NULL;
+		}
 		free(*list);
 		*list = temp;
 	}
@@ -91,7 +97,7 @@ void	our_cmdlistclear(t_cmd **list)
 		(*list)->cmd = NULL;
 		if ((*list)->cargs)
 			free_arr((*list)->cargs);
-		if((*list)->cargs)
+		if((*list)->redirs)
 			our_redirclear(&(*list)->redirs);
 		// if((*list)->inputs)
 		// 	our_redirclear(&(*list)->inputs);

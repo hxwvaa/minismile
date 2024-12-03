@@ -10,6 +10,7 @@ SRC = minislime.c tokenize.c findpath.c builtins/our_echo.c\
 		$(EXEC)/process_redir.c $(EXEC)/builtin_execute.c\
 		$(EXEC)/execute_child.c $(EXEC)/execute_parent.c\
 		$(EXEC)/exec_utils.c $(EXEC)/findpath.c rm_qoutes.c\
+		$(EXEC)/hd_expansion.c $(EXEC)/hd_ex_utils.c\
 
 
 OBJ = $(SRC:.c=.o)
