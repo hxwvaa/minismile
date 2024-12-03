@@ -1,4 +1,3 @@
-// #include "minishell.h"
 
 
 // char *pre_dollar(char *str, char *bef_do)
@@ -105,44 +104,33 @@
 //     return (res);
 // }
 
-// char *handle_em_ex(char *str, char *res, int *i)
-// {
-//     char *temp;
-
-//      temp = ft_substr(str, *i, 1);
-//     if(!temp)
-//         return (free(res), NULL);
-//     res = join_free(res, temp);
-//     if(!res)
-//         return(NULL);
-//     if(str[*i])
-//         (*i)++;
-//     return(res);
-// }
-// char *handle_exit_code(char *res, int *i, t_shell *data)
-// {
-//     char *temp;
-
-//     (*i) = (*i) + 2;
-//     temp = ft_itoa(data->exit_code);
-//     if(!temp)
-//         return (free(res), NULL);
-//     res = join_free(res, temp);
-//     if(!res)
-//         return(NULL);
-//     return (res);
-// }
-
 // char *handle_ex(char *str, char *res, int *i, t_shell *data)
 // {
 //     int start;
 //     char *to_ex;
 //     char *temp;
 
+//     //start = ++(*i);
+//     // start = *i + 1;
 //     if(!str[*i + 1])
-//         return(handle_em_ex(str, res, i));
+//     {
+//         temp = ft_substr(str, *i, 1);
+//         if(!temp)
+//             return (free(res), NULL);
+//         res = join_free(res, temp);
+//         printf("result:%s\n", res);
+//         if(!res)
+//             return(NULL);
+//         if(str[*i])
+//             (*i)++;
+//         return(res);
+//     }
 //     if(str[*i + 1] == '?')
-//         return(handle_exit_code(res, i, data));
+//     {
+//         //if(str[*i])
+//         (*i) = (*i) + 2;
+//         return(free(res), ft_itoa(data->exit_code));
+//     }
 //     start = ++(*i);
 //     while(str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_'))
 //         (*i)++;
@@ -159,6 +147,7 @@
 //     return(res); 
 // }
 
+
 // char *handle_dq_help(char *str, char *res, int i, int start)
 // {
 //     char *temp;
@@ -171,7 +160,7 @@
 //         return (NULL);
 //     return (res);
 // }
-// char *handle_dq(char *str, char *res, int *i, t_shell *data)
+// char *handle_dq(char *str, char *res, int *i, t_shell *data) //new one with handle_dq_help
 // {
 //     int start;
 
@@ -225,7 +214,7 @@
 //     return (0);
 // }
 
-// char *do_expand(t_toklist *temp, t_shell *data, char *res, int i)
+// char *do_expand(t_toklist *temp, t_shell *data, char *res, int i) //comments are what was before norminetting
 // {
 //     if(!res)
 //         return(perror("malloc"), NULL);

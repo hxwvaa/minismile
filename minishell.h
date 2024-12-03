@@ -88,11 +88,9 @@ char	*ft_strtrim(char const *s1, char const *set);
 char **our_tokenize(char *s);
 char	*get_cmd_path(char *cmd, char **env);
 int	our_quote(char *str, int i, char quote);
-void rm_quotes(t_toklist *tokens);
-int expand_tokens(t_toklist *tokens, t_shell *data);
-int our_extok(t_toklist *tokens, t_shell *data);
-int find_dollar(char *str);
-char *pre_dollar(char *str, char *bef_do);
+void rm_quotes(t_toklist *tokens);//not needed
+int expand_tokens(t_toklist *tokens, t_shell *data);//not needed
+
 //---------------------builtins------------------//
 void our_echo(char **arg, t_shell *data);
 void our_expenv(t_shell *data);
@@ -115,8 +113,15 @@ t_toklist *array_token_list(t_shell *data, char **split, int count);
 
 t_cmd *our_toklist_cmdlist(t_toklist *list, t_shell *data);
 char **envlist_envarray(t_list *env);
-
-
+//----------------------parsing---------------------//
+int our_extok(t_toklist *tokens, t_shell *data);
+int find_dollar(char *str);
+char *pre_dollar(char *str, char *bef_do);
+char *join_free(char *s1, char *s2);
+char *handle_ex(char *str, char *res, int *i, t_shell *data);
+char *handle_dq(char *str, char *res, int *i, t_shell *data);
+char *handle_sq(char *str, char *res, int *i);
+char *handle_any(char *str, char *res, int *i);
 //-----------hd_expansions && hd_ex_utiils---------//
 char    *expand_hd(char *line, t_shell *data, int len);
 int append_input(char **input, char *line);
