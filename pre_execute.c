@@ -1,52 +1,5 @@
 #include "minishell.h"
 
-// t_token *array_to_token_array(char **split, int count)
-// {
-//     int i;
-//     int first;
-
-//     i = 0;
-//     first = 1;
-//     t_token *tokens = malloc(count * sizeof(t_token));
-//     if(!tokens)
-//         return (perror("malloc"), NULL);
-//     while(split[i] && i <= count)
-//     {
-//         printf("split[i] : %s\n", split[i]);
-//         if((ft_strncmp(split[i], ">", 2) == 0) && (ft_strncmp(split[i + 1], ">", 2) == 0))
-//             tokens[i].token = ft_strdup(">>");
-//         else if(((ft_strncmp(split[i], "<", 2) == 0) && (ft_strncmp(split[i + 1], "<", 2) == 0)))
-//             tokens[i].token = ft_strdup("<<");
-//         else
-//             tokens[i].token = ft_strdup(split[i]);
-//         tokens[i].type = set_token_type(split[i], &i, split, &first);
-//         // if (ft_strncmp(tokens[i].token, "<<", 3) == 0 || ft_strncmp(tokens[i].token, ">>", 3) == 0)
-//         //     i++;
-//         // if (tokens[i].type == APPEND || tokens[i].type == HERE_DOC)
-//         //     i++;
-//         // if(tokens[i].type == APPEND || tokens[i].type == HERE_DOC)
-//         // {
-//         //     if(tokens[i].type == APPEND)
-//         //         tokens[i].token = ft_strdup(">>");
-//         //     else if(tokens[i].type == HERE_DOC)
-//         //         tokens[i].token = ft_strdup("<<");
-//         // }
-//         // else
-//         // printf("token = %s, type :%d\n", tokens[i].token, tokens[i].type);
-//         i++;
-//     }
-//     tokens[i].token = NULL;
-//     i = 0;
-//     while(tokens[i].token)
-//     {
-//         printf("token = %s, type :%d\n", tokens[i].token, tokens[i].type);
-//         i++;
-//     }
-//     return (tokens);
-// }
-//t_cmd set_token_type(char **)
-
-
 // int set_token_type(char *token, int *first, int *file)
 // {
 //     if(ft_strncmp(token, "|", 2) == 0)
@@ -104,55 +57,6 @@ int	set_token_type(char *token, int *first, int *file)
 	}
 	return (ARGS);
 }
-
-// int set_token_type(char *token, int *i, char **tokens, int *first)
-// {
-//     if(ft_strncmp(token, "|", 2) == 0)
-//     {
-//         (*first) = 1;
-//         return (PIPE);
-//     }
-//     else if(ft_strncmp(token, "<", 2) == 0)
-//     {
-//         // if(tokens[(*i) + 1])
-//         // {
-//         //     if(ft_strncmp(tokens[(*i) + 1], "<", 2) == 0)
-//         //     {
-//         //         (*i)++;
-//         //         return (HERE_DOC);
-//         //     }
-//         // }
-//         //else 
-//             return (REDIR_IN);
-//     }
-//     else if(ft_strncmp(token, ">", 2) == 0)
-//     {
-//     //    if(tokens[(*i) + 1])
-//     //     {
-//     //         if(ft_strncmp(tokens[(*i) + 1], ">", 2) == 0)
-//     //         {
-//     //             (*i)++;
-//     //             return (APPEND);
-//     //         }
-//     //     }
-//         //else
-//             return (REDIR_OUT);
-//     }
-//     else if(ft_strncmp(token, ">>", 3) == 0)
-//         return (APPEND);
-//     else if(ft_strncmp(token, "<<", 3) == 0)
-//         return (HERE_DOC);
-//     else if (token[0] == '-' && !*first)
-//         return (FLAG);
-//     else if (*first)
-//     {
-//         *first = 0;
-//         return(CMD);
-//     }
-//     //else
-//         return (ARGS);
-// }
-
 
 t_toklist *our_tlstlast(t_toklist *lst)
 {

@@ -20,61 +20,6 @@ int count_cargs(t_cmd *cmd)
 }
 
 
-// int count_args(t_toklist *list)
-// {
-//     int i;
-//     t_toklist *temp;
-
-//     i = 1;
-//     temp = list;
-//     while(temp && temp->type != PIPE)
-//     {
-//         // while(temp->type != PIPE)
-//         // {
-//         if(temp->type == FLAG || temp->type == ARGS)
-//             i++;
-//         //     temp=temp->next;
-//         // }
-//         // if(temp->type == PIPE)
-//         //     break ;
-//         temp = temp->next;
-//     }
-//     return (i);
-// }
-
-// void check_built_in(char **av, t_shell *data)
-// {
-//     int i;
-
-//     i = 0;
-//     if (ft_strncmp(av[i], "exit", 5) == 0)
-//         exit_shell(av, data);
-//     else if(ft_strncmp(av[i], "env", 4) == 0)
-//         our_env(data->envir);
-//     else if(ft_strncmp(av[i], "unset", 6) == 0)
-//         our_unset(av[i + 1], &data->envir);
-//     else if(ft_strncmp(av[i], "echo", 5) == 0)
-//         our_echo(av, data);
-//     else if(ft_strncmp(av[i], "export", 7)== 0)
-//         our_export(av, data, 1);
-//     else if(ft_strncmp(av[i], "pwd", 4) == 0)
-//     {
-//         if(av[1] != NULL)
-//         {
-//             write(2, "pwd: too many arguments\n", 24);
-//             return(1);
-//             //echo $?// data->exit_code = 1
-//         }
-//         else    
-//             return(our_pwd(), 1);
-//     }
-//     else if(ft_strncmp(av[0], "cd", 3) == 0)
-//         return(our_cdir(av[1], data), 1);
-//     // else if(ft_strncmp(av[0], "user_set", 9) == 0) //REMOVE LATER, IT IS JUST FOR TESTING USER_SET VARIABLES
-//     //     return(prit_user_set(data), 1);
-//     return(-1);
-// }
-
 void handle_signal(int sig)
 {
     //i think we need to create a global variable and set the signal value and then check in execution
@@ -84,14 +29,6 @@ void handle_signal(int sig)
         printf("ctrl + \\");
 }
 
-// void check_args(char **av, t_shell *data)
-// {
-//     // int i;
-
-//     // i = 0;
-//     check_built_in(av, data);
-
-//}
 // strdup the content so when u unset you free and set to NULL
 void init_shell(t_shell *data, char **envp)
 {
@@ -128,51 +65,11 @@ void init_shell(t_shell *data, char **envp)
     }
 }
 
-// int check_syntax(char **av, int i)
-// {
-//     i = 0;
-//     while(av[i])
-//     {
-//         if(ft_strncmp(av[i], ">", 2) == 0 || ft_strncmp(av[i], "<", 2) == 0)
-//         {
-//             if(av[i + 1])
-//             {
-//                 if(ft_strncmp(av[i + 1], ">", 2) == 0 || ft_strncmp(av[i +1], "<", 2) == 0)
-//                     {
-//                         if(av[i + 2])
-//                         {
-//                             if(ft_strncmp(av[i + 2], ">", 2) == 0 || ft_strncmp(av[i + 2], "<", 2) == 0)
-//                             {
-//                                 write(2, "syntax error near unexpected token `>'\n", 39);
-//                                 //exit code = 258 ?
-//                                 return (1);
-//                             }
-//                         }
-//                     }
-//             }
-//         }
-//         i++;
-//     }
-//     return (0);
-// }
-
-
 int	check_syntax_redirect(char **av, int i)
 {
 	if (ft_strncmp(av[i + 1], ">", 2) == 0 || ft_strncmp(av[i + 1], "<",
 			2) == 0  || ft_strncmp(av[i + 1], ">>", 3) == 0 || ft_strncmp(av[i + 1], "<<", 3) == 0)
 	{
-		// if (av[i + 2])
-		// {
-		// 	if (ft_strncmp(av[i + 2], ">", 2) == 0 || ft_strncmp(av[i + 2], "<",
-		// 			2) == 0)
-		// 	{
-		// 		return (1);
-		// 		// write(2, "syntax error near unexpected token `>'\n", 39);
-		// 		// //exit code = 258 ?
-		// 		// return (1);
-		// 	}
-		// }
         return (1);
 	}
 	return (0);
@@ -290,10 +187,19 @@ int main(int ac, char **av, char **envp)
             // tmp = tokens;
             if (av)
                 free_arr(av);
+            if(check_quotes(tokens) == -1)
+            {
+                our_toklistclear(&data.tokens);
+                if(line)
+                    add_history(line);
+                free(line);
+                data.exit_code = 1;
+                continue ;
+            }
             //tokens = data.tokens;
             //rm_quotes(tokens);
             //expand_tokens(tokens, &data);
-            our_extok(tokens, &data);
+            our_extok(tokens, &data); //if it returns -1 then that means malloc failed exit cleanly
             while(tokens)
             {
                 printf("token: %s, type: %d\n", tokens->token, tokens->type);

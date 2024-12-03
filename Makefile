@@ -13,6 +13,7 @@ SRC = minislime.c tokenize.c findpath.c builtins/our_echo.c\
 		$(EXEC)/exec_utils.c $(EXEC)/findpath.c\
 		$(EXEC)/hd_expansion.c $(EXEC)/hd_ex_utils.c\
 		$(PAR)/quotes_expand.c $(PAR)/handle_quotes.c $(PAR)/expansion.c\
+		$(PAR)/unclosed_quotes.c
 
 
 OBJ = $(SRC:.c=.o)

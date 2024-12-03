@@ -76,12 +76,12 @@ char *handle_ex(char *str, char *res, int *i, t_shell *data)
     char *to_ex;
     char *temp;
 
-    if(!str[*i + 1])
+    if(!str[*i + 1] || !(ft_isalnum(str[*i + 1])))
         return(handle_em_ex(str, res, i));
     if(str[*i + 1] == '?')
         return(handle_exit_code(res, i, data));
     start = ++(*i);
-    while(str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_'))
+    while(str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_')) // maybe remove this'_'
         (*i)++;
     to_ex = ft_substr(str, start, (*i) - start);
     if(!to_ex)

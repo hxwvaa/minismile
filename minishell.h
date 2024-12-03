@@ -122,6 +122,7 @@ char *handle_ex(char *str, char *res, int *i, t_shell *data);
 char *handle_dq(char *str, char *res, int *i, t_shell *data);
 char *handle_sq(char *str, char *res, int *i);
 char *handle_any(char *str, char *res, int *i);
+int check_quotes(t_toklist *list);
 //-----------hd_expansions && hd_ex_utiils---------//
 char    *expand_hd(char *line, t_shell *data, int len);
 int append_input(char **input, char *line);
