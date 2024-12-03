@@ -2,6 +2,7 @@
 
 
 //check it later it works
+
 char *get_value_env(char *var, t_shell *data)
 {
     t_list *current;
@@ -11,9 +12,9 @@ char *get_value_env(char *var, t_shell *data)
     {
         if(ft_strncmp(current->content, var, (ft_strlen(var))) == 0)
         {
-            if(((char *)current->content)[5] == '\0')
+            if(((char *)current->content)[5] == '\0') //what is this for ? 
                 return(get_pwd());
-            return(ft_strdup(current->content + 5));
+            return(ft_strdup(current->content + 5)); // ??
         }
         current = current->next;
     }
@@ -28,7 +29,6 @@ char *get_pwd_value(t_shell *data)
     while(current)
     {
         if(ft_strncmp(current->content, "PWD=", 4) == 0)
-        if(ft_strncmp(current->content, "PWD=", 4) == 0)
             return(ft_strdup(current->content + 4));
         current = current->next;
     }
@@ -42,7 +42,6 @@ void update_pwd(t_shell *data, char *pwd)
     current = data->envir;
     while(current)
     {
-        if(ft_strncmp(current->content, "PWD=", 4) == 0)
         if(ft_strncmp(current->content, "PWD=", 4) == 0)
         {
             free(current->content);
@@ -64,7 +63,6 @@ void update_oldpwd(t_shell *data, char *oldpwd)
     current = data->envir;
     while(current)
     {
-        if(ft_strncmp(current->content, "OLDPWD=", 7) == 0)
         if(ft_strncmp(current->content, "OLDPWD=", 7) == 0)
             {
                 free(current->content);
@@ -162,6 +160,22 @@ void our_cdir(char *path, t_shell *data)
         }
     }
     printf("inside cd before cd\n");
+
+    // get_value_env ain't getting_the_value_env
+    
+    // if (path[0] == '-')    
+    // {
+    //     path = get_value_env("OLDPWD=", data);
+    //     if(!path)
+    //     {
+    //         write(2, "cd : OLDPWD is not set\n", 23);
+    //         data->exit_code = 1;
+    //         return ;
+    //     }
+    // }
+    // printf("\n%s\n", path);
+
+
     change_dir(path, data);
     // maybe add a case for if path is '..'
 

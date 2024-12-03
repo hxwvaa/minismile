@@ -1,5 +1,20 @@
 #include "../minishell.h"
 
+// checks if the argument is only n
+bool check_non_n(char *arg)
+{
+    int i;
+
+    i = 1;
+    while(arg[i])
+    {
+        if(arg[i] != 'n')
+            return (false);
+        i++;
+    }
+    return (true);
+}
+
 //need to deal with the quotes still
 
 void our_echo(char **arg, t_shell *data)
@@ -16,7 +31,7 @@ void our_echo(char **arg, t_shell *data)
         write(1, " ", 1);
     else
     {
-        if(ft_strncmp(arg[i], "-n", 2) == 0)
+        if(ft_strncmp(arg[i], "-n", 2) == 0 && check_non_n(arg[i])) // added the check_non_n function
         {
             flag_n = 0;
             i++;
