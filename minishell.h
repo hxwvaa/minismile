@@ -92,7 +92,7 @@ void rm_quotes(t_toklist *tokens);//not needed
 int expand_tokens(t_toklist *tokens, t_shell *data);//not needed
 
 //---------------------builtins------------------//
-void our_echo(char **arg, t_shell *data);
+void our_echo(char **arg);
 void our_expenv(t_shell *data);
 void our_env(t_list *envir);
 bool our_pwd(void);

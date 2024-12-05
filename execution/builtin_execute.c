@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_execute.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbasheer <hbasheer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 10:19:47 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/11/25 14:51:01 by hbasheer         ###   ########.fr       */
+/*   Updated: 2024/12/05 12:54:12 by mshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void clean_exit(t_shell *data, int r)
     //close(data->fd[0]); // to close read end after writing to the pipe// dont delete this comment yet
     // if(r == 0)
     // {
+        if(data->fd[0] != -1)
+            close(data->fd[0]);
         data->exit_code = r;
         exit(r);
     // }
@@ -113,8 +115,8 @@ void builtin_pipeline(t_cmd *curr, t_shell *data)
 {
     int r;
     
-    if(data->fd[0] != -1)
-        close(data->fd[0]);
+    // if(data->fd[0] != -1)
+    //     close(data->fd[0]);
     r = execute_one_cmd(curr, data);
     //if(r == 0) 
         clean_exit(data, r);

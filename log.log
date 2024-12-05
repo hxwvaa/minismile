@@ -1,0 +1,2002 @@
+==1171== Memcheck, a memory error detector
+==1171== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==1171== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==1171== Command: ./minishell
+==1171== 
+minishell: command not found: xecutionbwspblobbplist00×executionIlocblobbuiltinIlocblob(ÿÿÿÿÿÿexecute.cIlocbl
+==1172== 
+==1172== FILE DESCRIPTORS: 1 open at exit.
+==1172== Open file descriptor 2: /home/vscode/src/log.log
+==1172==    <inherited from parent>
+==1172== 
+==1172== 
+==1172== HEAP SUMMARY:
+==1172==     in use at exit: 200,679 bytes in 219 blocks
+==1172==   total heap usage: 680 allocs, 461 frees, 326,190 bytes allocated
+==1172== 
+==1172== LEAK SUMMARY:
+==1172==    definitely lost: 0 bytes in 0 blocks
+==1172==    indirectly lost: 0 bytes in 0 blocks
+==1172==      possibly lost: 0 bytes in 0 blocks
+==1172==    still reachable: 0 bytes in 0 blocks
+==1172==         suppressed: 200,679 bytes in 219 blocks
+==1172== 
+==1172== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+--1172-- 
+--1172-- used_suppression:     62 readline ignore_readline_leaks.txt:16 suppressed: 200,679 bytes in 219 blocks
+==1172== 
+==1172== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+minishell: command not found: expand.cIlocblobexecution_splitted.oIlocblob;xecutionbwspblobbplist00×executionIlocblobbuiltinIlocblob(ÿÿÿÿÿÿexecute.cIlocbl
+==1173== 
+==1173== FILE DESCRIPTORS: 1 open at exit.
+==1173== Open file descriptor 2: /home/vscode/src/log.log
+==1173==    <inherited from parent>
+==1173== 
+==1173== 
+==1173== HEAP SUMMARY:
+==1173==     in use at exit: 206,056 bytes in 270 blocks
+==1173==   total heap usage: 1,045 allocs, 775 frees, 512,962 bytes allocated
+==1173== 
+==1173== LEAK SUMMARY:
+==1173==    definitely lost: 0 bytes in 0 blocks
+==1173==    indirectly lost: 0 bytes in 0 blocks
+==1173==      possibly lost: 0 bytes in 0 blocks
+==1173==    still reachable: 0 bytes in 0 blocks
+==1173==         suppressed: 206,056 bytes in 270 blocks
+==1173== 
+==1173== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+--1173-- 
+--1173-- used_suppression:     85 readline ignore_readline_leaks.txt:16 suppressed: 202,040 bytes in 269 blocks
+--1173-- used_suppression:      1 add_history ignore_readline_leaks.txt:23 suppressed: 4,016 bytes in 1 blocks
+==1173== 
+==1173== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+minishell: command not found: (ÿÿÿÿÿÿexpand.cIlocblobexecution_splitted.oIlocblob;xecutionbwspblobbplist00×executionIlocblobbuiltinIlocblob(ÿÿÿÿÿÿexecute.cIlocbl
+==1174== 
+==1174== FILE DESCRIPTORS: 1 open at exit.
+==1174== Open file descriptor 2: /home/vscode/src/log.log
+==1174==    <inherited from parent>
+==1174== 
+==1174== 
+==1174== HEAP SUMMARY:
+==1174==     in use at exit: 206,212 bytes in 274 blocks
+==1174==   total heap usage: 1,094 allocs, 820 frees, 517,026 bytes allocated
+==1174== 
+==1174== LEAK SUMMARY:
+==1174==    definitely lost: 0 bytes in 0 blocks
+==1174==    indirectly lost: 0 bytes in 0 blocks
+==1174==      possibly lost: 0 bytes in 0 blocks
+==1174==    still reachable: 0 bytes in 0 blocks
+==1174==         suppressed: 206,212 bytes in 274 blocks
+==1174== 
+==1174== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+--1174-- 
+--1174-- used_suppression:     88 readline ignore_readline_leaks.txt:16 suppressed: 202,260 bytes in 273 blocks
+--1174-- used_suppression:      1 add_history ignore_readline_leaks.txt:23 suppressed: 4,016 bytes in 1 blocks
+==1174== 
+==1174== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+minishell: command not found: ÿÿÿÿÿÿxecutionbwspblobbplist00×executionIlocblobbuiltinIlocblob(ÿÿÿÿÿÿexecute.cIlocbllibftIlocbloblibftbwspblobbplist0
+==1175== 
+==1175== FILE DESCRIPTORS: 1 open at exit.
+==1175== Open file descriptor 2: /home/vscode/src/log.log
+==1175==    <inherited from parent>
+==1175== 
+==1175== 
+==1175== HEAP SUMMARY:
+==1175==     in use at exit: 206,765 bytes in 286 blocks
+==1175==   total heap usage: 1,184 allocs, 898 frees, 522,133 bytes allocated
+==1175== 
+==1175== LEAK SUMMARY:
+==1175==    definitely lost: 0 bytes in 0 blocks
+==1175==    indirectly lost: 0 bytes in 0 blocks
+==1175==      possibly lost: 0 bytes in 0 blocks
+==1175==    still reachable: 0 bytes in 0 blocks
+==1175==         suppressed: 206,765 bytes in 286 blocks
+==1175== 
+==1175== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1175-- 
+--1175-- used_suppression:     89 readline ignore_readline_leaks.txt:16 suppressed: 202,813 bytes in 285 blocks
+--1175-- used_suppression:      1 add_history ignore_readline_leaks.txt:23 suppressed: 4,016 bytes in 1 blocks
+==1175== 
+==1175== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: xecutionbwspblobbplist00×executionIlocblobbuiltinIlocblob(ÿÿÿÿÿÿexecute.cIlocbl
+==1176== 
+==1176== FILE DESCRIPTORS: 1 open at exit.
+==1176== Open file descriptor 2: /home/vscode/src/log.log
+==1176==    <inherited from parent>
+==1176== 
+==1176== 
+==1176== HEAP SUMMARY:
+==1176==     in use at exit: 209,043 bytes in 363 blocks
+==1176==   total heap usage: 1,696 allocs, 1,333 frees, 774,993 bytes allocated
+==1176== 
+==1176== LEAK SUMMARY:
+==1176==    definitely lost: 0 bytes in 0 blocks
+==1176==    indirectly lost: 0 bytes in 0 blocks
+==1176==      possibly lost: 0 bytes in 0 blocks
+==1176==    still reachable: 0 bytes in 0 blocks
+==1176==         suppressed: 209,043 bytes in 363 blocks
+==1176== 
+==1176== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1176-- 
+--1176-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 205,091 bytes in 362 blocks
+--1176-- used_suppression:      1 add_history ignore_readline_leaks.txt:23 suppressed: 4,016 bytes in 1 blocks
+==1176== 
+==1176== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: Xÿÿÿÿÿÿxecutionbwspblobbplist00×executionIlocblobbuiltinIlocblob(ÿÿÿÿÿÿexecute.cIlocbl
+==1177== 
+==1177== FILE DESCRIPTORS: 1 open at exit.
+==1177== Open file descriptor 2: /home/vscode/src/log.log
+==1177==    <inherited from parent>
+==1177== 
+==1177== 
+==1177== HEAP SUMMARY:
+==1177==     in use at exit: 209,189 bytes in 368 blocks
+==1177==   total heap usage: 1,746 allocs, 1,378 frees, 778,597 bytes allocated
+==1177== 
+==1177== LEAK SUMMARY:
+==1177==    definitely lost: 0 bytes in 0 blocks
+==1177==    indirectly lost: 0 bytes in 0 blocks
+==1177==      possibly lost: 0 bytes in 0 blocks
+==1177==    still reachable: 0 bytes in 0 blocks
+==1177==         suppressed: 209,189 bytes in 368 blocks
+==1177== 
+==1177== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1177-- 
+--1177-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 205,301 bytes in 367 blocks
+--1177-- used_suppression:      1 add_history ignore_readline_leaks.txt:23 suppressed: 4,016 bytes in 1 blocks
+==1177== 
+==1177== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: ;
+==1178== 
+==1178== FILE DESCRIPTORS: 1 open at exit.
+==1178== Open file descriptor 2: /home/vscode/src/log.log
+==1178==    <inherited from parent>
+==1178== 
+==1178== 
+==1178== HEAP SUMMARY:
+==1178==     in use at exit: 209,133 bytes in 366 blocks
+==1178==   total heap usage: 1,846 allocs, 1,480 frees, 814,869 bytes allocated
+==1178== 
+==1178== LEAK SUMMARY:
+==1178==    definitely lost: 0 bytes in 0 blocks
+==1178==    indirectly lost: 0 bytes in 0 blocks
+==1178==      possibly lost: 0 bytes in 0 blocks
+==1178==    still reachable: 0 bytes in 0 blocks
+==1178==         suppressed: 209,133 bytes in 366 blocks
+==1178== 
+==1178== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1178-- 
+--1178-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 205,277 bytes in 365 blocks
+--1178-- used_suppression:      1 add_history ignore_readline_leaks.txt:23 suppressed: 4,016 bytes in 1 blocks
+==1178== 
+==1178== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: MakefileIlocblobx{{1475,
+minishell: command not found: }~šlibftvSrnlong
+==1179== 
+==1179== FILE DESCRIPTORS: 1 open at exit.
+==1179== Open file descriptor 2: /home/vscode/src/log.log
+==1179==    <inherited from parent>
+==1179== 
+==1179== 
+==1179== HEAP SUMMARY:
+==1179==     in use at exit: 209,219 bytes in 368 blocks
+==1179==   total heap usage: 1,973 allocs, 1,605 frees, 819,403 bytes allocated
+==1179== 
+==1179== LEAK SUMMARY:
+==1179==    definitely lost: 0 bytes in 0 blocks
+==1179==    indirectly lost: 0 bytes in 0 blocks
+==1179==      possibly lost: 0 bytes in 0 blocks
+==1179==    still reachable: 0 bytes in 0 blocks
+==1179==         suppressed: 209,219 bytes in 368 blocks
+==1179== 
+==1179== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1179-- 
+--1179-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 205,395 bytes in 367 blocks
+--1179-- used_suppression:      1 add_history ignore_readline_leaks.txt:23 suppressed: 4,016 bytes in 1 blocks
+==1179== 
+==1179== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+==1180== 
+==1180== FILE DESCRIPTORS: 2 open at exit.
+==1180== Open file descriptor 2: /home/vscode/src/log.log
+==1180==    <inherited from parent>
+==1180== 
+==1180== Open file descriptor 0:
+==1180==    at 0x49ADAEB: dup2 (syscall-template.S:78)
+==1180==    by 0x10DE6C: set_redirection (in /home/vscode/src/minishell)
+==1180==    by 0x10E0BE: execute_child (in /home/vscode/src/minishell)
+==1180==    by 0x10E2A5: fork_execute_child (in /home/vscode/src/minishell)
+==1180==    by 0x10D215: our_execution (in /home/vscode/src/minishell)
+==1180==    by 0x10D2B5: pre_execute (in /home/vscode/src/minishell)
+==1180==    by 0x109CFC: main (in /home/vscode/src/minishell)
+==1180== 
+==1180== 
+==1180== HEAP SUMMARY:
+==1180==     in use at exit: 209,219 bytes in 368 blocks
+==1180==   total heap usage: 1,973 allocs, 1,605 frees, 819,355 bytes allocated
+==1180== 
+==1180== LEAK SUMMARY:
+==1180==    definitely lost: 0 bytes in 0 blocks
+==1180==    indirectly lost: 0 bytes in 0 blocks
+==1180==      possibly lost: 0 bytes in 0 blocks
+==1180==    still reachable: 0 bytes in 0 blocks
+==1180==         suppressed: 209,219 bytes in 368 blocks
+==1180== 
+==1180== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1180-- 
+--1180-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 205,395 bytes in 367 blocks
+--1180-- used_suppression:      1 add_history ignore_readline_leaks.txt:23 suppressed: 4,016 bytes in 1 blocks
+==1180== 
+==1180== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: MakefileIlocblobx{{1475,
+minishell: command not found: }~šlibftvSrnlong
+==1181== 
+==1181== FILE DESCRIPTORS: 1 open at exit.
+==1181== Open file descriptor 2: /home/vscode/src/log.log
+==1181==    <inherited from parent>
+==1181== 
+==1181== 
+==1181== HEAP SUMMARY:
+==1181==     in use at exit: 209,351 bytes in 372 blocks
+==1181==   total heap usage: 2,050 allocs, 1,678 frees, 822,764 bytes allocated
+==1181== 
+==1181== LEAK SUMMARY:
+==1181==    definitely lost: 0 bytes in 0 blocks
+==1181==    indirectly lost: 0 bytes in 0 blocks
+==1181==      possibly lost: 0 bytes in 0 blocks
+==1181==    still reachable: 0 bytes in 0 blocks
+==1181==         suppressed: 209,351 bytes in 372 blocks
+==1181== 
+==1181== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1181-- 
+--1181-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 205,427 bytes in 368 blocks
+--1181-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 4,116 bytes in 4 blocks
+==1181== 
+==1181== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+==1182== 
+==1182== FILE DESCRIPTORS: 2 open at exit.
+==1182== Open file descriptor 2: /home/vscode/src/log.log
+==1182==    <inherited from parent>
+==1182== 
+==1182== Open file descriptor 0:
+==1182==    at 0x49ADAEB: dup2 (syscall-template.S:78)
+==1182==    by 0x10DE6C: set_redirection (in /home/vscode/src/minishell)
+==1182==    by 0x10E0BE: execute_child (in /home/vscode/src/minishell)
+==1182==    by 0x10E2A5: fork_execute_child (in /home/vscode/src/minishell)
+==1182==    by 0x10D215: our_execution (in /home/vscode/src/minishell)
+==1182==    by 0x10D2B5: pre_execute (in /home/vscode/src/minishell)
+==1182==    by 0x109CFC: main (in /home/vscode/src/minishell)
+==1182== 
+==1182== 
+==1182== HEAP SUMMARY:
+==1182==     in use at exit: 209,351 bytes in 372 blocks
+==1182==   total heap usage: 2,050 allocs, 1,678 frees, 822,716 bytes allocated
+==1182== 
+==1182== LEAK SUMMARY:
+==1182==    definitely lost: 0 bytes in 0 blocks
+==1182==    indirectly lost: 0 bytes in 0 blocks
+==1182==      possibly lost: 0 bytes in 0 blocks
+==1182==    still reachable: 0 bytes in 0 blocks
+==1182==         suppressed: 209,351 bytes in 372 blocks
+==1182== 
+==1182== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1182-- 
+--1182-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 205,427 bytes in 368 blocks
+--1182-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 4,116 bytes in 4 blocks
+==1182== 
+==1182== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: parsing.cIlocblobxecutionbwspblobbplist00×executionIlocblobbuiltinIlocblob(ÿÿÿÿÿÿexecute.cIlocbl
+==1183== 
+==1183== FILE DESCRIPTORS: 1 open at exit.
+==1183== Open file descriptor 2: /home/vscode/src/log.log
+==1183==    <inherited from parent>
+==1183== 
+==1183== 
+==1183== HEAP SUMMARY:
+==1183==     in use at exit: 211,495 bytes in 448 blocks
+==1183==   total heap usage: 2,512 allocs, 2,064 frees, 1,070,379 bytes allocated
+==1183== 
+==1183== LEAK SUMMARY:
+==1183==    definitely lost: 0 bytes in 0 blocks
+==1183==    indirectly lost: 0 bytes in 0 blocks
+==1183==      possibly lost: 0 bytes in 0 blocks
+==1183==    still reachable: 0 bytes in 0 blocks
+==1183==         suppressed: 211,495 bytes in 448 blocks
+==1183== 
+==1183== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1183-- 
+--1183-- used_suppression:     93 readline ignore_readline_leaks.txt:16 suppressed: 207,671 bytes in 447 blocks
+--1183-- used_suppression:      1 add_history ignore_readline_leaks.txt:23 suppressed: 4,016 bytes in 1 blocks
+==1183== 
+==1183== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: Xÿÿÿÿÿÿparsing.cIlocblobxecutionbwspblobbplist00×executionIlocblobbuiltinIlocblob(ÿÿÿÿÿÿexecute.cIlocbl
+==1184== 
+==1184== FILE DESCRIPTORS: 1 open at exit.
+==1184== Open file descriptor 2: /home/vscode/src/log.log
+==1184==    <inherited from parent>
+==1184== 
+==1184== 
+==1184== HEAP SUMMARY:
+==1184==     in use at exit: 211,691 bytes in 453 blocks
+==1184==   total heap usage: 2,562 allocs, 2,109 frees, 1,074,170 bytes allocated
+==1184== 
+==1184== LEAK SUMMARY:
+==1184==    definitely lost: 0 bytes in 0 blocks
+==1184==    indirectly lost: 0 bytes in 0 blocks
+==1184==      possibly lost: 0 bytes in 0 blocks
+==1184==    still reachable: 0 bytes in 0 blocks
+==1184==         suppressed: 211,691 bytes in 453 blocks
+==1184== 
+==1184== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1184-- 
+--1184-- used_suppression:     93 readline ignore_readline_leaks.txt:16 suppressed: 207,867 bytes in 452 blocks
+--1184-- used_suppression:      1 add_history ignore_readline_leaks.txt:23 suppressed: 4,016 bytes in 1 blocks
+==1184== 
+==1184== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: toklist_cmdlist.cIlocblobMakefileIlocblobx{{1475,
+==1185== 
+==1185== FILE DESCRIPTORS: 1 open at exit.
+==1185== Open file descriptor 2: /home/vscode/src/log.log
+==1185==    <inherited from parent>
+==1185== 
+==1185== 
+==1185== HEAP SUMMARY:
+==1185==     in use at exit: 211,872 bytes in 459 blocks
+==1185==   total heap usage: 2,666 allocs, 2,207 frees, 1,111,216 bytes allocated
+==1185== 
+==1185== LEAK SUMMARY:
+==1185==    definitely lost: 0 bytes in 0 blocks
+==1185==    indirectly lost: 0 bytes in 0 blocks
+==1185==      possibly lost: 0 bytes in 0 blocks
+==1185==    still reachable: 0 bytes in 0 blocks
+==1185==         suppressed: 211,872 bytes in 459 blocks
+==1185== 
+==1185== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1185-- 
+--1185-- used_suppression:     93 readline ignore_readline_leaks.txt:16 suppressed: 208,080 bytes in 458 blocks
+--1185-- used_suppression:      1 add_history ignore_readline_leaks.txt:23 suppressed: 4,016 bytes in 1 blocks
+==1185== 
+==1185== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: result.txtIlocblobfix
+==1186== 
+==1186== FILE DESCRIPTORS: 1 open at exit.
+==1186== Open file descriptor 2: /home/vscode/src/log.log
+==1186==    <inherited from parent>
+==1186== 
+==1186== 
+==1186== HEAP SUMMARY:
+==1186==     in use at exit: 211,897 bytes in 460 blocks
+==1186==   total heap usage: 2,722 allocs, 2,262 frees, 1,113,973 bytes allocated
+==1186== 
+==1186== LEAK SUMMARY:
+==1186==    definitely lost: 0 bytes in 0 blocks
+==1186==    indirectly lost: 0 bytes in 0 blocks
+==1186==      possibly lost: 0 bytes in 0 blocks
+==1186==    still reachable: 0 bytes in 0 blocks
+==1186==         suppressed: 211,897 bytes in 460 blocks
+==1186== 
+==1186== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1186-- 
+--1186-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,049 bytes in 456 blocks
+--1186-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 4,104 bytes in 4 blocks
+==1186== 
+==1186== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: 27c13afc7d4710b048674a31fecd390363ea5b5ebranch
+==1187== 
+==1187== FILE DESCRIPTORS: 1 open at exit.
+==1187== Open file descriptor 2: /home/vscode/src/log.log
+==1187==    <inherited from parent>
+==1187== 
+==1187== 
+==1187== HEAP SUMMARY:
+==1187==     in use at exit: 212,022 bytes in 463 blocks
+==1187==   total heap usage: 2,802 allocs, 2,339 frees, 1,183,713 bytes allocated
+==1187== 
+==1187== LEAK SUMMARY:
+==1187==    definitely lost: 0 bytes in 0 blocks
+==1187==    indirectly lost: 0 bytes in 0 blocks
+==1187==      possibly lost: 0 bytes in 0 blocks
+==1187==    still reachable: 0 bytes in 0 blocks
+==1187==         suppressed: 212,022 bytes in 463 blocks
+==1187== 
+==1187== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1187-- 
+--1187-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,103 bytes in 456 blocks
+--1187-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 4,175 bytes in 7 blocks
+==1187== 
+==1187== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: 7b73797bac1eb1913506223882f80a0ffed1ecddnot-for-mergebranch
+==1188== 
+==1188== FILE DESCRIPTORS: 1 open at exit.
+==1188== Open file descriptor 2: /home/vscode/src/log.log
+==1188==    <inherited from parent>
+==1188== 
+==1188== 
+==1188== HEAP SUMMARY:
+==1188==     in use at exit: 212,155 bytes in 466 blocks
+==1188==   total heap usage: 2,882 allocs, 2,416 frees, 1,253,556 bytes allocated
+==1188== 
+==1188== LEAK SUMMARY:
+==1188==    definitely lost: 0 bytes in 0 blocks
+==1188==    indirectly lost: 0 bytes in 0 blocks
+==1188==      possibly lost: 0 bytes in 0 blocks
+==1188==    still reachable: 0 bytes in 0 blocks
+==1188==         suppressed: 212,155 bytes in 466 blocks
+==1188== 
+==1188== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1188-- 
+--1188-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,111 bytes in 456 blocks
+--1188-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 4,300 bytes in 10 blocks
+==1188== 
+==1188== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: b4fd851fba00204537310eddba9b060a8502eb51not-for-mergebranch
+==1189== 
+==1189== FILE DESCRIPTORS: 1 open at exit.
+==1189== Open file descriptor 2: /home/vscode/src/log.log
+==1189==    <inherited from parent>
+==1189== 
+==1189== 
+==1189== HEAP SUMMARY:
+==1189==     in use at exit: 212,288 bytes in 469 blocks
+==1189==   total heap usage: 2,962 allocs, 2,493 frees, 1,323,329 bytes allocated
+==1189== 
+==1189== LEAK SUMMARY:
+==1189==    definitely lost: 0 bytes in 0 blocks
+==1189==    indirectly lost: 0 bytes in 0 blocks
+==1189==      possibly lost: 0 bytes in 0 blocks
+==1189==    still reachable: 0 bytes in 0 blocks
+==1189==         suppressed: 212,288 bytes in 469 blocks
+==1189== 
+==1189== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1189-- 
+--1189-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,111 bytes in 456 blocks
+--1189-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 4,433 bytes in 13 blocks
+==1189== 
+==1189== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: 652b6963612faed3f90c368b9567a522ec943710not-for-mergebranch
+==1190== 
+==1190== FILE DESCRIPTORS: 1 open at exit.
+==1190== Open file descriptor 2: /home/vscode/src/log.log
+==1190==    <inherited from parent>
+==1190== 
+==1190== 
+==1190== HEAP SUMMARY:
+==1190==     in use at exit: 212,424 bytes in 472 blocks
+==1190==   total heap usage: 3,042 allocs, 2,570 frees, 1,393,123 bytes allocated
+==1190== 
+==1190== LEAK SUMMARY:
+==1190==    definitely lost: 0 bytes in 0 blocks
+==1190==    indirectly lost: 0 bytes in 0 blocks
+==1190==      possibly lost: 0 bytes in 0 blocks
+==1190==    still reachable: 0 bytes in 0 blocks
+==1190==         suppressed: 212,424 bytes in 472 blocks
+==1190== 
+==1190== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1190-- 
+--1190-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,114 bytes in 456 blocks
+--1190-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 4,566 bytes in 16 blocks
+==1190== 
+==1190== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: 634938f4e6f25bb49a3233ffa81ade5f05ca32dfnot-for-mergebranch
+==1191== 
+==1191== FILE DESCRIPTORS: 1 open at exit.
+==1191== Open file descriptor 2: /home/vscode/src/log.log
+==1191==    <inherited from parent>
+==1191== 
+==1191== 
+==1191== HEAP SUMMARY:
+==1191==     in use at exit: 212,558 bytes in 475 blocks
+==1191==   total heap usage: 3,122 allocs, 2,647 frees, 1,462,906 bytes allocated
+==1191== 
+==1191== LEAK SUMMARY:
+==1191==    definitely lost: 0 bytes in 0 blocks
+==1191==    indirectly lost: 0 bytes in 0 blocks
+==1191==      possibly lost: 0 bytes in 0 blocks
+==1191==    still reachable: 0 bytes in 0 blocks
+==1191==         suppressed: 212,558 bytes in 475 blocks
+==1191== 
+==1191== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1191-- 
+--1191-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,112 bytes in 456 blocks
+--1191-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 4,702 bytes in 19 blocks
+==1191== 
+==1191== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: b191bb2e081275a374469bc36ed0680020f5e25dnot-for-mergebranch
+==1192== 
+==1192== FILE DESCRIPTORS: 1 open at exit.
+==1192== Open file descriptor 2: /home/vscode/src/log.log
+==1192==    <inherited from parent>
+==1192== 
+==1192== 
+==1192== HEAP SUMMARY:
+==1192==     in use at exit: 212,693 bytes in 478 blocks
+==1192==   total heap usage: 3,202 allocs, 2,724 frees, 1,532,694 bytes allocated
+==1192== 
+==1192== LEAK SUMMARY:
+==1192==    definitely lost: 0 bytes in 0 blocks
+==1192==    indirectly lost: 0 bytes in 0 blocks
+==1192==      possibly lost: 0 bytes in 0 blocks
+==1192==    still reachable: 0 bytes in 0 blocks
+==1192==         suppressed: 212,693 bytes in 478 blocks
+==1192== 
+==1192== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1192-- 
+--1192-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,113 bytes in 456 blocks
+--1192-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 4,836 bytes in 22 blocks
+==1192== 
+==1192== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: d269d049374c30416442a21b4dd09ced2080a5b2not-for-mergebranch
+==1193== 
+==1193== FILE DESCRIPTORS: 1 open at exit.
+==1193== Open file descriptor 2: /home/vscode/src/log.log
+==1193==    <inherited from parent>
+==1193== 
+==1193== 
+==1193== HEAP SUMMARY:
+==1193==     in use at exit: 212,835 bytes in 481 blocks
+==1193==   total heap usage: 3,283 allocs, 2,802 frees, 1,602,564 bytes allocated
+==1193== 
+==1193== LEAK SUMMARY:
+==1193==    definitely lost: 0 bytes in 0 blocks
+==1193==    indirectly lost: 0 bytes in 0 blocks
+==1193==      possibly lost: 0 bytes in 0 blocks
+==1193==    still reachable: 0 bytes in 0 blocks
+==1193==         suppressed: 212,835 bytes in 481 blocks
+==1193== 
+==1193== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1193-- 
+--1193-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,120 bytes in 456 blocks
+--1193-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 4,971 bytes in 25 blocks
+==1193== 
+==1193== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: ref:
+==1194== 
+==1194== FILE DESCRIPTORS: 1 open at exit.
+==1194== Open file descriptor 2: /home/vscode/src/log.log
+==1194==    <inherited from parent>
+==1194== 
+==1194== 
+==1194== HEAP SUMMARY:
+==1194==     in use at exit: 212,891 bytes in 484 blocks
+==1194==   total heap usage: 3,331 allocs, 2,847 frees, 1,605,010 bytes allocated
+==1194== 
+==1194== LEAK SUMMARY:
+==1194==    definitely lost: 0 bytes in 0 blocks
+==1194==    indirectly lost: 0 bytes in 0 blocks
+==1194==      possibly lost: 0 bytes in 0 blocks
+==1194==    still reachable: 0 bytes in 0 blocks
+==1194==         suppressed: 212,891 bytes in 484 blocks
+==1194== 
+==1194== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1194-- 
+--1194-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,034 bytes in 456 blocks
+--1194-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 5,113 bytes in 28 blocks
+==1194== 
+==1194== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: 89f2ece1bc46b41f80c22afdf7cdc7b2bc1fbde2
+==1195== 
+==1195== FILE DESCRIPTORS: 1 open at exit.
+==1195== Open file descriptor 2: /home/vscode/src/log.log
+==1195==    <inherited from parent>
+==1195== 
+==1195== 
+==1195== HEAP SUMMARY:
+==1195==     in use at exit: 212,968 bytes in 487 blocks
+==1195==   total heap usage: 3,373 allocs, 2,886 frees, 1,608,082 bytes allocated
+==1195== 
+==1195== LEAK SUMMARY:
+==1195==    definitely lost: 0 bytes in 0 blocks
+==1195==    indirectly lost: 0 bytes in 0 blocks
+==1195==      possibly lost: 0 bytes in 0 blocks
+==1195==    still reachable: 0 bytes in 0 blocks
+==1195==         suppressed: 212,968 bytes in 487 blocks
+==1195== 
+==1195== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1195-- 
+--1195-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,055 bytes in 456 blocks
+--1195-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 5,169 bytes in 31 blocks
+==1195== 
+==1195== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: [core]
+==1196== 
+==1196== FILE DESCRIPTORS: 1 open at exit.
+==1196== Open file descriptor 2: /home/vscode/src/log.log
+==1196==    <inherited from parent>
+==1196== 
+==1196== 
+==1196== HEAP SUMMARY:
+==1196==     in use at exit: 213,011 bytes in 490 blocks
+==1196==   total heap usage: 3,414 allocs, 2,924 frees, 1,610,451 bytes allocated
+==1196== 
+==1196== LEAK SUMMARY:
+==1196==    definitely lost: 0 bytes in 0 blocks
+==1196==    indirectly lost: 0 bytes in 0 blocks
+==1196==      possibly lost: 0 bytes in 0 blocks
+==1196==    still reachable: 0 bytes in 0 blocks
+==1196==         suppressed: 213,011 bytes in 490 blocks
+==1196== 
+==1196== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1196-- 
+--1196-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,021 bytes in 456 blocks
+--1196-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 5,246 bytes in 34 blocks
+==1196== 
+==1196== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: repositoryformatversion
+==1197== 
+==1197== FILE DESCRIPTORS: 1 open at exit.
+==1197== Open file descriptor 2: /home/vscode/src/log.log
+==1197==    <inherited from parent>
+==1197== 
+==1197== 
+==1197== HEAP SUMMARY:
+==1197==     in use at exit: 213,075 bytes in 493 blocks
+==1197==   total heap usage: 3,531 allocs, 3,038 frees, 1,648,408 bytes allocated
+==1197== 
+==1197== LEAK SUMMARY:
+==1197==    definitely lost: 0 bytes in 0 blocks
+==1197==    indirectly lost: 0 bytes in 0 blocks
+==1197==      possibly lost: 0 bytes in 0 blocks
+==1197==    still reachable: 0 bytes in 0 blocks
+==1197==         suppressed: 213,075 bytes in 493 blocks
+==1197== 
+==1197== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1197-- 
+--1197-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,042 bytes in 456 blocks
+--1197-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 5,289 bytes in 37 blocks
+==1197== 
+==1197== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: filemode
+==1198== 
+==1198== FILE DESCRIPTORS: 1 open at exit.
+==1198== Open file descriptor 2: /home/vscode/src/log.log
+==1198==    <inherited from parent>
+==1198== 
+==1198== 
+==1198== HEAP SUMMARY:
+==1198==     in use at exit: 213,127 bytes in 496 blocks
+==1198==   total heap usage: 3,647 allocs, 3,151 frees, 1,686,063 bytes allocated
+==1198== 
+==1198== LEAK SUMMARY:
+==1198==    definitely lost: 0 bytes in 0 blocks
+==1198==    indirectly lost: 0 bytes in 0 blocks
+==1198==      possibly lost: 0 bytes in 0 blocks
+==1198==    still reachable: 0 bytes in 0 blocks
+==1198==         suppressed: 213,127 bytes in 496 blocks
+==1198== 
+==1198== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1198-- 
+--1198-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,030 bytes in 456 blocks
+--1198-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 5,353 bytes in 40 blocks
+==1198== 
+==1198== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: bare
+==1199== 
+==1199== FILE DESCRIPTORS: 1 open at exit.
+==1199== Open file descriptor 2: /home/vscode/src/log.log
+==1199==    <inherited from parent>
+==1199== 
+==1199== 
+==1199== HEAP SUMMARY:
+==1199==     in use at exit: 213,176 bytes in 499 blocks
+==1199==   total heap usage: 3,763 allocs, 3,264 frees, 1,723,747 bytes allocated
+==1199== 
+==1199== LEAK SUMMARY:
+==1199==    definitely lost: 0 bytes in 0 blocks
+==1199==    indirectly lost: 0 bytes in 0 blocks
+==1199==      possibly lost: 0 bytes in 0 blocks
+==1199==    still reachable: 0 bytes in 0 blocks
+==1199==         suppressed: 213,176 bytes in 499 blocks
+==1199== 
+==1199== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1199-- 
+--1199-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,027 bytes in 456 blocks
+--1199-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 5,405 bytes in 43 blocks
+==1199== 
+==1199== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: logallrefupdates
+==1200== 
+==1200== FILE DESCRIPTORS: 1 open at exit.
+==1200== Open file descriptor 2: /home/vscode/src/log.log
+==1200==    <inherited from parent>
+==1200== 
+==1200== 
+==1200== HEAP SUMMARY:
+==1200==     in use at exit: 213,236 bytes in 502 blocks
+==1200==   total heap usage: 3,880 allocs, 3,378 frees, 1,761,645 bytes allocated
+==1200== 
+==1200== LEAK SUMMARY:
+==1200==    definitely lost: 0 bytes in 0 blocks
+==1200==    indirectly lost: 0 bytes in 0 blocks
+==1200==      possibly lost: 0 bytes in 0 blocks
+==1200==    still reachable: 0 bytes in 0 blocks
+==1200==         suppressed: 213,236 bytes in 502 blocks
+==1200== 
+==1200== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1200-- 
+--1200-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,038 bytes in 456 blocks
+--1200-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 5,454 bytes in 46 blocks
+==1200== 
+==1200== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: ignorecase
+==1201== 
+==1201== FILE DESCRIPTORS: 1 open at exit.
+==1201== Open file descriptor 2: /home/vscode/src/log.log
+==1201==    <inherited from parent>
+==1201== 
+==1201== 
+==1201== HEAP SUMMARY:
+==1201==     in use at exit: 213,290 bytes in 505 blocks
+==1201==   total heap usage: 3,996 allocs, 3,491 frees, 1,799,366 bytes allocated
+==1201== 
+==1201== LEAK SUMMARY:
+==1201==    definitely lost: 0 bytes in 0 blocks
+==1201==    indirectly lost: 0 bytes in 0 blocks
+==1201==      possibly lost: 0 bytes in 0 blocks
+==1201==    still reachable: 0 bytes in 0 blocks
+==1201==         suppressed: 213,290 bytes in 505 blocks
+==1201== 
+==1201== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1201-- 
+--1201-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,032 bytes in 456 blocks
+--1201-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 5,514 bytes in 49 blocks
+==1201== 
+==1201== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: precomposeunicode
+==1202== 
+==1202== FILE DESCRIPTORS: 1 open at exit.
+==1202== Open file descriptor 2: /home/vscode/src/log.log
+==1202==    <inherited from parent>
+==1202== 
+==1202== 
+==1202== HEAP SUMMARY:
+==1202==     in use at exit: 213,351 bytes in 508 blocks
+==1202==   total heap usage: 4,113 allocs, 3,605 frees, 1,837,247 bytes allocated
+==1202== 
+==1202== LEAK SUMMARY:
+==1202==    definitely lost: 0 bytes in 0 blocks
+==1202==    indirectly lost: 0 bytes in 0 blocks
+==1202==      possibly lost: 0 bytes in 0 blocks
+==1202==    still reachable: 0 bytes in 0 blocks
+==1202==         suppressed: 213,351 bytes in 508 blocks
+==1202== 
+==1202== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1202-- 
+--1202-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,039 bytes in 456 blocks
+--1202-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 5,568 bytes in 52 blocks
+==1202== 
+==1202== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: [remote
+==1203== 
+==1203== FILE DESCRIPTORS: 1 open at exit.
+==1203== Open file descriptor 2: /home/vscode/src/log.log
+==1203==    <inherited from parent>
+==1203== 
+==1203== 
+==1203== HEAP SUMMARY:
+==1203==     in use at exit: 213,405 bytes in 511 blocks
+==1203==   total heap usage: 4,163 allocs, 3,652 frees, 1,839,873 bytes allocated
+==1203== 
+==1203== LEAK SUMMARY:
+==1203==    definitely lost: 0 bytes in 0 blocks
+==1203==    indirectly lost: 0 bytes in 0 blocks
+==1203==      possibly lost: 0 bytes in 0 blocks
+==1203==    still reachable: 0 bytes in 0 blocks
+==1203==         suppressed: 213,405 bytes in 511 blocks
+==1203== 
+==1203== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1203-- 
+--1203-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,032 bytes in 456 blocks
+--1203-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 5,629 bytes in 55 blocks
+==1203== 
+==1203== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: url
+==1204== 
+==1204== FILE DESCRIPTORS: 1 open at exit.
+==1204== Open file descriptor 2: /home/vscode/src/log.log
+==1204==    <inherited from parent>
+==1204== 
+==1204== 
+==1204== HEAP SUMMARY:
+==1204==     in use at exit: 213,483 bytes in 514 blocks
+==1204==   total heap usage: 4,281 allocs, 3,767 frees, 1,877,825 bytes allocated
+==1204== 
+==1204== LEAK SUMMARY:
+==1204==    definitely lost: 0 bytes in 0 blocks
+==1204==    indirectly lost: 0 bytes in 0 blocks
+==1204==      possibly lost: 0 bytes in 0 blocks
+==1204==    still reachable: 0 bytes in 0 blocks
+==1204==         suppressed: 213,483 bytes in 514 blocks
+==1204== 
+==1204== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1204-- 
+--1204-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,056 bytes in 456 blocks
+--1204-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 5,683 bytes in 58 blocks
+==1204== 
+==1204== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: fetch
+==1205== 
+==1205== FILE DESCRIPTORS: 1 open at exit.
+==1205== Open file descriptor 2: /home/vscode/src/log.log
+==1205==    <inherited from parent>
+==1205== 
+==1205== 
+==1205== HEAP SUMMARY:
+==1205==     in use at exit: 213,563 bytes in 517 blocks
+==1205==   total heap usage: 4,399 allocs, 3,882 frees, 1,915,853 bytes allocated
+==1205== 
+==1205== LEAK SUMMARY:
+==1205==    definitely lost: 0 bytes in 0 blocks
+==1205==    indirectly lost: 0 bytes in 0 blocks
+==1205==      possibly lost: 0 bytes in 0 blocks
+==1205==    still reachable: 0 bytes in 0 blocks
+==1205==         suppressed: 213,563 bytes in 517 blocks
+==1205== 
+==1205== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1205-- 
+--1205-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,058 bytes in 456 blocks
+--1205-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 5,761 bytes in 61 blocks
+==1205== 
+==1205== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: [branch
+==1206== 
+==1206== FILE DESCRIPTORS: 1 open at exit.
+==1206== Open file descriptor 2: /home/vscode/src/log.log
+==1206==    <inherited from parent>
+==1206== 
+==1206== 
+==1206== HEAP SUMMARY:
+==1206==     in use at exit: 213,615 bytes in 520 blocks
+==1206==   total heap usage: 4,449 allocs, 3,929 frees, 1,918,554 bytes allocated
+==1206== 
+==1206== LEAK SUMMARY:
+==1206==    definitely lost: 0 bytes in 0 blocks
+==1206==    indirectly lost: 0 bytes in 0 blocks
+==1206==      possibly lost: 0 bytes in 0 blocks
+==1206==    still reachable: 0 bytes in 0 blocks
+==1206==         suppressed: 213,615 bytes in 520 blocks
+==1206== 
+==1206== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1206-- 
+--1206-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,030 bytes in 456 blocks
+--1206-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 5,841 bytes in 64 blocks
+==1206== 
+==1206== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: remote
+==1207== 
+==1207== FILE DESCRIPTORS: 1 open at exit.
+==1207== Open file descriptor 2: /home/vscode/src/log.log
+==1207==    <inherited from parent>
+==1207== 
+==1207== 
+==1207== HEAP SUMMARY:
+==1207==     in use at exit: 213,667 bytes in 523 blocks
+==1207==   total heap usage: 4,565 allocs, 4,042 frees, 1,956,279 bytes allocated
+==1207== 
+==1207== LEAK SUMMARY:
+==1207==    definitely lost: 0 bytes in 0 blocks
+==1207==    indirectly lost: 0 bytes in 0 blocks
+==1207==      possibly lost: 0 bytes in 0 blocks
+==1207==    still reachable: 0 bytes in 0 blocks
+==1207==         suppressed: 213,667 bytes in 523 blocks
+==1207== 
+==1207== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1207-- 
+--1207-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,030 bytes in 456 blocks
+--1207-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 5,893 bytes in 67 blocks
+==1207== 
+==1207== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: merge
+==1208== 
+==1208== FILE DESCRIPTORS: 1 open at exit.
+==1208== Open file descriptor 2: /home/vscode/src/log.log
+==1208==    <inherited from parent>
+==1208== 
+==1208== 
+==1208== HEAP SUMMARY:
+==1208==     in use at exit: 213,727 bytes in 526 blocks
+==1208==   total heap usage: 4,682 allocs, 4,156 frees, 1,994,091 bytes allocated
+==1208== 
+==1208== LEAK SUMMARY:
+==1208==    definitely lost: 0 bytes in 0 blocks
+==1208==    indirectly lost: 0 bytes in 0 blocks
+==1208==      possibly lost: 0 bytes in 0 blocks
+==1208==    still reachable: 0 bytes in 0 blocks
+==1208==         suppressed: 213,727 bytes in 526 blocks
+==1208== 
+==1208== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1208-- 
+--1208-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,038 bytes in 456 blocks
+--1208-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 5,945 bytes in 70 blocks
+==1208== 
+==1208== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: [branch
+==1209== 
+==1209== FILE DESCRIPTORS: 1 open at exit.
+==1209== Open file descriptor 2: /home/vscode/src/log.log
+==1209==    <inherited from parent>
+==1209== 
+==1209== 
+==1209== HEAP SUMMARY:
+==1209==     in use at exit: 213,783 bytes in 529 blocks
+==1209==   total heap usage: 4,732 allocs, 4,203 frees, 1,996,804 bytes allocated
+==1209== 
+==1209== LEAK SUMMARY:
+==1209==    definitely lost: 0 bytes in 0 blocks
+==1209==    indirectly lost: 0 bytes in 0 blocks
+==1209==      possibly lost: 0 bytes in 0 blocks
+==1209==    still reachable: 0 bytes in 0 blocks
+==1209==         suppressed: 213,783 bytes in 529 blocks
+==1209== 
+==1209== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1209-- 
+--1209-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,034 bytes in 456 blocks
+--1209-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 6,005 bytes in 73 blocks
+==1209== 
+==1209== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: remote
+==1210== 
+==1210== FILE DESCRIPTORS: 1 open at exit.
+==1210== Open file descriptor 2: /home/vscode/src/log.log
+==1210==    <inherited from parent>
+==1210== 
+==1210== 
+==1210== HEAP SUMMARY:
+==1210==     in use at exit: 213,835 bytes in 532 blocks
+==1210==   total heap usage: 4,848 allocs, 4,316 frees, 2,034,533 bytes allocated
+==1210== 
+==1210== LEAK SUMMARY:
+==1210==    definitely lost: 0 bytes in 0 blocks
+==1210==    indirectly lost: 0 bytes in 0 blocks
+==1210==      possibly lost: 0 bytes in 0 blocks
+==1210==    still reachable: 0 bytes in 0 blocks
+==1210==         suppressed: 213,835 bytes in 532 blocks
+==1210== 
+==1210== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1210-- 
+--1210-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,030 bytes in 456 blocks
+--1210-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 6,061 bytes in 76 blocks
+==1210== 
+==1210== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: merge
+==1211== 
+==1211== FILE DESCRIPTORS: 1 open at exit.
+==1211== Open file descriptor 2: /home/vscode/src/log.log
+==1211==    <inherited from parent>
+==1211== 
+==1211== 
+==1211== HEAP SUMMARY:
+==1211==     in use at exit: 213,899 bytes in 535 blocks
+==1211==   total heap usage: 4,965 allocs, 4,430 frees, 2,072,373 bytes allocated
+==1211== 
+==1211== LEAK SUMMARY:
+==1211==    definitely lost: 0 bytes in 0 blocks
+==1211==    indirectly lost: 0 bytes in 0 blocks
+==1211==      possibly lost: 0 bytes in 0 blocks
+==1211==    still reachable: 0 bytes in 0 blocks
+==1211==         suppressed: 213,899 bytes in 535 blocks
+==1211== 
+==1211== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1211-- 
+--1211-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,042 bytes in 456 blocks
+--1211-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 6,113 bytes in 79 blocks
+==1211== 
+==1211== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: [branch
+==1212== 
+==1212== FILE DESCRIPTORS: 1 open at exit.
+==1212== Open file descriptor 2: /home/vscode/src/log.log
+==1212==    <inherited from parent>
+==1212== 
+==1212== 
+==1212== HEAP SUMMARY:
+==1212==     in use at exit: 213,952 bytes in 538 blocks
+==1212==   total heap usage: 5,015 allocs, 4,477 frees, 2,075,066 bytes allocated
+==1212== 
+==1212== LEAK SUMMARY:
+==1212==    definitely lost: 0 bytes in 0 blocks
+==1212==    indirectly lost: 0 bytes in 0 blocks
+==1212==      possibly lost: 0 bytes in 0 blocks
+==1212==    still reachable: 0 bytes in 0 blocks
+==1212==         suppressed: 213,952 bytes in 538 blocks
+==1212== 
+==1212== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1212-- 
+--1212-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,031 bytes in 456 blocks
+--1212-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 6,177 bytes in 82 blocks
+==1212== 
+==1212== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: remote
+==1213== 
+==1213== FILE DESCRIPTORS: 1 open at exit.
+==1213== Open file descriptor 2: /home/vscode/src/log.log
+==1213==    <inherited from parent>
+==1213== 
+==1213== 
+==1213== HEAP SUMMARY:
+==1213==     in use at exit: 214,004 bytes in 541 blocks
+==1213==   total heap usage: 5,131 allocs, 4,590 frees, 2,112,792 bytes allocated
+==1213== 
+==1213== LEAK SUMMARY:
+==1213==    definitely lost: 0 bytes in 0 blocks
+==1213==    indirectly lost: 0 bytes in 0 blocks
+==1213==      possibly lost: 0 bytes in 0 blocks
+==1213==    still reachable: 0 bytes in 0 blocks
+==1213==         suppressed: 214,004 bytes in 541 blocks
+==1213== 
+==1213== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1213-- 
+--1213-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,030 bytes in 456 blocks
+--1213-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 6,230 bytes in 85 blocks
+==1213== 
+==1213== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: merge
+==1214== 
+==1214== FILE DESCRIPTORS: 1 open at exit.
+==1214== Open file descriptor 2: /home/vscode/src/log.log
+==1214==    <inherited from parent>
+==1214== 
+==1214== 
+==1214== HEAP SUMMARY:
+==1214==     in use at exit: 214,065 bytes in 544 blocks
+==1214==   total heap usage: 5,248 allocs, 4,704 frees, 2,150,611 bytes allocated
+==1214== 
+==1214== LEAK SUMMARY:
+==1214==    definitely lost: 0 bytes in 0 blocks
+==1214==    indirectly lost: 0 bytes in 0 blocks
+==1214==      possibly lost: 0 bytes in 0 blocks
+==1214==    still reachable: 0 bytes in 0 blocks
+==1214==         suppressed: 214,065 bytes in 544 blocks
+==1214== 
+==1214== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1214-- 
+--1214-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,039 bytes in 456 blocks
+--1214-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 6,282 bytes in 88 blocks
+==1214== 
+==1214== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: [branch
+==1215== 
+==1215== FILE DESCRIPTORS: 1 open at exit.
+==1215== Open file descriptor 2: /home/vscode/src/log.log
+==1215==    <inherited from parent>
+==1215== 
+==1215== 
+==1215== HEAP SUMMARY:
+==1215==     in use at exit: 214,116 bytes in 547 blocks
+==1215==   total heap usage: 5,298 allocs, 4,751 frees, 2,153,285 bytes allocated
+==1215== 
+==1215== LEAK SUMMARY:
+==1215==    definitely lost: 0 bytes in 0 blocks
+==1215==    indirectly lost: 0 bytes in 0 blocks
+==1215==      possibly lost: 0 bytes in 0 blocks
+==1215==    still reachable: 0 bytes in 0 blocks
+==1215==         suppressed: 214,116 bytes in 547 blocks
+==1215== 
+==1215== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1215-- 
+--1215-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,029 bytes in 456 blocks
+--1215-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 6,343 bytes in 91 blocks
+==1215== 
+==1215== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: remote
+==1216== 
+==1216== FILE DESCRIPTORS: 1 open at exit.
+==1216== Open file descriptor 2: /home/vscode/src/log.log
+==1216==    <inherited from parent>
+==1216== 
+==1216== 
+==1216== HEAP SUMMARY:
+==1216==     in use at exit: 214,168 bytes in 550 blocks
+==1216==   total heap usage: 5,414 allocs, 4,864 frees, 2,191,009 bytes allocated
+==1216== 
+==1216== LEAK SUMMARY:
+==1216==    definitely lost: 0 bytes in 0 blocks
+==1216==    indirectly lost: 0 bytes in 0 blocks
+==1216==      possibly lost: 0 bytes in 0 blocks
+==1216==    still reachable: 0 bytes in 0 blocks
+==1216==         suppressed: 214,168 bytes in 550 blocks
+==1216== 
+==1216== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1216-- 
+--1216-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,030 bytes in 456 blocks
+--1216-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 6,394 bytes in 94 blocks
+==1216== 
+==1216== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: merge
+==1217== 
+==1217== FILE DESCRIPTORS: 1 open at exit.
+==1217== Open file descriptor 2: /home/vscode/src/log.log
+==1217==    <inherited from parent>
+==1217== 
+==1217== 
+==1217== HEAP SUMMARY:
+==1217==     in use at exit: 214,227 bytes in 553 blocks
+==1217==   total heap usage: 5,531 allocs, 4,978 frees, 2,228,814 bytes allocated
+==1217== 
+==1217== LEAK SUMMARY:
+==1217==    definitely lost: 0 bytes in 0 blocks
+==1217==    indirectly lost: 0 bytes in 0 blocks
+==1217==      possibly lost: 0 bytes in 0 blocks
+==1217==    still reachable: 0 bytes in 0 blocks
+==1217==         suppressed: 214,227 bytes in 553 blocks
+==1217== 
+==1217== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1217-- 
+--1217-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,037 bytes in 456 blocks
+--1217-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 6,446 bytes in 97 blocks
+==1217== 
+==1217== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: Unnamed
+==1218== 
+==1218== FILE DESCRIPTORS: 1 open at exit.
+==1218== Open file descriptor 2: /home/vscode/src/log.log
+==1218==    <inherited from parent>
+==1218== 
+==1218== 
+==1218== HEAP SUMMARY:
+==1218==     in use at exit: 214,336 bytes in 556 blocks
+==1218==   total heap usage: 5,638 allocs, 5,082 frees, 2,232,375 bytes allocated
+==1218== 
+==1218== LEAK SUMMARY:
+==1218==    definitely lost: 0 bytes in 0 blocks
+==1218==    indirectly lost: 0 bytes in 0 blocks
+==1218==      possibly lost: 0 bytes in 0 blocks
+==1218==    still reachable: 0 bytes in 0 blocks
+==1218==         suppressed: 214,336 bytes in 556 blocks
+==1218== 
+==1218== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1218-- 
+--1218-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,087 bytes in 456 blocks
+--1218-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 6,505 bytes in 100 blocks
+==1218== 
+==1218== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: #!/bin/sh: No such file or directory
+==1219== 
+==1219== FILE DESCRIPTORS: 1 open at exit.
+==1219== Open file descriptor 2: /home/vscode/src/log.log
+==1219==    <inherited from parent>
+==1219== 
+==1219== 
+==1219== HEAP SUMMARY:
+==1219==     in use at exit: 214,382 bytes in 559 blocks
+==1219==   total heap usage: 5,679 allocs, 5,120 frees, 2,235,016 bytes allocated
+==1219== 
+==1219== LEAK SUMMARY:
+==1219==    definitely lost: 0 bytes in 0 blocks
+==1219==    indirectly lost: 0 bytes in 0 blocks
+==1219==      possibly lost: 0 bytes in 0 blocks
+==1219==    still reachable: 0 bytes in 0 blocks
+==1219==         suppressed: 214,382 bytes in 559 blocks
+==1219== 
+==1219== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1219-- 
+--1219-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,024 bytes in 456 blocks
+--1219-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 6,614 bytes in 103 blocks
+==1219== 
+==1219== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: #
+==1220== 
+==1220== FILE DESCRIPTORS: 1 open at exit.
+==1220== Open file descriptor 2: /home/vscode/src/log.log
+==1220==    <inherited from parent>
+==1220== 
+==1220== 
+==1220== HEAP SUMMARY:
+==1220==     in use at exit: 214,420 bytes in 562 blocks
+==1220==   total heap usage: 5,720 allocs, 5,158 frees, 2,237,470 bytes allocated
+==1220== 
+==1220== LEAK SUMMARY:
+==1220==    definitely lost: 0 bytes in 0 blocks
+==1220==    indirectly lost: 0 bytes in 0 blocks
+==1220==      possibly lost: 0 bytes in 0 blocks
+==1220==    still reachable: 0 bytes in 0 blocks
+==1220==         suppressed: 214,420 bytes in 562 blocks
+==1220== 
+==1220== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1220-- 
+--1220-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,016 bytes in 456 blocks
+--1220-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 6,660 bytes in 106 blocks
+==1220== 
+==1220== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: #
+==1221== 
+==1221== FILE DESCRIPTORS: 1 open at exit.
+==1221== Open file descriptor 2: /home/vscode/src/log.log
+==1221==    <inherited from parent>
+==1221== 
+==1221== 
+==1221== HEAP SUMMARY:
+==1221==     in use at exit: 214,522 bytes in 565 blocks
+==1221==   total heap usage: 5,848 allocs, 5,283 frees, 2,241,096 bytes allocated
+==1221== 
+==1221== LEAK SUMMARY:
+==1221==    definitely lost: 0 bytes in 0 blocks
+==1221==    indirectly lost: 0 bytes in 0 blocks
+==1221==      possibly lost: 0 bytes in 0 blocks
+==1221==    still reachable: 0 bytes in 0 blocks
+==1221==         suppressed: 214,522 bytes in 565 blocks
+==1221== 
+==1221== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1221-- 
+--1221-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,080 bytes in 456 blocks
+--1221-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 6,698 bytes in 109 blocks
+==1221== 
+==1221== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: #
+==1222== 
+==1222== FILE DESCRIPTORS: 1 open at exit.
+==1222== Open file descriptor 2: /home/vscode/src/log.log
+==1222==    <inherited from parent>
+==1222== 
+==1222== 
+==1222== HEAP SUMMARY:
+==1222==     in use at exit: 214,595 bytes in 568 blocks
+==1222==   total heap usage: 5,925 allocs, 5,357 frees, 2,244,176 bytes allocated
+==1222== 
+==1222== LEAK SUMMARY:
+==1222==    definitely lost: 0 bytes in 0 blocks
+==1222==    indirectly lost: 0 bytes in 0 blocks
+==1222==      possibly lost: 0 bytes in 0 blocks
+==1222==    still reachable: 0 bytes in 0 blocks
+==1222==         suppressed: 214,595 bytes in 568 blocks
+==1222== 
+==1222== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1222-- 
+--1222-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,051 bytes in 456 blocks
+--1222-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 6,800 bytes in 112 blocks
+==1222== 
+==1222== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: #
+==1223== 
+==1223== FILE DESCRIPTORS: 1 open at exit.
+==1223== Open file descriptor 2: /home/vscode/src/log.log
+==1223==    <inherited from parent>
+==1223== 
+==1223== 
+==1223== HEAP SUMMARY:
+==1223==     in use at exit: 214,633 bytes in 571 blocks
+==1223==   total heap usage: 5,966 allocs, 5,395 frees, 2,246,705 bytes allocated
+==1223== 
+==1223== LEAK SUMMARY:
+==1223==    definitely lost: 0 bytes in 0 blocks
+==1223==    indirectly lost: 0 bytes in 0 blocks
+==1223==      possibly lost: 0 bytes in 0 blocks
+==1223==    still reachable: 0 bytes in 0 blocks
+==1223==         suppressed: 214,633 bytes in 571 blocks
+==1223== 
+==1223== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1223-- 
+--1223-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,016 bytes in 456 blocks
+--1223-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 6,873 bytes in 115 blocks
+==1223== 
+==1223== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: #
+==1224== 
+==1224== FILE DESCRIPTORS: 1 open at exit.
+==1224== Open file descriptor 2: /home/vscode/src/log.log
+==1224==    <inherited from parent>
+==1224== 
+==1224== 
+==1224== HEAP SUMMARY:
+==1224==     in use at exit: 214,730 bytes in 574 blocks
+==1224==   total heap usage: 6,079 allocs, 5,505 frees, 2,250,166 bytes allocated
+==1224== 
+==1224== LEAK SUMMARY:
+==1224==    definitely lost: 0 bytes in 0 blocks
+==1224==    indirectly lost: 0 bytes in 0 blocks
+==1224==      possibly lost: 0 bytes in 0 blocks
+==1224==    still reachable: 0 bytes in 0 blocks
+==1224==         suppressed: 214,730 bytes in 574 blocks
+==1224== 
+==1224== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1224-- 
+--1224-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,075 bytes in 456 blocks
+--1224-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 6,911 bytes in 118 blocks
+==1224== 
+==1224== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: #
+==1225== 
+==1225== FILE DESCRIPTORS: 1 open at exit.
+==1225== Open file descriptor 2: /home/vscode/src/log.log
+==1225==    <inherited from parent>
+==1225== 
+==1225== 
+==1225== HEAP SUMMARY:
+==1225==     in use at exit: 214,833 bytes in 577 blocks
+==1225==   total heap usage: 6,207 allocs, 5,630 frees, 2,253,853 bytes allocated
+==1225== 
+==1225== LEAK SUMMARY:
+==1225==    definitely lost: 0 bytes in 0 blocks
+==1225==    indirectly lost: 0 bytes in 0 blocks
+==1225==      possibly lost: 0 bytes in 0 blocks
+==1225==    still reachable: 0 bytes in 0 blocks
+==1225==         suppressed: 214,833 bytes in 577 blocks
+==1225== 
+==1225== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1225-- 
+--1225-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,081 bytes in 456 blocks
+--1225-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 7,008 bytes in 121 blocks
+==1225== 
+==1225== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: #
+==1226== 
+==1226== FILE DESCRIPTORS: 1 open at exit.
+==1226== Open file descriptor 2: /home/vscode/src/log.log
+==1226==    <inherited from parent>
+==1226== 
+==1226== 
+==1226== HEAP SUMMARY:
+==1226==     in use at exit: 214,912 bytes in 580 blocks
+==1226==   total heap usage: 6,299 allocs, 5,719 frees, 2,257,106 bytes allocated
+==1226== 
+==1226== LEAK SUMMARY:
+==1226==    definitely lost: 0 bytes in 0 blocks
+==1226==    indirectly lost: 0 bytes in 0 blocks
+==1226==      possibly lost: 0 bytes in 0 blocks
+==1226==    still reachable: 0 bytes in 0 blocks
+==1226==         suppressed: 214,912 bytes in 580 blocks
+==1226== 
+==1226== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1226-- 
+--1226-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,057 bytes in 456 blocks
+--1226-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 7,111 bytes in 124 blocks
+==1226== 
+==1226== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: #
+==1227== 
+==1227== FILE DESCRIPTORS: 1 open at exit.
+==1227== Open file descriptor 2: /home/vscode/src/log.log
+==1227==    <inherited from parent>
+==1227== 
+==1227== 
+==1227== HEAP SUMMARY:
+==1227==     in use at exit: 214,950 bytes in 583 blocks
+==1227==   total heap usage: 6,340 allocs, 5,757 frees, 2,259,641 bytes allocated
+==1227== 
+==1227== LEAK SUMMARY:
+==1227==    definitely lost: 0 bytes in 0 blocks
+==1227==    indirectly lost: 0 bytes in 0 blocks
+==1227==      possibly lost: 0 bytes in 0 blocks
+==1227==    still reachable: 0 bytes in 0 blocks
+==1227==         suppressed: 214,950 bytes in 583 blocks
+==1227== 
+==1227== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1227-- 
+--1227-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,016 bytes in 456 blocks
+--1227-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 7,190 bytes in 127 blocks
+==1227== 
+==1227== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: #
+==1228== 
+==1228== FILE DESCRIPTORS: 1 open at exit.
+==1228== Open file descriptor 2: /home/vscode/src/log.log
+==1228==    <inherited from parent>
+==1228== 
+==1228== 
+==1228== HEAP SUMMARY:
+==1228==     in use at exit: 215,047 bytes in 586 blocks
+==1228==   total heap usage: 6,448 allocs, 5,862 frees, 2,263,063 bytes allocated
+==1228== 
+==1228== LEAK SUMMARY:
+==1228==    definitely lost: 0 bytes in 0 blocks
+==1228==    indirectly lost: 0 bytes in 0 blocks
+==1228==      possibly lost: 0 bytes in 0 blocks
+==1228==    still reachable: 0 bytes in 0 blocks
+==1228==         suppressed: 215,047 bytes in 586 blocks
+==1228== 
+==1228== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1228-- 
+--1228-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,075 bytes in 456 blocks
+--1228-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 7,228 bytes in 130 blocks
+==1228== 
+==1228== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: .
+==1229== 
+==1229== FILE DESCRIPTORS: 1 open at exit.
+==1229== Open file descriptor 2: /home/vscode/src/log.log
+==1229==    <inherited from parent>
+==1229== 
+==1229== 
+==1229== HEAP SUMMARY:
+==1229==     in use at exit: 215,135 bytes in 592 blocks
+==1229==   total heap usage: 6,516 allocs, 5,924 frees, 2,268,001 bytes allocated
+==1229== 
+==1229== LEAK SUMMARY:
+==1229==    definitely lost: 0 bytes in 0 blocks
+==1229==    indirectly lost: 0 bytes in 0 blocks
+==1229==      possibly lost: 0 bytes in 0 blocks
+==1229==    still reachable: 0 bytes in 0 blocks
+==1229==         suppressed: 215,135 bytes in 592 blocks
+==1229== 
+==1229== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1229-- 
+--1229-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,029 bytes in 456 blocks
+--1229-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 7,362 bytes in 136 blocks
+==1229== 
+==1229== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: commitmsg=$(git rev-parse --git-path hooks/commit-msg): No such file or directory
+==1230== 
+==1230== FILE DESCRIPTORS: 1 open at exit.
+==1230== Open file descriptor 2: /home/vscode/src/log.log
+==1230==    <inherited from parent>
+==1230== 
+==1230== 
+==1230== HEAP SUMMARY:
+==1230==     in use at exit: 215,228 bytes in 595 blocks
+==1230==   total heap usage: 6,575 allocs, 5,980 frees, 2,271,464 bytes allocated
+==1230== 
+==1230== LEAK SUMMARY:
+==1230==    definitely lost: 0 bytes in 0 blocks
+==1230==    indirectly lost: 0 bytes in 0 blocks
+==1230==      possibly lost: 0 bytes in 0 blocks
+==1230==    still reachable: 0 bytes in 0 blocks
+==1230==         suppressed: 215,228 bytes in 595 blocks
+==1230== 
+==1230== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1230-- 
+--1230-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,071 bytes in 456 blocks
+--1230-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 7,413 bytes in 139 blocks
+==1230== 
+==1230== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+==1231== Memcheck, a memory error detector
+==1231== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==1231== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==1231== Command: /usr/bin/test -x  && exec  ${1+$@}
+==1231== 
+/usr/bin/test: extra argument '&&'
+==1231== 
+==1231== FILE DESCRIPTORS: 1 open at exit.
+==1231== Open file descriptor 0:
+==1231==    <inherited from parent>
+==1231== 
+==1231== 
+==1231== HEAP SUMMARY:
+==1231==     in use at exit: 0 bytes in 0 blocks
+==1231==   total heap usage: 5 allocs, 5 frees, 109 bytes allocated
+==1231== 
+==1231== All heap blocks were freed -- no leaks are possible
+==1231== 
+==1231== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+minishell: command not found: :
+==1232== 
+==1232== FILE DESCRIPTORS: 1 open at exit.
+==1232== Open file descriptor 2: /home/vscode/src/log.log
+==1232==    <inherited from parent>
+==1232== 
+==1232== 
+==1232== HEAP SUMMARY:
+==1232==     in use at exit: 215,354 bytes in 601 blocks
+==1232==   total heap usage: 6,761 allocs, 6,160 frees, 2,277,352 bytes allocated
+==1232== 
+==1232== LEAK SUMMARY:
+==1232==    definitely lost: 0 bytes in 0 blocks
+==1232==    indirectly lost: 0 bytes in 0 blocks
+==1232==      possibly lost: 0 bytes in 0 blocks
+==1232==    still reachable: 0 bytes in 0 blocks
+==1232==         suppressed: 215,354 bytes in 601 blocks
+==1232== 
+==1232== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1232-- 
+--1232-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,016 bytes in 456 blocks
+--1232-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 7,594 bytes in 145 blocks
+==1232== 
+==1232== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: #!/bin/sh: No such file or directory
+==1233== 
+==1233== FILE DESCRIPTORS: 1 open at exit.
+==1233== Open file descriptor 2: /home/vscode/src/log.log
+==1233==    <inherited from parent>
+==1233== 
+==1233== 
+==1233== HEAP SUMMARY:
+==1233==     in use at exit: 215,400 bytes in 604 blocks
+==1233==   total heap usage: 6,802 allocs, 6,198 frees, 2,279,958 bytes allocated
+==1233== 
+==1233== LEAK SUMMARY:
+==1233==    definitely lost: 0 bytes in 0 blocks
+==1233==    indirectly lost: 0 bytes in 0 blocks
+==1233==      possibly lost: 0 bytes in 0 blocks
+==1233==    still reachable: 0 bytes in 0 blocks
+==1233==         suppressed: 215,400 bytes in 604 blocks
+==1233== 
+==1233== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1233-- 
+--1233-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,024 bytes in 456 blocks
+--1233-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 7,632 bytes in 148 blocks
+==1233== 
+==1233== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: #
+==1234== 
+==1234== FILE DESCRIPTORS: 1 open at exit.
+==1234== Open file descriptor 2: /home/vscode/src/log.log
+==1234==    <inherited from parent>
+==1234== 
+==1234== 
+==1234== HEAP SUMMARY:
+==1234==     in use at exit: 215,438 bytes in 607 blocks
+==1234==   total heap usage: 6,843 allocs, 6,236 frees, 2,282,412 bytes allocated
+==1234== 
+==1234== LEAK SUMMARY:
+==1234==    definitely lost: 0 bytes in 0 blocks
+==1234==    indirectly lost: 0 bytes in 0 blocks
+==1234==      possibly lost: 0 bytes in 0 blocks
+==1234==    still reachable: 0 bytes in 0 blocks
+==1234==         suppressed: 215,438 bytes in 607 blocks
+==1234== 
+==1234== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1234-- 
+--1234-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,016 bytes in 456 blocks
+--1234-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 7,678 bytes in 151 blocks
+==1234== 
+==1234== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: #
+==1235== 
+==1235== FILE DESCRIPTORS: 1 open at exit.
+==1235== Open file descriptor 2: /home/vscode/src/log.log
+==1235==    <inherited from parent>
+==1235== 
+==1235== 
+==1235== HEAP SUMMARY:
+==1235==     in use at exit: 215,532 bytes in 610 blocks
+==1235==   total heap usage: 6,956 allocs, 6,346 frees, 2,285,852 bytes allocated
+==1235== 
+==1235== LEAK SUMMARY:
+==1235==    definitely lost: 0 bytes in 0 blocks
+==1235==    indirectly lost: 0 bytes in 0 blocks
+==1235==      possibly lost: 0 bytes in 0 blocks
+==1235==    still reachable: 0 bytes in 0 blocks
+==1235==         suppressed: 215,532 bytes in 610 blocks
+==1235== 
+==1235== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1235-- 
+--1235-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,072 bytes in 456 blocks
+--1235-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 7,716 bytes in 154 blocks
+==1235== 
+==1235== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: #
+==1236== 
+==1236== FILE DESCRIPTORS: 1 open at exit.
+==1236== Open file descriptor 2: /home/vscode/src/log.log
+==1236==    <inherited from parent>
+==1236== 
+==1236== 
+==1236== HEAP SUMMARY:
+==1236==     in use at exit: 215,633 bytes in 613 blocks
+==1236==   total heap usage: 7,077 allocs, 6,464 frees, 2,289,472 bytes allocated
+==1236== 
+==1236== LEAK SUMMARY:
+==1236==    definitely lost: 0 bytes in 0 blocks
+==1236==    indirectly lost: 0 bytes in 0 blocks
+==1236==      possibly lost: 0 bytes in 0 blocks
+==1236==    still reachable: 0 bytes in 0 blocks
+==1236==         suppressed: 215,633 bytes in 613 blocks
+==1236== 
+==1236== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1236-- 
+--1236-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,079 bytes in 456 blocks
+--1236-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 7,810 bytes in 157 blocks
+==1236== 
+==1236== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: #
+==1237== 
+==1237== FILE DESCRIPTORS: 1 open at exit.
+==1237== Open file descriptor 2: /home/vscode/src/log.log
+==1237==    <inherited from parent>
+==1237== 
+==1237== 
+==1237== HEAP SUMMARY:
+==1237==     in use at exit: 215,736 bytes in 616 blocks
+==1237==   total heap usage: 7,198 allocs, 6,582 frees, 2,293,114 bytes allocated
+==1237== 
+==1237== LEAK SUMMARY:
+==1237==    definitely lost: 0 bytes in 0 blocks
+==1237==    indirectly lost: 0 bytes in 0 blocks
+==1237==      possibly lost: 0 bytes in 0 blocks
+==1237==    still reachable: 0 bytes in 0 blocks
+==1237==         suppressed: 215,736 bytes in 616 blocks
+==1237== 
+==1237== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1237-- 
+--1237-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,081 bytes in 456 blocks
+--1237-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 7,911 bytes in 160 blocks
+==1237== 
+==1237== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: #
+==1238== 
+==1238== FILE DESCRIPTORS: 1 open at exit.
+==1238== Open file descriptor 2: /home/vscode/src/log.log
+==1238==    <inherited from parent>
+==1238== 
+==1238== 
+==1238== HEAP SUMMARY:
+==1238==     in use at exit: 215,842 bytes in 619 blocks
+==1238==   total heap usage: 7,326 allocs, 6,707 frees, 2,296,833 bytes allocated
+==1238== 
+==1238== LEAK SUMMARY:
+==1238==    definitely lost: 0 bytes in 0 blocks
+==1238==    indirectly lost: 0 bytes in 0 blocks
+==1238==      possibly lost: 0 bytes in 0 blocks
+==1238==    still reachable: 0 bytes in 0 blocks
+==1238==         suppressed: 215,842 bytes in 619 blocks
+==1238== 
+==1238== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1238-- 
+--1238-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,084 bytes in 456 blocks
+--1238-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 8,014 bytes in 163 blocks
+==1238== 
+==1238== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: #
+==1239== 
+==1239== FILE DESCRIPTORS: 1 open at exit.
+==1239== Open file descriptor 2: /home/vscode/src/log.log
+==1239==    <inherited from parent>
+==1239== 
+==1239== 
+==1239== HEAP SUMMARY:
+==1239==     in use at exit: 215,942 bytes in 622 blocks
+==1239==   total heap usage: 7,447 allocs, 6,825 frees, 2,300,459 bytes allocated
+==1239== 
+==1239== LEAK SUMMARY:
+==1239==    definitely lost: 0 bytes in 0 blocks
+==1239==    indirectly lost: 0 bytes in 0 blocks
+==1239==      possibly lost: 0 bytes in 0 blocks
+==1239==    still reachable: 0 bytes in 0 blocks
+==1239==         suppressed: 215,942 bytes in 622 blocks
+==1239== 
+==1239== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1239-- 
+--1239-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,078 bytes in 456 blocks
+--1239-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 8,120 bytes in 166 blocks
+==1239== 
+==1239== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: #
+==1240== 
+==1240== FILE DESCRIPTORS: 1 open at exit.
+==1240== Open file descriptor 2: /home/vscode/src/log.log
+==1240==    <inherited from parent>
+==1240== 
+==1240== 
+==1240== HEAP SUMMARY:
+==1240==     in use at exit: 215,980 bytes in 625 blocks
+==1240==   total heap usage: 7,488 allocs, 6,863 frees, 2,303,015 bytes allocated
+==1240== 
+==1240== LEAK SUMMARY:
+==1240==    definitely lost: 0 bytes in 0 blocks
+==1240==    indirectly lost: 0 bytes in 0 blocks
+==1240==      possibly lost: 0 bytes in 0 blocks
+==1240==    still reachable: 0 bytes in 0 blocks
+==1240==         suppressed: 215,980 bytes in 625 blocks
+==1240== 
+==1240== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1240-- 
+--1240-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,016 bytes in 456 blocks
+--1240-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 8,220 bytes in 169 blocks
+==1240== 
+==1240== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: #
+==1241== 
+==1241== FILE DESCRIPTORS: 1 open at exit.
+==1241== Open file descriptor 2: /home/vscode/src/log.log
+==1241==    <inherited from parent>
+==1241== 
+==1241== 
+==1241== HEAP SUMMARY:
+==1241==     in use at exit: 216,073 bytes in 628 blocks
+==1241==   total heap usage: 7,596 allocs, 6,968 frees, 2,306,405 bytes allocated
+==1241== 
+==1241== LEAK SUMMARY:
+==1241==    definitely lost: 0 bytes in 0 blocks
+==1241==    indirectly lost: 0 bytes in 0 blocks
+==1241==      possibly lost: 0 bytes in 0 blocks
+==1241==    still reachable: 0 bytes in 0 blocks
+==1241==         suppressed: 216,073 bytes in 628 blocks
+==1241== 
+==1241== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1241-- 
+--1241-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,071 bytes in 456 blocks
+--1241-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 8,258 bytes in 172 blocks
+==1241== 
+==1241== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: #
+==1242== 
+==1242== FILE DESCRIPTORS: 1 open at exit.
+==1242== Open file descriptor 2: /home/vscode/src/log.log
+==1242==    <inherited from parent>
+==1242== 
+==1242== 
+==1242== HEAP SUMMARY:
+==1242==     in use at exit: 216,212 bytes in 634 blocks
+==1242==   total heap usage: 7,747 allocs, 7,113 frees, 2,312,387 bytes allocated
+==1242== 
+==1242== LEAK SUMMARY:
+==1242==    definitely lost: 0 bytes in 0 blocks
+==1242==    indirectly lost: 0 bytes in 0 blocks
+==1242==      possibly lost: 0 bytes in 0 blocks
+==1242==    still reachable: 0 bytes in 0 blocks
+==1242==         suppressed: 216,212 bytes in 634 blocks
+==1242== 
+==1242== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1242-- 
+--1242-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,080 bytes in 456 blocks
+--1242-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 8,388 bytes in 178 blocks
+==1242== 
+==1242== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: #
+==1243== 
+==1243== FILE DESCRIPTORS: 1 open at exit.
+==1243== Open file descriptor 2: /home/vscode/src/log.log
+==1243==    <inherited from parent>
+==1243== 
+==1243== 
+==1243== HEAP SUMMARY:
+==1243==     in use at exit: 216,324 bytes in 637 blocks
+==1243==   total heap usage: 7,889 allocs, 7,252 frees, 2,316,245 bytes allocated
+==1243== 
+==1243== LEAK SUMMARY:
+==1243==    definitely lost: 0 bytes in 0 blocks
+==1243==    indirectly lost: 0 bytes in 0 blocks
+==1243==      possibly lost: 0 bytes in 0 blocks
+==1243==    still reachable: 0 bytes in 0 blocks
+==1243==         suppressed: 216,324 bytes in 637 blocks
+==1243== 
+==1243== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1243-- 
+--1243-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,090 bytes in 456 blocks
+--1243-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 8,490 bytes in 181 blocks
+==1243== 
+==1243== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: #
+==1244== 
+==1244== FILE DESCRIPTORS: 1 open at exit.
+==1244== Open file descriptor 2: /home/vscode/src/log.log
+==1244==    <inherited from parent>
+==1244== 
+==1244== 
+==1244== HEAP SUMMARY:
+==1244==     in use at exit: 216,389 bytes in 640 blocks
+==1244==   total heap usage: 7,973 allocs, 7,333 frees, 2,319,328 bytes allocated
+==1244== 
+==1244== LEAK SUMMARY:
+==1244==    definitely lost: 0 bytes in 0 blocks
+==1244==    indirectly lost: 0 bytes in 0 blocks
+==1244==      possibly lost: 0 bytes in 0 blocks
+==1244==    still reachable: 0 bytes in 0 blocks
+==1244==         suppressed: 216,389 bytes in 640 blocks
+==1244== 
+==1244== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1244-- 
+--1244-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,043 bytes in 456 blocks
+--1244-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 8,602 bytes in 184 blocks
+==1244== 
+==1244== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: #
+==1245== 
+==1245== FILE DESCRIPTORS: 1 open at exit.
+==1245== Open file descriptor 2: /home/vscode/src/log.log
+==1245==    <inherited from parent>
+==1245== 
+==1245== 
+==1245== HEAP SUMMARY:
+==1245==     in use at exit: 216,427 bytes in 643 blocks
+==1245==   total heap usage: 8,014 allocs, 7,371 frees, 2,321,849 bytes allocated
+==1245== 
+==1245== LEAK SUMMARY:
+==1245==    definitely lost: 0 bytes in 0 blocks
+==1245==    indirectly lost: 0 bytes in 0 blocks
+==1245==      possibly lost: 0 bytes in 0 blocks
+==1245==    still reachable: 0 bytes in 0 blocks
+==1245==         suppressed: 216,427 bytes in 643 blocks
+==1245== 
+==1245== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1245-- 
+--1245-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,016 bytes in 456 blocks
+--1245-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 8,667 bytes in 187 blocks
+==1245== 
+==1245== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+minishell: command not found: #
+==1247== Memcheck, a memory error detector
+==1247== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==1247== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==1247== Command: /usr/bin/sed -n s/^\\(.*\>\\).*$/Signed-off-by:\ \\1/p)
+==1247== 
+==1246== 
+==1246== FILE DESCRIPTORS: 1 open at exit.
+==1246== Open file descriptor 2: /home/vscode/src/log.log
+==1246==    <inherited from parent>
+==1246== 
+==1246== 
+==1246== HEAP SUMMARY:
+==1246==     in use at exit: 216,542 bytes in 646 blocks
+==1246==   total heap usage: 8,112 allocs, 7,466 frees, 2,325,400 bytes allocated
+==1246== 
+==1246== LEAK SUMMARY:
+==1246==    definitely lost: 0 bytes in 0 blocks
+==1246==    indirectly lost: 0 bytes in 0 blocks
+==1246==      possibly lost: 0 bytes in 0 blocks
+==1246==    still reachable: 0 bytes in 0 blocks
+==1246==         suppressed: 216,542 bytes in 646 blocks
+==1246== 
+==1246== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1246-- 
+--1246-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,093 bytes in 456 blocks
+--1246-- used_suppression:      4 add_history ignore_readline_leaks.txt:23 suppressed: 8,705 bytes in 190 blocks
+==1246== 
+==1246== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+/usr/bin/sed: -e expression #1, char 34: unknown option to `s'
+==1247== 
+==1247== FILE DESCRIPTORS: 3 open at exit.
+==1247== Open file descriptor 2: /home/vscode/src/log.log
+==1247==    <inherited from parent>
+==1247== 
+==1247== Open file descriptor 1: /dev/pts/0
+==1247==    <inherited from parent>
+==1247== 
+==1247== Open file descriptor 0:
+==1247==    <inherited from parent>
+==1247== 
+==1247== 
+==1247== HEAP SUMMARY:
+==1247==     in use at exit: 5,779 bytes in 6 blocks
+==1247==   total heap usage: 13 allocs, 7 frees, 7,501 bytes allocated
+==1247== 
+==1247== 1,600 bytes in 1 blocks are still reachable in loss record 5 of 6
+==1247==    at 0x483B723: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1247==    by 0x483E017: realloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1247==    by 0x11CC75: ??? (in /usr/bin/sed)
+==1247==    by 0x10D7C7: ??? (in /usr/bin/sed)
+==1247==    by 0x10E12A: ??? (in /usr/bin/sed)
+==1247==    by 0x10BB3D: ??? (in /usr/bin/sed)
+==1247==    by 0x48A9082: (below main) (libc-start.c:308)
+==1247== 
+==1247== LEAK SUMMARY:
+==1247==    definitely lost: 0 bytes in 0 blocks
+==1247==    indirectly lost: 0 bytes in 0 blocks
+==1247==      possibly lost: 0 bytes in 0 blocks
+==1247==    still reachable: 1,600 bytes in 1 blocks
+==1247==         suppressed: 4,179 bytes in 5 blocks
+==1247== 
+==1247== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+--1247-- 
+--1247-- used_suppression:      5 usr_bin_suppressions ignore_readline_leaks.txt:9 suppressed: 4,179 bytes in 5 blocks
+==1247== 
+==1247== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+syntax error near unexpected token `|'
+minishell: command not found: #
+==1248== 
+==1248== FILE DESCRIPTORS: 1 open at exit.
+==1248== Open file descriptor 2: /home/vscode/src/log.log
+==1248==    <inherited from parent>
+==1248== 
+==1248== 
+==1248== HEAP SUMMARY:
+==1248==     in use at exit: 216,752 bytes in 655 blocks
+==1248==   total heap usage: 8,250 allocs, 7,595 frees, 2,331,504 bytes allocated
+==1248== 
+==1248== LEAK SUMMARY:
+==1248==    definitely lost: 0 bytes in 0 blocks
+==1248==    indirectly lost: 0 bytes in 0 blocks
+==1248==      possibly lost: 0 bytes in 0 blocks
+==1248==    still reachable: 0 bytes in 0 blocks
+==1248==         suppressed: 216,752 bytes in 655 blocks
+==1248== 
+==1248== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1248-- 
+--1248-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,068 bytes in 456 blocks
+--1248-- used_suppression:      7 add_history ignore_readline_leaks.txt:23 suppressed: 8,940 bytes in 199 blocks
+==1248== 
+==1248== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+syntax error unclosed quote "
+syntax error unclosed quote "
+==1171== 
+==1171== FILE DESCRIPTORS: 3 open at exit.
+==1171== Open file descriptor 2: /home/vscode/src/log.log
+==1171==    <inherited from parent>
+==1171== 
+==1171== Open file descriptor 1: /dev/pts/0
+==1171==    at 0x49ADAEB: dup2 (syscall-template.S:78)
+==1171==    by 0x10D0D5: reset_stds (in /home/vscode/src/minishell)
+==1171==    by 0x10D356: pre_execute (in /home/vscode/src/minishell)
+==1171==    by 0x109CFC: main (in /home/vscode/src/minishell)
+==1171== 
+==1171== Open file descriptor 0:
+==1171==    at 0x49ADAEB: dup2 (syscall-template.S:78)
+==1171==    by 0x10D0C2: reset_stds (in /home/vscode/src/minishell)
+==1171==    by 0x10D356: pre_execute (in /home/vscode/src/minishell)
+==1171==    by 0x109CFC: main (in /home/vscode/src/minishell)
+==1171== 
+==1171== 
+==1171== HEAP SUMMARY:
+==1171==     in use at exit: 221,904 bytes in 740 blocks
+==1171==   total heap usage: 8,749 allocs, 8,009 frees, 2,515,792 bytes allocated
+==1171== 
+==1171== 2 bytes in 1 blocks are still reachable in loss record 3 of 112
+==1171==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1171==    by 0x11029D: ft_strdup (in /home/vscode/src/minishell)
+==1171==    by 0x10CAE7: cmd_found (in /home/vscode/src/minishell)
+==1171==    by 0x10CBB4: cmd_redirect (in /home/vscode/src/minishell)
+==1171==    by 0x10CCD9: our_toklist_cmdlist (in /home/vscode/src/minishell)
+==1171==    by 0x109B9F: main (in /home/vscode/src/minishell)
+==1171== 
+==1171== 5 bytes in 1 blocks are still reachable in loss record 5 of 112
+==1171==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1171==    by 0x11029D: ft_strdup (in /home/vscode/src/minishell)
+==1171==    by 0x10CA3F: cmd_found (in /home/vscode/src/minishell)
+==1171==    by 0x10CBB4: cmd_redirect (in /home/vscode/src/minishell)
+==1171==    by 0x10CCD9: our_toklist_cmdlist (in /home/vscode/src/minishell)
+==1171==    by 0x109B9F: main (in /home/vscode/src/minishell)
+==1171== 
+==1171== 5 bytes in 1 blocks are still reachable in loss record 6 of 112
+==1171==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1171==    by 0x11029D: ft_strdup (in /home/vscode/src/minishell)
+==1171==    by 0x10CA5D: cmd_found (in /home/vscode/src/minishell)
+==1171==    by 0x10CBB4: cmd_redirect (in /home/vscode/src/minishell)
+==1171==    by 0x10CCD9: our_toklist_cmdlist (in /home/vscode/src/minishell)
+==1171==    by 0x109B9F: main (in /home/vscode/src/minishell)
+==1171== 
+==1171== 7 bytes in 2 blocks are still reachable in loss record 11 of 112
+==1171==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1171==    by 0x110587: ft_strjoin (in /home/vscode/src/minishell)
+==1171==    by 0x10F252: join_free (in /home/vscode/src/minishell)
+==1171==    by 0x10F7DB: handle_any (in /home/vscode/src/minishell)
+==1171==    by 0x10F37C: do_expand_help (in /home/vscode/src/minishell)
+==1171==    by 0x10F444: do_expand (in /home/vscode/src/minishell)
+==1171==    by 0x10F57E: our_extok (in /home/vscode/src/minishell)
+==1171==    by 0x109B55: main (in /home/vscode/src/minishell)
+==1171== 
+==1171== 24 bytes in 1 blocks are still reachable in loss record 25 of 112
+==1171==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1171==    by 0x10CD51: ft_calloc (in /home/vscode/src/minishell)
+==1171==    by 0x10C7FD: our_clistnew (in /home/vscode/src/minishell)
+==1171==    by 0x10C8F0: new_node (in /home/vscode/src/minishell)
+==1171==    by 0x10CCA2: our_toklist_cmdlist (in /home/vscode/src/minishell)
+==1171==    by 0x109B9F: main (in /home/vscode/src/minishell)
+==1171== 
+==1171== 40 bytes in 1 blocks are still reachable in loss record 32 of 112
+==1171==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1171==    by 0x10CD51: ft_calloc (in /home/vscode/src/minishell)
+==1171==    by 0x10C7CB: our_clistnew (in /home/vscode/src/minishell)
+==1171==    by 0x10C8F0: new_node (in /home/vscode/src/minishell)
+==1171==    by 0x10CCA2: our_toklist_cmdlist (in /home/vscode/src/minishell)
+==1171==    by 0x109B9F: main (in /home/vscode/src/minishell)
+==1171== 
+==1171== 64 bytes in 2 blocks are still reachable in loss record 39 of 112
+==1171==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1171==    by 0x10BF18: our_tlstnew (in /home/vscode/src/minishell)
+==1171==    by 0x10BFFD: array_token_list (in /home/vscode/src/minishell)
+==1171==    by 0x109AD9: main (in /home/vscode/src/minishell)
+==1171== 
+==1171== 168 bytes in 1 blocks are still reachable in loss record 54 of 112
+==1171==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1171==    by 0x10CD51: ft_calloc (in /home/vscode/src/minishell)
+==1171==    by 0x10E601: envlist_envarray (in /home/vscode/src/minishell)
+==1171==    by 0x109CCD: main (in /home/vscode/src/minishell)
+==1171== 
+==1171== 320 bytes in 20 blocks are still reachable in loss record 63 of 112
+==1171==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1171==    by 0x110CE1: ft_lstnew (in /home/vscode/src/minishell)
+==1171==    by 0x109564: init_shell (in /home/vscode/src/minishell)
+==1171==    by 0x1099AB: main (in /home/vscode/src/minishell)
+==1171== 
+==1171== 2,099 bytes in 20 blocks are still reachable in loss record 83 of 112
+==1171==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1171==    by 0x11029D: ft_strdup (in /home/vscode/src/minishell)
+==1171==    by 0x10955C: init_shell (in /home/vscode/src/minishell)
+==1171==    by 0x1099AB: main (in /home/vscode/src/minishell)
+==1171== 
+==1171== 2,099 bytes in 20 blocks are still reachable in loss record 84 of 112
+==1171==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1171==    by 0x11029D: ft_strdup (in /home/vscode/src/minishell)
+==1171==    by 0x10E65B: envlist_envarray (in /home/vscode/src/minishell)
+==1171==    by 0x109CCD: main (in /home/vscode/src/minishell)
+==1171== 
+==1171== LEAK SUMMARY:
+==1171==    definitely lost: 0 bytes in 0 blocks
+==1171==    indirectly lost: 0 bytes in 0 blocks
+==1171==      possibly lost: 0 bytes in 0 blocks
+==1171==    still reachable: 4,833 bytes in 70 blocks
+==1171==         suppressed: 217,071 bytes in 670 blocks
+==1171== 
+==1171== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1171-- 
+--1171-- used_suppression:     91 readline ignore_readline_leaks.txt:16 suppressed: 208,021 bytes in 456 blocks
+--1171-- used_suppression:     10 add_history ignore_readline_leaks.txt:23 suppressed: 9,306 bytes in 214 blocks
+==1171== 
+==1171== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)

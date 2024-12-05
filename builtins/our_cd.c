@@ -28,7 +28,6 @@ char *get_pwd_value(t_shell *data)
     while(current)
     {
         if(ft_strncmp(current->content, "PWD=", 4) == 0)
-        if(ft_strncmp(current->content, "PWD=", 4) == 0)
             return(ft_strdup(current->content + 4));
         current = current->next;
     }
@@ -42,7 +41,6 @@ void update_pwd(t_shell *data, char *pwd)
     current = data->envir;
     while(current)
     {
-        if(ft_strncmp(current->content, "PWD=", 4) == 0)
         if(ft_strncmp(current->content, "PWD=", 4) == 0)
         {
             free(current->content);

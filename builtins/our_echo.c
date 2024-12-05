@@ -2,7 +2,7 @@
 
 //need to deal with the quotes still
 
-void our_echo(char **arg, t_shell *data)
+void our_echo(char **arg)
 {
     int flag_n;
     int flag_f;
@@ -24,13 +24,6 @@ void our_echo(char **arg, t_shell *data)
         while(arg[i])
         {
             echo_arg = arg[i];
-            if (arg[i][0] == '$')
-            {
-                flag_f = 1;
-                echo_arg = our_expand(arg[i] + 1, data);
-                if (!echo_arg)
-                    printf("malloc fail\n"); //malloc fail check
-            }
             write(1, echo_arg, ft_strlen(echo_arg));
             if((arg[i + 1]))
                 write(1, " ", 1);

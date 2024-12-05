@@ -153,6 +153,10 @@ int main(int ac, char **av, char **envp)
     {
         i = 0;
         line = readline("minishell♣ ");
+        int fd = open("cmdsdsdsdsdsdds.cmds", O_WRONLY | O_APPEND, 0644);
+        write(fd, line, ft_strlen(line));
+        write(fd, "\n", 1);
+        close(fd);
         // if(ft_strncmp(line, "exit", 4) == 0)`
         // {
         //     free(line);
