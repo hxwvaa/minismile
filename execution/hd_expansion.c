@@ -21,7 +21,7 @@ char    *handle_expand(char *line, t_shell *data, int *len, char *res)
     bef_do = pre_dollar(line, NULL);
     if(!bef_do)
         return(perror("malloc"), free(res), NULL);
-    to_ex = expand_what(line, (ft_strlen(bef_do) + 1), len); 
+    to_ex = expand_what(line, (ft_strlen(bef_do) + 1), len); //maybe add the check here for isalnum, != _ 
 	if (!to_ex)
 		return (perror("malloc"), free(bef_do), free(res), NULL);
     res = join_strs(res, bef_do, line);
