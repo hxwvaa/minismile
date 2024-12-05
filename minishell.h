@@ -94,6 +94,7 @@ void our_cdir(char *path, t_shell *data);
 
 
 char *our_expand(char *var, t_shell *data);
+char *before_equal(char *str);
 
 //---------------------pre_execute------------------//
 t_token *array_to_token_array(char **split, int count);

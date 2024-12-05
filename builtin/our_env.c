@@ -36,7 +36,7 @@ t_list *clone_list(t_list *o_list)
     new_l = NULL;
     while(list)
     {
-        temp = ft_lstnew(list->content);
+        temp = ft_lstnew(ft_strdup(list->content));
         if (!temp)
             return(NULL);
         ft_lstadd_back(&new_l, temp);
@@ -73,9 +73,14 @@ t_list *sort_exp(t_list *list)
 void our_expenv(t_shell *data)
 {
     t_list *tmp;
-    tmp = sort_exp(data->envir);
-    // if (!tmp)
-    //     ; //ERROR
+    t_list *sorted;
+    sorted = sort_exp(data->envir);
+    tmp = sorted;
+    if (!tmp)
+    {
+        perror("malloc");
+        //free all
+    }
     while(tmp)
     {
         char *equal = ft_strchr((char *)tmp->content, '=');
@@ -87,6 +92,7 @@ void our_expenv(t_shell *data)
             printf("declare -x %s\n", (char *)tmp->content);
         tmp = tmp->next;
     }
+    our_envlistclear(&sorted);
 }
 // void init_shell(t_shell *data, char **envp)
 // {

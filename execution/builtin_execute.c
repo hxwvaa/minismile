@@ -6,7 +6,7 @@
 /*   By: hbasheer <hbasheer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 10:19:47 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/11/25 14:51:01 by hbasheer         ###   ########.fr       */
+/*   Updated: 2024/12/05 16:26:07 by hbasheer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,15 +90,13 @@ int execute_one_cmd(t_cmd *curr, t_shell *data)
     else if(ft_strncmp(curr->cmd, "echo", 5) == 0)
         our_echo(curr->cargs, data);
     else if(ft_strncmp(curr->cmd, "export", 7)== 0)
-        our_export(curr->cargs, data, 0);
+        j = our_export(curr->cargs, data, 0);
     else if(ft_strncmp(curr->cmd, "pwd", 4) == 0)
-    { 
-            j = our_pwd();
-    }
+        j = our_pwd();
     else if(ft_strncmp(curr->cmd, "cd", 3) == 0)
-    {
         our_cdir(curr->cargs[i + 1], data);
-    }
+    if (j == -1)
+        ; //exit cleanly
     return(j);
 }
 
