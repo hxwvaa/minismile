@@ -150,3 +150,29 @@ $PWD0
 echo $PWD$
 echo '$PWD'
 $PWD$
+pwd
+env
+cd builtins 
+env
+make
+./minis
+./minishell
+clear
+pwd
+cd builtins 
+pwd
+clear
+cd
+clear
+unset HOME
+pwd
+$HOME
+cd
+pwd
+clear
+ls
+clear
+env
+clear
+ls
+clear

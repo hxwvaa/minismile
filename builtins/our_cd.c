@@ -10,11 +10,7 @@ char *get_value_env(char *var, t_shell *data)
     while(current)
     {
         if(ft_strncmp(current->content, var, (ft_strlen(var))) == 0)
-        {
-            if(((char *)current->content)[5] == '\0')
-                return(get_pwd());
-            return(ft_strdup(current->content + 5));
-        }
+            return(ft_strdup(current->content + ft_strlen(var)));
         current = current->next;
     }
     return (NULL);
@@ -159,6 +155,19 @@ int our_cdir(char *path, t_shell *data)
         }
     }
     printf("inside cd before cd\n");
+    if (path[0] == '-')    
+    {
+        path = get_value_env("OLDPWD=", data);
+        if(!path)
+        {
+            write(2, "cd : OLDPWD is not set\n", 23);
+            data->exit_code = 1;
+            return 1;
+        }
+        printf("%s\n", path);
+    }
+    printf("\n%s\n", path);
+
     if (change_dir(path, data) == 1)
         return (1);
     return (0);
@@ -176,6 +185,8 @@ int our_cdir(char *path, t_shell *data)
     //     exit(1);
     // }
     // curdir= our_pwd(); 
+
+
 
 }
 
