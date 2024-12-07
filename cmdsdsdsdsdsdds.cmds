@@ -176,3 +176,35 @@ env
 clear
 ls
 clear
+pwd
+exit
+pwd
+exit
+pwd
+mkdir a
+cd a
+pwd
+cd a
+pwd
+cd a
+pwd
+cd a
+pwd
+cd a
+pwd
+cd a
+ls
+echo hello
+cd a
+ls | pwd
+ls | cd a | pwd
+pwd
+cd a
+pwd
+echo hello
+cd a
+pwd
+cd a
+pwd
+ls | pwd
+cd a

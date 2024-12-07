@@ -94,10 +94,14 @@ void	exit_shell(char **av, t_shell *data)
 	i = 0;
 	while (av[i])
 		i++;
-	close(data->std[0]);
-	close(data->std[1]);//maybe add checks or something // now no fd leaks
+	if(data->std[0] != -1)
+		close(data->std[0]);
+	if(data->std[1] != -1)
+		close(data->std[1]);//maybe add checks or something // now no fd leaks
+	if(data->fd[0] != -1) // without this 1 fd leak in case of exit | pwd
+		close(data->fd[0]);
 	if (i == 1)
-		(write(2,"exit\n", 5), free_arr(data->envi), our_toklistclear(&data->tokens), our_envlistclear(&data->envir),  our_cmdlistclear(&data->cmds), exit(0));
+		(write(2,"exit\n", 5),free(data->backup_pwd), free_arr(data->envi), our_toklistclear(&data->tokens), our_envlistclear(&data->envir),  our_cmdlistclear(&data->cmds), exit(0));
 	//(printf("exit\n"), free_arr(av), our_toklistclear(&data->tokens), our_envlistclear(&data->envir),  our_cmdlistclear(&data->cmds), exit(0));  
 	else if (i == 2)
 		exit_av_is_equal_2(av);

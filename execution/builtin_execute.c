@@ -45,6 +45,8 @@ void clean_exit(t_shell *data, int r)
         our_cmdlistclear(&data->cmds);
     if(data->envi)
         free_arr(data->envi);
+    if(data->backup_pwd)
+        free(data->backup_pwd);
     //close(data->fd[0]); // to close read end after writing to the pipe// dont delete this comment yet
     // if(r == 0)
     // {
@@ -101,7 +103,7 @@ int execute_one_cmd(t_cmd *curr, t_shell *data)
         our_export(curr->cargs, data, 0);
     else if(ft_strncmp(curr->cmd, "pwd", 4) == 0)
     { 
-            j = our_pwd();
+            j = our_pwd(data);
     }
     else if(ft_strncmp(curr->cmd, "cd", 3) == 0)
     {

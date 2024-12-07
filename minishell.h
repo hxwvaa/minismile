@@ -71,6 +71,7 @@ typedef struct s_cmd{
 typedef struct s_shell{
     
     char **envi;
+    char *backup_pwd;
     t_list *envir;
     t_toklist *tokens;
     t_cmd *cmds;
@@ -95,9 +96,15 @@ int expand_tokens(t_toklist *tokens, t_shell *data);//not needed
 void our_echo(char **arg);
 void our_expenv(t_shell *data);
 void our_env(t_list *envir);
-bool our_pwd(void);
+bool our_pwd(t_shell *data);
 //int our_pwd();
-char *get_pwd(void);
+char *our_pwd_help(t_shell *data);
+char *get_value_env(char *var, t_shell *data);
+char *get_curr_pwd(void);
+char *get_pwd_value(t_shell *data);
+int del_dir(char *path, char *prevdir, t_shell *data);
+int update_pwd(t_shell *data, char *pwd);
+int update_oldpwd(t_shell *data, char *oldpwd);
 bool our_unset(char *var, t_list **envir);
 bool our_export(char **arg, t_shell *data, int i);
 int our_cdir(char *path, t_shell *data);

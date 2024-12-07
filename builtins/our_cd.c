@@ -2,191 +2,104 @@
 
 
 //check it later it works
-char *get_value_env(char *var, t_shell *data)
+
+int change_dir_help(char *path, char *prevdir, t_shell *data)
 {
-    t_list *current;
-
-    current = data->envir;
-    while(current)
-    {
-        if(ft_strncmp(current->content, var, (ft_strlen(var))) == 0)
-            return(ft_strdup(current->content + ft_strlen(var)));
-        current = current->next;
-    }
-    return (NULL);
-}
-
-char *get_pwd_value(t_shell *data)
-{
-    t_list *current;
-
-    current = data->envir;
-    while(current)
-    {
-        if(ft_strncmp(current->content, "PWD=", 4) == 0)
-            return(ft_strdup(current->content + 4));
-        current = current->next;
-    }
-    return (NULL);
-}
-
-void update_pwd(t_shell *data, char *pwd)
-{
-    t_list *current;
-
-    current = data->envir;
-    while(current)
-    {
-        if(ft_strncmp(current->content, "PWD=", 4) == 0)
-        {
-            free(current->content);
-            //current->content = ft_strdup(pwd);
-            current->content = ft_strjoin("PWD=", pwd);
-            //free(pwd);
-            break;
-        }
-        current=current->next;
-    }
-}
-void update_oldpwd(t_shell *data, char *oldpwd)
-{
-    t_list *current;
-    t_list *new;
-    int found;
-
-    found = 0;
-    current = data->envir;
-    while(current)
-    {
-        if(ft_strncmp(current->content, "OLDPWD=", 7) == 0)
-            {
-                free(current->content);
-                current->content = ft_strjoin("OLDPWD=", oldpwd);
-                found = 1;
-                //free(oldpwd);
-                break ;
-            }
-        current = current->next;
-    }
-    if(!found)
-    {
-        new = ft_lstnew(ft_strjoin("OLDPWD=", oldpwd));
-        if(!new)
-        {
-            write(2, "error malloc\n", 13);
-            return ;
-        }
-        ft_lstadd_back(&data->envir, new);
-        //free(oldpwd);
-    }
-}
-
-
-
-int change_dir(char *path, t_shell *data)
-{
-    int i;
     char *curdir;
-    char *prevdir;
-    char *pwd;
-    //char *oldpwd;
 
-    i = 0;
-    //maybe i need to move this down after chdir because i get stuck
-    //inside a unfound directory
-    prevdir = get_pwd_value(data);
-    if(!prevdir)
-         return (-1); // or remove return
-    i = chdir(path);
-    if(i == -1)
+    if(chdir(path) == -1)
     {
         write(2, "cd: ", 4);
         write(2, path, ft_strlen(path));
         write(2, ": No such file or directory\n", 28);
-        free(prevdir);
-        return (1);
-        // set variable to echo $? to 1;
-        //exit(1);
+        return (free(prevdir), 1);
     }
-    curdir= get_pwd();
-    printf("after\n");
+    curdir = get_curr_pwd();
     if(!curdir)
-    {
-        write(2,
-		 	"cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n",
-		 	108);
-        pwd = ft_strjoin(prevdir, "/");
-        
-        update_pwd(data, ft_strjoin(pwd, path));
-        update_oldpwd(data, prevdir);
-        free(pwd);
-        free(prevdir);
-        return (-1);
-    }
-    // oldpwd = ft_strjoin("OLDPWD=", prevdir);
-    // pwd = ft_strjoin("PWD=", curdir);
-    // if(!pwd || !oldpwd)
-    //     return ;
-    printf("before updating pwd&old\n");
-    update_pwd(data, curdir);
-    update_oldpwd(data, prevdir);
+        return(del_dir(path, prevdir, data));
+    if (update_pwd(data, curdir) == -1)
+        return(free(curdir), free(prevdir), -1);
+    if (update_oldpwd(data, prevdir) == -1)
+        return(free(curdir), free(prevdir), -1);
     free(curdir);
     free(prevdir);
-    // update_pwd(data, pwd);
-    // update_oldpwd(data, oldpwd);
     return (0);
+}
+
+int change_dir(char *path, t_shell *data)
+{
+    char *prevdir;
+
+    prevdir = get_pwd_value(data);
+    if(!prevdir)
+         return (-1); 
+    return (change_dir_help(path, prevdir, data));
+}
+
+int handle_home(char **path, char **temp, t_shell *data)
+{
+    *path = get_value_env("HOME=", data);
+    if(!*path)
+    {
+        if(errno == ENOMEM)
+            exit(errno); // call free_all function before exiting
+        write(2, "cd : HOME is not set\n", 21);
+        return (1);
+    }
+    *temp = *path;
+    return (0);
+}
+int handle_flag(char **path, char **temp, t_shell *data)
+{
+   if(ft_strncmp(*path, "-", 2) == 0)
+    {
+        *path = get_value_env("OLDPWD=", data);
+        if(!*path)
+        {
+            if(errno == ENOMEM)
+                exit(errno); // call free_all function before exiting
+            write(2, "cd : OLDPWD is not set\n", 23);
+            return (1);
+        }
+        printf("%s\n", *path);
+        *temp = *path;
+        return (0);
+    }
+    else // check on mac bash 
+    {
+        write(2, "cd: ", 5);
+        write(2, *path, ft_strlen(*path));
+        write(2, " invalid option\n", 16);
+        return (2);
+    }
 }
 
 int our_cdir(char *path, t_shell *data)
 {
-//     int i;
-//     i = 0;
-    //char    pwd[1024];
+    char *temp;
+    int ret;
 
+    temp = NULL;
     if(!path)
     {
-        //path = getenv("HOME");
-        path = get_value_env("HOME=", data);
-        if(!path)
-        {
-            write(2, "cd : HOME is not set\n", 21);
-            //data->exit_code = 1;
-            return (1);
-        }
+        ret = handle_home(&path, &temp, data);
+        if(ret != 0)
+            return (ret);
     }
-    printf("inside cd before cd\n");
-    if (path[0] == '-')    
+    else if (path[0] == '-')
     {
-        path = get_value_env("OLDPWD=", data);
-        if(!path)
-        {
-            write(2, "cd : OLDPWD is not set\n", 23);
-            data->exit_code = 1;
-            return 1;
-        }
-        printf("%s\n", path);
+        ret = handle_flag(&path, &temp, data);
+        if (ret != 0)
+            return (ret);
     }
-    printf("\n%s\n", path);
-
-    if (change_dir(path, data) == 1)
-        return (1);
-    return (0);
-    // maybe add a case for if path is '..'
-
-
-    // prevdir = our_pwd();
-    // i = chdir(path);
-    // if(i == -1)
-    // {
-    //     write(2, "cd: ", 4);
-    //     write(2, path, ft_strlen(path));
-    //     write(2, ": No such file or directory\n", 28);
-    //     // set variable to echo $? to 1;
-    //     exit(1);
-    // }
-    // curdir= our_pwd(); 
-
-
-
+    ret = change_dir(path, data);
+    if(temp)
+        free(temp);
+    if (ret == -1)
+    {
+        if(errno == ENOMEM)
+            exit(errno); // call free_all function before exiting
+    }
+    return (ret);
 }
 

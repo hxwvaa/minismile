@@ -12,6 +12,22 @@
 //     return(res);
 // }
 
+char *exp_symb(char *res, char *line, int *len, char *bef_do)
+{
+    char *temp;
+
+    temp = ft_substr(line, ft_strlen(bef_do), *len - ft_strlen(bef_do));
+    if(!temp)
+        return(perror("malloc"), free(res), NULL);
+    res = join_strs(res, bef_do, line);
+    if (!res)
+        return (NULL);
+    res = join_strs(res, temp, line);
+    if(!res)
+        return(perror("malloc"), NULL);
+    return (res);
+}
+
 char    *handle_expand(char *line, t_shell *data, int *len, char *res)
 {
     char    *ex_str;
@@ -24,6 +40,8 @@ char    *handle_expand(char *line, t_shell *data, int *len, char *res)
     to_ex = expand_what(line, (ft_strlen(bef_do) + 1), len); //maybe add the check here for isalnum, != _ 
 	if (!to_ex)
 		return (perror("malloc"), free(bef_do), free(res), NULL);
+    if(!ft_isalnum(to_ex[0]) && to_ex[0] != '_' && to_ex[0] != '?')
+        return(free(to_ex), exp_symb(res, line, len, bef_do));
     res = join_strs(res, bef_do, line);
     if (!res)
         return (NULL);
