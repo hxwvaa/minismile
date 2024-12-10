@@ -59,6 +59,7 @@ void error_message(char *file)
 void invalid_lstcmd(char *file, int *input, int *output, t_shell *data)
 {
 	error_message(file);
+	free(data->backup_pwd);
 	if (data->cmd_path)
 	{
 		free(data->cmd_path);
@@ -85,6 +86,7 @@ void invalid_cmd_dir(char *file, int *input, int *output, t_shell *data)
 	write(2, "shell: ", 7);
 	ft_putstr_fd(file, 2);
 	ft_putendl_fd(": Is a directory", 2);
+	free(data->backup_pwd);
 	if (*input != -1)
 	    close(*input);
     if (*output != -1)

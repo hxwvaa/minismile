@@ -103,8 +103,9 @@ char	*do_heredoc(char *input, char *limit, t_shell *data)
 
 	//bef_do = NULL;
 	line = NULL;
-	while ((line = readline(">")))
+	while (1)
 	{
+		line = readline(">");
 		if(!line)
 			break;
 		if (ft_strncmp(limit, line, ft_strlen(limit) + 1) == 0)

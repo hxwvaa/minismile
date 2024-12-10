@@ -70,7 +70,7 @@ int handle_flag(char **path, char **temp, t_shell *data)
         write(2, "cd: ", 5);
         write(2, *path, ft_strlen(*path));
         write(2, " invalid option\n", 16);
-        return (2);
+        return (2); // maybe 1 here instead of 2
     }
 }
 

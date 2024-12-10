@@ -67,6 +67,7 @@ void set_redirection(t_cmd *curr, t_shell *data, int *input, int *output)
 
 void cleanup_child(t_shell *data, int *input, int *output)
 {
+    free(data->backup_pwd);
     if(data->std[0] != -1)
         close(data->std[0]);
     if(data->std[1] != -1)
@@ -106,7 +107,7 @@ void execute_child(t_shell *data, t_cmd *curr, int *input, int *output)
         if(ft_strchr(curr->cmd, '/') && check_if_directory(curr->cmd))
             invalid_cmd_dir(curr->cmd, input, output, data);
         data->cmd_path = get_cmd_path(curr->cmd, data->envi);
-        if (!data->cmd_path)
+        if (!data->cmd_path) // check if malloc fails incase of strduping '/'
             invalid_lstcmd(curr->cmd, input, output, data);
         if (execve(data->cmd_path, curr->cargs, data->envi) == -1) // if it fails even  though it is a valid command maybe because i malloc more space??
             invalid_lstcmd(curr->cmd, input, output, data); // dont forget to free data->envi, and change exit_code var 127

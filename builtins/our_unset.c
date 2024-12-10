@@ -40,7 +40,7 @@ bool our_unset(char *var, t_list **envir)
 {
     if(!var)
     {
-        write(2, "unset: not enough arguments\n", 28);
+        //write(2, "unset: not enough arguments\n", 28);
         //data->exit_code = 1
         return (false);
     }

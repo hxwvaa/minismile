@@ -60,6 +60,6 @@ fclean: clean
 re: fclean all
 
 valgrind: $(NAME)
-	sh ak.sh
+	valgrind --trace-children=yes -s --suppressions=ignore_readline_leaks.txt  --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes ./minishell
 
 .PHONY: all clean fclean re
