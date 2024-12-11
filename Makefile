@@ -5,7 +5,7 @@ EXEC = execution
 SRC = minislime.c tokenize.c findpath.c builtin/our_echo.c\
 		builtin/our_env.c builtin/our_pwd.c builtin/our_unset.c\
 		builtin/our_export.c builtin/our_cd.c builtin/our_exit.c\
-		pre_execute.c free_arr_list.c expand.c toklist_cmdlist.c\
+		pre_execute.c free_arr_list.c expand.c mini_utils.c toklist_cmdlist.c\
 		gnl/get_next_line.c $(EXEC)/execution.c $(EXEC)/process_hd.c\
 		$(EXEC)/process_redir.c $(EXEC)/builtin_execute.c\
 		$(EXEC)/execute_child.c $(EXEC)/execute_parent.c\
@@ -41,7 +41,7 @@ $(LIBFT):
 
 $(NAME): $(OBJ)
 	@echo "$(CY)Generating minishell$(RC)"
-	@$(CC) -o $@ $^ -lreadline $(LIBFT)
+	@$(CC) -o $@ $^ -lreadline -L/opt/vagrant/embedded/lib/ -Iopt/vagrant/embedded/include/readline $(LIBFT)
 
 clean:
 	@echo "$(YE)Cleaning all object files$(RC)\n"
@@ -56,6 +56,6 @@ fclean: clean
 re: fclean all
 
 valgrind: $(NAME)
-	sh ak.sh
+	valgrind --trace-children=yes -s --suppressions=ignore_readline_leaks.txt  --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes ./minishell
 
 .PHONY: all clean fclean re

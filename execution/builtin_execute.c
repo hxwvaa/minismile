@@ -6,7 +6,7 @@
 /*   By: hbasheer <hbasheer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 10:19:47 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/12/05 16:26:07 by hbasheer         ###   ########.fr       */
+/*   Updated: 2024/12/10 15:28:41 by hbasheer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,10 @@ int execute_one_cmd(t_cmd *curr, t_shell *data)
     else if(ft_strncmp(curr->cmd, "cd", 3) == 0)
         our_cdir(curr->cargs[i + 1], data);
     if (j == -1)
+    {
         ; //exit cleanly
+    }
+    data->exit_code = j;
     return(j);
 }
 

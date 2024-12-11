@@ -17,6 +17,8 @@
 
 // define a macro for cd error message
 
+extern int g_signo;
+
 typedef enum S_TYPES{
 
     CMD,
@@ -73,8 +75,10 @@ typedef struct s_shell{
     int std[2];
     int   pid;
     int     exit_code;
-    
 }t_shell;
+
+// replace_line for signal
+void rl_replace_line (const char *text, int clear_undo);
 
 char	*ft_strtrim(char const *s1, char const *set);
 char **our_tokenize(char *s);
@@ -135,7 +139,7 @@ void	exit_shell(char **av, t_shell *data);
 
 
 
-
+void free_all(t_shell *data);
 
 
 #endif

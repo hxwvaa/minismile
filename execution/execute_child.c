@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_child.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hbasheer <hbasheer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 10:19:55 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/11/24 13:48:38 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/12/11 18:39:13 by hbasheer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void execute_child(t_shell *data, t_cmd *curr, int *input, int *output)
 void fork_execute_child(t_shell *data, t_cmd *curr, int *input, int *output)
 {
     data->pid = fork();
-    if(data->pid == -1)
+    if(data->pid == -1) // EXIt
         perror("fork");
     if(data->pid == 0)
         execute_child(data, curr, input, output);

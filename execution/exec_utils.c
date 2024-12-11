@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hbasheer <hbasheer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:25:26 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/11/24 11:27:57 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/12/08 17:35:11 by hbasheer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,5 @@ void invalid_lstcmd(char *file, int *input, int *output, t_shell *data)
         free_arr(data->envi);
     data->exit_code = 127;
     //exit_shell(data->cmds->cargs, data);
-	exit(1);
+	exit(127);
 }

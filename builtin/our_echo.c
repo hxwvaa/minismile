@@ -17,6 +17,7 @@ bool check_non_n(char *arg)
 
 //need to deal with the quotes still
 
+// change it to int and return 0
 void our_echo(char **arg, t_shell *data)
 {
     int flag_n;
