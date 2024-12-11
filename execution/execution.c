@@ -6,7 +6,7 @@
 /*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 10:20:06 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/12/01 20:50:46 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/12/11 16:08:35 by mshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void our_execution(t_shell *data, int input, int output)
     curr = data->cmds;
     while(curr)
     {
-
         if(process_redir(curr, &input, &output) == -1)
         {
             data->exit_code = 1;

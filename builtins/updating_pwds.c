@@ -28,6 +28,7 @@ int update_existing(t_list *current, char *str, int flag)
 {
     char *new;
     
+    new = NULL;
     if(flag == 1)
         new = ft_strjoin("PWD=", str);
     else if(flag == 2)
