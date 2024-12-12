@@ -29,6 +29,8 @@ int handle_heredoc(t_redir *temp, int *input)
     if(*input != STDIN_FILENO && *input != -1)
         close(*input);
     pipe(hdpipe); // protect pipe fails
+    if(temp->hd_input == NULL)
+        return (close(hdpipe[1]), *input = hdpipe[0], -1);
     len = ft_strlen(temp->hd_input);
     if(len > 65535)
     {
@@ -103,7 +105,10 @@ int process_redir(t_cmd *curr, int *input, int *output)
         if(temp->flag == 2)
         {
             if(handle_heredoc(temp, input) == -1)
-            return (-1);
+            {
+                ft_putendl_fd("shell: heredoc delimited by EOF", 2);
+                return (-1);
+            }
         }
         else if(temp->flag == 0)
         {

@@ -196,7 +196,7 @@ char	*do_heredoc(char *input, char *limit, t_shell *data)
 				our_cmdlistclear(&data->cmds);
 				our_envlistclear(&data->envir);
 				our_toklistclear(&data->tokens);
-				break;
+				exit(0);
 			}
 			if (ft_strncmp(limit, line, ft_strlen(limit) + 1) == 0)
 			{
@@ -278,15 +278,20 @@ int process_heredoc(t_cmd *cmds, t_shell *data)
             if(temp->flag == 2)
             {
                 temp->hd_input = pre_heredoc(temp->file, data);
-				if (ft_strncmp("ctrl", temp->hd_input, 5) == 0)
+                if(!temp->hd_input)
+                {
+					if(errno == ENOMEM)
+                    {
+						perror("malloc");
+                    	return errno;
+					}
+					else
+						return (0);
+                }
+				else if (ft_strncmp("ctrl", temp->hd_input, 5) == 0)
 				{
 					return (-1);
 				}
-                if(!temp->hd_input)
-                {
-                    perror("malloc");
-                    return errno;
-                }
 				// printf("hd_input: %s\n", temp->hd_input);
 				// if(ft_strncmp(temp->hd_input, "ctrl", 5) == 0)
 				// 	return(-1);
