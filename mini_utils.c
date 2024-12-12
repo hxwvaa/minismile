@@ -9,11 +9,11 @@ void free_all(t_shell *data)
         free_arr(data->envi);
         data->envi = NULL;
     }
-    // if(data->envir)
-    // {
-    //     our_envlistclear(&data->envir);
-    //     data->envir = NULL;
-    // }
+    if(data->envir)
+    {
+        our_envlistclear(&data->envir);
+        data->envir = NULL;
+    }
     if(data->our_args)
     {
         write(2, "freeing our_args\n", 17);

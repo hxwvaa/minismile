@@ -6,7 +6,7 @@
 /*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 10:53:59 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/12/12 20:52:02 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/12/12 21:35:04 by mshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,14 +131,20 @@ void handle_hd_sig(int signo)
 	{
 		g_signo = signo;
 		close(STDIN_FILENO);
+		return ;
 	}
+}
+
+void signal_hd(int signo)
+{
+	g_signo = signo;
 }
 
 char	*do_heredoc(char *input, char *limit, t_shell *data)
 {
 	char *line;
 	//char *bef_do;
-	int status;
+	// int status;
 
 	//bef_do = NULL;
 	line = NULL;
@@ -156,26 +162,42 @@ char	*do_heredoc(char *input, char *limit, t_shell *data)
 		perror("fork");
 		return (NULL);
 	}
-	signal(SIGINT, SIG_IGN);
+	//signal(SIGINT, SIG_IGN);
+	signal(SIGINT, signal_hd);
 	signal(SIGQUIT, SIG_IGN);
 	if (pid == 0)
 	{
 		close(pipefd[0]);
 		signal(SIGINT, handle_hd_sig);
+		printf("g_signo: %d\n", g_signo);
+		printf("after signal\n");
 		while (1)
 		{	
 			line = readline(">");
-			// if (g_signo == SIGINT)
-			// {
-			// 	close(pipefd[1]);
-			// 	if (line)
-			// 		free(line);
-			// 	if (input)
-			// 		free(input);
-			// 	exit(1);
-			// }
+			if (g_signo == SIGINT)
+			{
+				printf("inside g_signo if");
+				close(pipefd[1]);
+				if (line)
+					free(line);
+				if (input)
+					free(input);
+				our_cmdlistclear(&data->cmds);
+				our_envlistclear(&data->envir);
+				our_toklistclear(&data->tokens);
+				//close(STDIN_FILENO);
+				exit(1);
+			}
 			if(!line)
+			{
+				close(pipefd[1]);
+				if (input)
+					free(input);
+				our_cmdlistclear(&data->cmds);
+				our_envlistclear(&data->envir);
+				our_toklistclear(&data->tokens);
 				break;
+			}
 			if (ft_strncmp(limit, line, ft_strlen(limit) + 1) == 0)
 			{
 				(free(line), line = NULL);
@@ -190,23 +212,24 @@ char	*do_heredoc(char *input, char *limit, t_shell *data)
 		}
 		exit(0);
 	}
+	waitpid(pid, NULL, 0);
+	printf("after child\n");
 	close(pipefd[1]);
 	close(pipefd[0]);
-	// waitpid(pid, &status, 0);
-	wait(&status);
-	printf("status: %d\n", status);
-	if (WIFSIGNALED(status))
-	{
-		if (WTERMSIG(status) == SIGINT)
-		{
-			printf("inside sigint\n");
-			free(input);
-			input = ft_strdup("ctrl");
-			close(pipefd[1]);
-			close(pipefd[0]);
-			return(input);
-		}
-	}
+	//wait(&status);
+	// printf("status: %d\n", status);
+	// if (WIFSIGNALED(status))
+	// {
+	// 	if (WTERMSIG(status) == SIGINT)
+	// 	{
+	// 		printf("inside sigint\n");
+	// 		free(input);
+	// 		input = ft_strdup("ctrl");
+	// 		close(pipefd[1]);
+	// 		close(pipefd[0]);
+	// 		return(input);
+	// 	}
+	// }
 	printf("after while dasdasd\n");
 	// input = get_file(pipefd[0]);
 	// close(pipefd[0]);
