@@ -144,7 +144,7 @@ char	*do_heredoc(char *input, char *limit, t_shell *data)
 {
 	char *line;
 	//char *bef_do;
-	// int status;
+	 int status;
 
 	//bef_do = NULL;
 	line = NULL;
@@ -201,35 +201,43 @@ char	*do_heredoc(char *input, char *limit, t_shell *data)
 			if (ft_strncmp(limit, line, ft_strlen(limit) + 1) == 0)
 			{
 				(free(line), line = NULL);
+				close(pipefd[1]);
+				if (input)
+					free(input);
+				our_cmdlistclear(&data->cmds);
+				our_envlistclear(&data->envir);
+				our_toklistclear(&data->tokens);
 				break ;
 			}
 			line = expand_hd(line, data, 0);
 			if(!line)
 				return (free(line), free(limit), NULL);
-			if(append_input(&input, line) == -1)
-				return (free(line), free(limit), NULL);
+			write(pipefd[1], line, ft_strlen(line));
+			write(pipefd[1], "\n", 1);
+			// if(append_input(&input, line) == -1)
+			// 	return (free(line), free(limit), NULL);
 			free(line);
 		}
 		exit(0);
 	}
-	waitpid(pid, NULL, 0);
+	waitpid(pid, &status, 0);
 	printf("after child\n");
 	close(pipefd[1]);
-	close(pipefd[0]);
+	//close(pipefd[0]);
 	//wait(&status);
 	// printf("status: %d\n", status);
-	// if (WIFSIGNALED(status))
-	// {
-	// 	if (WTERMSIG(status) == SIGINT)
-	// 	{
-	// 		printf("inside sigint\n");
-	// 		free(input);
-	// 		input = ft_strdup("ctrl");
-	// 		close(pipefd[1]);
-	// 		close(pipefd[0]);
-	// 		return(input);
-	// 	}
-	// }
+	if(WEXITSTATUS(status) == 1)
+	{
+		printf("inside sigint\n");
+		free(input);
+		input = ft_strdup("ctrl");
+		close(pipefd[1]);
+		close(pipefd[0]);
+		return(input);
+	}
+	free(input);
+	input = get_file(pipefd[0]);
+	close(pipefd[0]);
 	printf("after while dasdasd\n");
 	// input = get_file(pipefd[0]);
 	// close(pipefd[0]);
