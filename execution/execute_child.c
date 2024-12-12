@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_child.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hbasheer <hbasheer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 10:19:55 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/12/05 12:51:14 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/12/12 14:53:24 by hbasheer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,11 +119,16 @@ void execute_child(t_shell *data, t_cmd *curr, int *input, int *output)
 
 void fork_execute_child(t_shell *data, t_cmd *curr, int *input, int *output)
 {
+    signal(SIGINT,SIG_IGN);
     data->pid = fork();
-    if(data->pid == -1)
+    if(data->pid == -1) // EXIt
         perror("fork");
     if(data->pid == 0)
+    {
+        signal(SIGINT, SIG_DFL);
+        signal(SIGQUIT, SIG_DFL);
         execute_child(data, curr, input, output);
+    }
     prepare_fds(input, output, data, curr);
     if(!curr->next)
         data->lpid = data->pid; // do i need to initialize in init_shell ?

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_execute.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hbasheer <hbasheer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 10:19:47 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/12/05 15:05:03 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/12/12 14:09:23 by hbasheer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,9 @@ int execute_one_cmd(t_cmd *curr, t_shell *data)
     else if(ft_strncmp(curr->cmd, "unset", 6) == 0)
         our_unset(curr->cargs[i + 1], &data->envir);
     else if(ft_strncmp(curr->cmd, "echo", 5) == 0)
-        our_echo(curr->cargs);
+        our_echo(curr->cargs, data);
     else if(ft_strncmp(curr->cmd, "export", 7)== 0)
-        our_export(curr->cargs, data, 0);
+        j = our_export(curr->cargs, data, 0);
     else if(ft_strncmp(curr->cmd, "pwd", 4) == 0)
     { 
             j = our_pwd(data);
@@ -109,6 +109,7 @@ int execute_one_cmd(t_cmd *curr, t_shell *data)
     {
         j = our_cdir(curr->cargs[i + 1], data);
     }
+    data->exit_code = j;
     data->exit_code = j;
     return(j);
 }

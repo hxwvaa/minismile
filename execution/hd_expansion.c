@@ -74,7 +74,7 @@ char *final_string(char *line, char *res)
     free(line);
     if(!remains)
         return(perror("malloc"), free(res), NULL);
-    res = join_strs(res, remains, line);
+    res = join_free(res, remains);
     if (!res)
         return(perror("malloc"), NULL);
     return(res);

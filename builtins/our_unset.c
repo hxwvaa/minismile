@@ -51,7 +51,6 @@ bool our_unset(char *var, t_list **envir)
     current = *envir;
     prev = NULL;
     len = ft_strlen(var);
-    printf("%s, len:%d\n", var, len);
     while(current)
     {
         if(ft_strncmp(current->content, var, len) == 0)
@@ -60,7 +59,6 @@ bool our_unset(char *var, t_list **envir)
                 *envir = current->next;
             else
                 prev->next = current->next;
-            //printf("%s\n", current->content);
             free(current->content);
             free(current); 
             return(true);

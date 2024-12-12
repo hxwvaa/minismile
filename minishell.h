@@ -18,6 +18,8 @@
 
 // define a macro for cd error message
 
+extern int g_signo;
+
 typedef enum S_TYPES{
 
     CMD,
@@ -85,6 +87,9 @@ typedef struct s_shell{
     
 }t_shell;
 
+// replace_line for signal
+void rl_replace_line (const char *text, int clear_undo);
+
 char	*ft_strtrim(char const *s1, char const *set);
 char **our_tokenize(char *s);
 char	*get_cmd_path(char *cmd, char **env);
@@ -93,7 +98,7 @@ void rm_quotes(t_toklist *tokens);//not needed
 int expand_tokens(t_toklist *tokens, t_shell *data);//not needed
 
 //---------------------builtins------------------//
-void our_echo(char **arg);
+void our_echo(char **arg, t_shell *data);
 void our_expenv(t_shell *data);
 void our_env(t_list *envir);
 bool our_pwd(t_shell *data);
@@ -111,6 +116,7 @@ int our_cdir(char *path, t_shell *data);
 
 
 char *our_expand(char *var, t_shell *data);
+char *before_equal(char *str);
 
 //---------------------pre_execute------------------//
 t_token *array_to_token_array(char **split, int count);
@@ -145,7 +151,8 @@ char    *handle_expand(char *line, t_shell *data, int *len, char *res);
 //void our_execution(t_shell *data);
 //void execution(t_shell *data, int input, int output);
 void pre_execute(t_shell *data, int input, int output);
-void process_heredoc(t_cmd *cmds, t_shell *data);
+void wait_loop(t_shell *data, int status, pid_t pid);
+int process_heredoc(t_cmd *cmds, t_shell *data);
 int process_redir(t_cmd *curr, int *input, int *output);
 int is_builtin(char *cmd);
 int only_one_cmd(t_cmd *cmd);
@@ -169,7 +176,8 @@ void	exit_shell(char **av, t_shell *data);
 
 
 
-
+void free_all(t_shell *data);
+void handle_signal(int sig);
 
 
 #endif

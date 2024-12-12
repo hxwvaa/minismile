@@ -37,11 +37,70 @@
 //     }
 // }
 
+char *export_var (char *arg)
+{
+    int i;
+    char *new_s;
+
+    i = 0;
+    while(arg[i] && arg[i] != '=')
+        i++;
+
+    new_s = malloc(i + 1);
+    if (!new_s)
+        return(NULL);
+    i = 0;
+    while(arg[i] && arg[i] != '=')
+    {
+        new_s[i] = arg[i];
+        i++;
+    }
+    new_s[i] = '\0';
+    return(new_s);
+}
+
+int check_exp_ident(char *arg)
+{
+    int i;
+    char *b_equal;
+    int flag;
+
+    i = 0;
+    flag = 0;
+    b_equal = export_var(arg);
+    printf("\nb_equal: %s\n", b_equal);
+    if (!b_equal)
+        return (write(2, "error malloc\n", 13), -1); // 
+    if(!ft_isalpha(b_equal[i]) && b_equal[i] != '_')
+        flag = 1;
+    i++;
+    while(b_equal[i] && flag == 0)
+    {
+        if(!ft_isalnum(b_equal[i]) && b_equal[i] != '_')
+            flag = 1;
+        i++;
+    }
+    if (flag == 1)
+    {
+        printf("minishell: export: `%s': not a valid identifier\n", arg);
+        free(b_equal);
+        return (1);
+    }
+    return(0);
+}   
+
 bool if_equal(char *arg, t_list *current, char *key, int *found)
 {
     int varl;
+    int chevk;
     
     varl = (int)(key - arg);
+
+    chevk = check_exp_ident(arg);
+    if(chevk == 1)
+        return (false);
+    if(chevk == -1)
+        return (false);//return errno instead
     while(current)
     {
         if(ft_strncmp(current->content, arg, varl + 1) == 0)
@@ -63,6 +122,14 @@ bool if_equal(char *arg, t_list *current, char *key, int *found)
 
 bool if_not_equal(char *arg, t_list *current, int *found)
 {
+    int chevk;
+
+    chevk = check_exp_ident(arg);
+    if(chevk == 1)
+        return (false);
+    if(chevk == -1)
+        return (false); // return errno instad
+
     while(current)
     {
         if(ft_strncmp(current->content, arg, ft_strlen(arg) + 1) == 0)

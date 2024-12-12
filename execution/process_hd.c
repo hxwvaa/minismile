@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_hd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hbasheer <hbasheer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 10:53:59 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/12/05 17:34:13 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/12/12 14:09:12 by hbasheer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ char	*pre_heredoc(char *delimiter, t_shell *data)
 	return (do_heredoc(input, delimiter, data));
 }
 
-void process_heredoc(t_cmd *cmds, t_shell *data)
+int process_heredoc(t_cmd *cmds, t_shell *data)
 {
     t_cmd *curr;
     t_redir *temp;
@@ -162,7 +162,7 @@ void process_heredoc(t_cmd *cmds, t_shell *data)
                 if(!temp->hd_input)
                 {
                     perror("malloc");
-                    return ;
+                    return errno;
                 }
             }
             else
@@ -171,4 +171,5 @@ void process_heredoc(t_cmd *cmds, t_shell *data)
         }
         curr = curr->next;
     }
+	return(0);
 }

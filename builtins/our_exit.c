@@ -55,11 +55,12 @@ void	exit_av_more_than_2(char **av, t_shell *data)
 	{
 		printf("exit\n");
 		printf("shell: exit: %s: numeric argument required\n", av[1]);
+		free_all(data);
 		exit(255);
 	}
 }
 
-void	exit_av_is_equal_2(char **av)
+void	exit_av_is_equal_2(char **av, t_shell *data)
 {
 	bool				b;
 	unsigned long long	n;
@@ -77,13 +78,14 @@ void	exit_av_is_equal_2(char **av)
 			if ((n <= LONG_MAX && b == false) || (av[1][0] == '-'
 					&& b == false))
 			{
+				n = ft_atol(av[1]);
 				printf("exit\n");
-				exit(ft_atol(av[1]) % 256);
+				(free_all(data), exit(n % 256));
 			}
 		}
 	}
-	printf("exit\n");
-	printf("shell: exit: %s: numeric argument required\n", av[1]);
+	printf("exit\nshell: exit: %s: numeric argument required\n", av[1]);
+	free_all(data);
 	exit(255);
 }
 
@@ -104,7 +106,7 @@ void	exit_shell(char **av, t_shell *data)
 		(write(2,"exit\n", 5),free(data->backup_pwd), free_arr(data->envi), our_toklistclear(&data->tokens), our_envlistclear(&data->envir),  our_cmdlistclear(&data->cmds), exit(0));
 	//(printf("exit\n"), free_arr(av), our_toklistclear(&data->tokens), our_envlistclear(&data->envir),  our_cmdlistclear(&data->cmds), exit(0));  
 	else if (i == 2)
-		exit_av_is_equal_2(av);
+		exit_av_is_equal_2(av, data);
 	else
 		exit_av_more_than_2(av, data);
 }
