@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbasheer <hbasheer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 10:20:06 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/12/12 16:47:51 by hbasheer         ###   ########.fr       */
+/*   Updated: 2024/12/12 20:55:09 by mshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,13 +133,24 @@ void wait_loop(t_shell * data, int status, pid_t pid)
 void pre_execute(t_shell *data, int input, int output)
 {
     int status;
+    int check;
     pid_t pid;
     
     status = 0;
     pid = 0;
+    check = process_heredoc(data->cmds, data);
+    printf("check: %d\n", check);
+    if (check == 12 || check == -1)
+    {
+        printf("inside if here\n");
+        data->exit_code = 1;
+        return ;
+    }
     data->std[0] = dup(STDIN_FILENO);
     data->std[1] = dup(STDOUT_FILENO);
-    process_heredoc(data->cmds, data);
+    data->envi = envlist_envarray(data->envir);
+        if(!data->envi)
+            perror("malloc");
     our_execution(data, input, output);
     wait_loop(data, status, pid);
     reset_stds(data);

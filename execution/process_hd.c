@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_hd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbasheer <hbasheer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 10:53:59 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/12/12 14:09:12 by hbasheer         ###   ########.fr       */
+/*   Updated: 2024/12/12 20:52:02 by mshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,32 +96,120 @@
 // 	return(0);
 // }
 
+char *get_file(int fd)
+{
+	int i = 0;
+	int byte;
+	char c;
+	char *line;
+	
+	if (fd < 0)
+		return (NULL);
+	byte = read(fd, &c, 1);
+	if (byte == -1)
+	{
+		perror("read");
+		return (NULL);
+	}
+	line = ft_calloc(65537, 1);
+	if (!line)
+		return (NULL);
+	while(byte > 0)
+	{
+		line[i] = c;
+		i++;
+		byte = read(fd, &c, 1);
+	}
+	if (byte == 0 && i == 0)
+		return(free(line), NULL);
+	return(line);
+}
+
+void handle_hd_sig(int signo)
+{
+	if (signo == SIGINT)
+	{
+		g_signo = signo;
+		close(STDIN_FILENO);
+	}
+}
+
 char	*do_heredoc(char *input, char *limit, t_shell *data)
 {
 	char *line;
 	//char *bef_do;
+	int status;
 
 	//bef_do = NULL;
 	line = NULL;
-	while (1)
-	{
-		line = readline(">");
-		if(!line)
-			break;
-		if (ft_strncmp(limit, line, ft_strlen(limit) + 1) == 0)
-		{
-			(free(line), line = NULL);
-			break ;
-		}
-		line = expand_hd(line, data, 0);
-		if(!line)
-			return (free(line), free(limit), NULL);
-		if(append_input(&input, line) == -1)
-			return (free(line), free(limit), NULL);
+	int pipefd[2];
 
-		free(line);
+	if (pipe(pipefd) == -1)
+	{
+		perror("pipe");
+		return (NULL);
 	}
-	//(free(limit), limit = NULL); // it will get free'd inside cmdlistclear
+	// signal(SIGINT, SIG_IGN);
+	int pid = fork();
+	if (pid == -1)
+	{
+		perror("fork");
+		return (NULL);
+	}
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+	if (pid == 0)
+	{
+		close(pipefd[0]);
+		signal(SIGINT, handle_hd_sig);
+		while (1)
+		{	
+			line = readline(">");
+			// if (g_signo == SIGINT)
+			// {
+			// 	close(pipefd[1]);
+			// 	if (line)
+			// 		free(line);
+			// 	if (input)
+			// 		free(input);
+			// 	exit(1);
+			// }
+			if(!line)
+				break;
+			if (ft_strncmp(limit, line, ft_strlen(limit) + 1) == 0)
+			{
+				(free(line), line = NULL);
+				break ;
+			}
+			line = expand_hd(line, data, 0);
+			if(!line)
+				return (free(line), free(limit), NULL);
+			if(append_input(&input, line) == -1)
+				return (free(line), free(limit), NULL);
+			free(line);
+		}
+		exit(0);
+	}
+	close(pipefd[1]);
+	close(pipefd[0]);
+	// waitpid(pid, &status, 0);
+	wait(&status);
+	printf("status: %d\n", status);
+	if (WIFSIGNALED(status))
+	{
+		if (WTERMSIG(status) == SIGINT)
+		{
+			printf("inside sigint\n");
+			free(input);
+			input = ft_strdup("ctrl");
+			close(pipefd[1]);
+			close(pipefd[0]);
+			return(input);
+		}
+	}
+	printf("after while dasdasd\n");
+	// input = get_file(pipefd[0]);
+	// close(pipefd[0]);
 	return (input);
 }
 
@@ -159,11 +247,18 @@ int process_heredoc(t_cmd *cmds, t_shell *data)
             if(temp->flag == 2)
             {
                 temp->hd_input = pre_heredoc(temp->file, data);
+				if (ft_strncmp("ctrl", temp->hd_input, 5) == 0)
+				{
+					return (-1);
+				}
                 if(!temp->hd_input)
                 {
                     perror("malloc");
                     return errno;
                 }
+				// printf("hd_input: %s\n", temp->hd_input);
+				// if(ft_strncmp(temp->hd_input, "ctrl", 5) == 0)
+				// 	return(-1);
             }
             else
                 temp->hd_input = NULL;

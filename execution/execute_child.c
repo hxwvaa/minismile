@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_child.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbasheer <hbasheer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 10:19:55 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/12/12 14:53:24 by hbasheer         ###   ########.fr       */
+/*   Updated: 2024/12/12 19:20:03 by mshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void cleanup_child(t_shell *data, int *input, int *output)
 
 void execute_child(t_shell *data, t_cmd *curr, int *input, int *output)
 {
+    printf("omtop\n");
     //signal(SIGPIPE, handle_sigpipe);
     set_redirection(curr, data, input, output);
     if(curr->cmd)
@@ -114,6 +115,7 @@ void execute_child(t_shell *data, t_cmd *curr, int *input, int *output)
     }
     cleanup_child(data, input, output); // maybe change name misleading
     data->exit_code = 0; // maybe global variable instead cause this in child it wont matter
+    printf("ombot\n");
 	exit(0);
 }
 

@@ -71,8 +71,9 @@ char *handle_dq(char *str, char *res, int *i, t_shell *data)
     start = ++(*i);
     while(str[*i] && str[*i] != '\"')
     {
-        if(str[*i] == '$')
+        if(str[*i] == '$' && str[*i + 1] != '\"')
         {
+            printf("str[*i] = %c\n", str[*i]);
             res = handle_any_dq(str, res, &start); 
             if(!res)
                 return(NULL);

@@ -344,9 +344,9 @@ int main(int ac, char **av, char **envp)
         // }
         // else
         //{
-        data.envi = envlist_envarray(data.envir);
-        if(!data.envi)
-            perror("malloc");
+        // data.envi = envlist_envarray(data.envir);
+        // if(!data.envi)
+        //     perror("malloc");
         //our_execution(&data);
         //execution(&data, STDIN_FILENO, -1);
         //execution(&data, STDIN_FILENO, STDOUT_FILENO);
