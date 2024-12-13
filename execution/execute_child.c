@@ -31,7 +31,10 @@ void close_clean(t_shell *data, int input, int output)
         data->fd[1] = -1;
     }
     if(data->envi)
-      free_arr(data->envi);
+    {
+        free_arr(data->envi);
+        data->envi = NULL;
+    }
 }
 
 void set_redirection(t_cmd *curr, t_shell *data, int *input, int *output)
@@ -67,7 +70,8 @@ void set_redirection(t_cmd *curr, t_shell *data, int *input, int *output)
 
 void cleanup_child(t_shell *data, int *input, int *output)
 {
-    free(data->backup_pwd);
+    if(data->backup_pwd)
+        free(data->backup_pwd);
     if(data->std[0] != -1)
         close(data->std[0]);
     if(data->std[1] != -1)

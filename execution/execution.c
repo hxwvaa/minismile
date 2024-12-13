@@ -18,10 +18,16 @@ void reset_stds(t_shell *data)
     dup2(data->std[0], STDIN_FILENO);
     dup2(data->std[1], STDOUT_FILENO);
     if(data->std[0] != -1)
+    {
         close(data->std[0]);
+        data->std[0] = -1;
+    }
     //close(data->std[0]);
     if(data->std[1] != -1)
+    {
         close(data->std[1]);
+        data->std[1] = -1;
+    }
     //close(data->std[1]);
 }
 

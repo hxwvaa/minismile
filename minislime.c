@@ -102,6 +102,8 @@ void init_shell(t_shell *data, char **envp)
     data->cmds = NULL;
     data->fd[0] = -1;
     data->fd[1] = -1;
+    data->std[0] = -1;
+    data->std[1] = -1;
     data->cmd_path = NULL;
 
     i = 0;
@@ -252,7 +254,7 @@ int main(int ac, char **av, char **envp)
         }
         // }
         if(!line)
-            (our_envlistclear(&data.envir), exit(0));
+            (free_all(&data), exit(0));
         // printf("\nbefore_trim - {%s}\n", line);
 
 
