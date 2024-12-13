@@ -107,8 +107,7 @@ void invalid_cmd_dir(char *file, int *input, int *output, t_shell *data)
 int check_if_directory(char *cmd)
 {
 	struct stat status;
-	// printf("\033[32;1m%s\033[0m", cmd);
-    // fprintf(stderr, "\033[32;1m%s\033[0m\n", cmd);
+
 	if(stat(cmd, &status) != 0)
 		return (0);
 	return (S_ISDIR(status.st_mode)); // this returns 1, if its a directory or 0 if its not a directory

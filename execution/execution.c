@@ -12,45 +12,6 @@
 
 #include "../minishell.h"
 
-//need to norm still
-// char *do_heredoc(char *delimiter)
-// {
-//     char *limit;
-//     char *line;
-//     char *input;
-//     char *temp;
-
-//     input = ft_strdup("");
-//     limit = ft_strjoin(delimiter, "\n");
-//     if(!limit)
-//         return (NULL);
-//     while(1)
-//     {
-//         line = get_next_line(0);
-//         if(line)//idk if this how we do it, it doesnt segfault now
-//         {
-//             if(ft_strncmp(limit, line, ft_strlen(limit)) == 0)
-//             {
-//                 free(limit);
-//                 free(line);
-//                 break ;
-//             }
-//             temp = ft_strjoin(input, line);
-//             free(input);
-//             if(!temp)
-//                 return (free(line), free(limit), NULL);
-//             input = temp;
-//             free(line);
-//         }
-//         else
-//         {
-//             free(limit);
-//             break ;
-//         } // idk if this how it should be
-//     }
-//     return (input);
-// }
-
 
 void reset_stds(t_shell *data)
 {
@@ -64,7 +25,6 @@ void reset_stds(t_shell *data)
     //close(data->std[1]);
 }
 
-// dont forget before calling this function process here_doc, dup stds in&out
 void our_execution(t_shell *data, int input, int output)
 {
     t_cmd *curr;
@@ -139,18 +99,22 @@ void pre_execute(t_shell *data, int input, int output)
     status = 0;
     pid = 0;
     check = process_heredoc(data->cmds, data);
-    printf("check: %d\n", check);
     if (check == 12 || check == -1)
     {
-        printf("inside if here\n");
-        data->exit_code = 1;
+        if(check == 12)
+        {
+            free_all(data);
+            exit(errno);
+        }
+        data->exit_code = 130;
+        g_signo = 0;
         return ;
     }
     data->std[0] = dup(STDIN_FILENO);
     data->std[1] = dup(STDOUT_FILENO);
     data->envi = envlist_envarray(data->envir);
-        if(!data->envi)
-            perror("malloc");
+    if(!data->envi)
+        perror("malloc");
     our_execution(data, input, output);
     wait_loop(data, status, pid);
     reset_stds(data);

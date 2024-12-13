@@ -26,7 +26,38 @@ char *join_strs(char *s1, char *s2, char *line)
 		return(perror("malloc"), free(line), NULL);
 	return (temp);
 }
-int append_input(char **input, char *line)
+
+int count_bytes(int fd, char *temp, int *total)
+{
+	int byte;
+	char c;
+
+	*total = 0;
+	byte = read(fd, &c, 1);
+	if(byte == -1)
+	{
+		perror("read");
+		return(-1);
+	}
+	while(byte > 0)
+	{
+		temp[(*total)] = c;
+		(*total)++;
+		if(*total >= 65535)
+		{
+			write(2, "here_doc input too large\n", 26);
+			return(-1);
+		}
+		byte = read(fd, &c, 1);
+	}
+	if(byte == 0 && *total == 0)
+		return(-1);
+	printf("total = %d\n", *total);
+	return (0);
+}
+
+// not needed anymore ??
+int append_input(char **input, char *line) 
 {
 	char *temp;
 	char *new_line;

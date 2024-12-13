@@ -375,8 +375,4 @@ int main(int ac, char **av, char **envp)
     }
     return(0);
 }
-
-///// if (s[0] = -)
-/// num= ft_atoi2(s)
-//if 
-//    dasdasd dsad s | " "      
+ 

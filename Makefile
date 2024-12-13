@@ -10,7 +10,7 @@ SRC = minislime.c tokenize.c findpath.c builtins/our_echo.c\
 		gnl/get_next_line.c $(EXEC)/execution.c $(EXEC)/process_hd.c\
 		$(EXEC)/process_redir.c $(EXEC)/builtin_execute.c\
 		$(EXEC)/execute_child.c $(EXEC)/execute_parent.c\
-		$(EXEC)/exec_utils.c $(EXEC)/findpath.c\
+		$(EXEC)/exec_utils.c $(EXEC)/findpath.c $(EXEC)/process_hd_child.c\
 		$(EXEC)/hd_expansion.c $(EXEC)/hd_ex_utils.c\
 		$(PAR)/quotes_expand.c $(PAR)/handle_quotes.c $(PAR)/expansion.c\
 		$(PAR)/unclosed_quotes.c builtins/updating_pwds.c

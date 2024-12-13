@@ -30,7 +30,7 @@ int handle_heredoc(t_redir *temp, int *input)
         close(*input);
     pipe(hdpipe); // protect pipe fails
     if(temp->hd_input == NULL)
-        return (close(hdpipe[1]), *input = hdpipe[0], -1);
+        return (close(hdpipe[1]), *input = hdpipe[0], 0);
     len = ft_strlen(temp->hd_input);
     if(len > 65535)
     {
