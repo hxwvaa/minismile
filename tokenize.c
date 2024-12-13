@@ -41,7 +41,7 @@ int our_help_wount(int *word, int *i, char *s)
 		if ((s[*i] == '\'' || s[*i] == '\"'))
 			*i = our_quote(s, *i + 1, s[*i]);
 		else if ((s[*i] == '\'' || s[*i] == '\"'))
-			*i = our_quote(s, *i + 1, s[*i]);
+			*i = our_quote(s, *i + 1, s[*i]); // those two lines not needed ??!
 	}
 	return(0);
 }
@@ -93,28 +93,23 @@ void	our_strcpy(char *des, char *src, int j)
 	des[i] = '\0';
 }
 
-int our_help_fill(int *j, int *i, char *s)
+static int handle_operands(int *j, int *i, char *s)
 {
-	if(s[*i] == '\0')
-		return(-1);
 	if ((s[*i] == '<' || s[*i] == '>' || s[*i] == '|'))
 	{
 		(*j) = (*i);
 		(*i)++;
-		if(s[(*i) - 1] == '<' && s[*i] == '<')
-		{
+		if((s[(*i) - 1] == '<' && s[*i] == '<') 
+			|| (s[(*i) - 1] == '>' && s[*i] == '>'))
 			(*i)++;
-			return -1;
-		}
-		else if(s[(*i) - 1] == '>' && s[*i] == '>')
-		{
-			(*i)++;
-			return -1;
-		}
-		return -1;
+		return (-1);
 	}
+	return (0);
+}
 
-	if(*i > 0) // we were decrementing -1 always
+static void quotes_handle(int *i, char *s)
+{
+	if(*i > 0)
 	{
 		if ((s[*i] == '\'' || s[*i] == '\"')
 		&& (s[*i - 1] == ' ' || (s[*i - 1] >= 9 && s[*i - 1] <= 13)))
@@ -123,19 +118,67 @@ int our_help_fill(int *j, int *i, char *s)
 		&& !(s[*i - 1] >= 9 && s[*i - 1] <= 13))
 			*i = our_quote(s, *i + 1, s[*i]);
 	}
-	else
-	{
-		if ((s[*i] == '\'' || s[*i] == '\"'))
-			*i = our_quote(s, *i + 1, s[*i]);
-		else if ((s[*i] == '\'' || s[*i] == '\"'))
-			*i = our_quote(s, *i + 1, s[*i]);
-	}
+	else if ((s[*i] == '\'' || s[*i] == '\"'))
+		*i = our_quote(s, *i + 1, s[*i]);
+}
+
+int our_help_fill(int *j, int *i, char *s)
+{
+	if(s[*i] == '\0')
+		return(-1);
+	if(handle_operands(j, i, s) == -1)
+		return -1;
+	quotes_handle(i, s);
 	if(s[*i])
-		(*i)++; // we were incrementing always
+		(*i)++;
 	if ((s[*i] == '<' || s[*i] == '>' || s[*i] == '|'))
 		return -1;
 	return(0);
 }
+
+// int our_help_fill(int *j, int *i, char *s)
+// {
+// 	if(s[*i] == '\0')
+// 		return(-1);
+// 	if ((s[*i] == '<' || s[*i] == '>' || s[*i] == '|'))
+// 	{
+// 		(*j) = (*i);
+// 		(*i)++;
+// 		if(s[(*i) - 1] == '<' && s[*i] == '<')
+// 		{
+// 			(*i)++;
+// 			return -1;
+// 		}
+// 		else if(s[(*i) - 1] == '>' && s[*i] == '>')
+// 		{
+// 			(*i)++;
+// 			return -1;
+// 		}
+// 		return -1;
+// 	}
+
+// 	if(*i > 0) // we were decrementing -1 always
+// 	{
+// 		if ((s[*i] == '\'' || s[*i] == '\"')
+// 		&& (s[*i - 1] == ' ' || (s[*i - 1] >= 9 && s[*i - 1] <= 13)))
+// 			*i = our_quote(s, *i + 1, s[*i]);
+// 		else if ((s[*i] == '\'' || s[*i] == '\"') && s[*i - 1] != ' '
+// 		&& !(s[*i - 1] >= 9 && s[*i - 1] <= 13))
+// 			*i = our_quote(s, *i + 1, s[*i]);
+// 	}
+// 	else
+// 	{
+// 		if ((s[*i] == '\'' || s[*i] == '\"'))
+// 			*i = our_quote(s, *i + 1, s[*i]);
+// 		else if ((s[*i] == '\'' || s[*i] == '\"'))
+// 			*i = our_quote(s, *i + 1, s[*i]);
+// 	}
+// 	if(s[*i])
+// 		(*i)++; // we were incrementing always
+// 	if ((s[*i] == '<' || s[*i] == '>' || s[*i] == '|'))
+// 		return -1;
+// 	return(0);
+// }
 
 int	our_fill(char *s, char **cmd, int count)
 {
@@ -154,21 +197,6 @@ int	our_fill(char *s, char **cmd, int count)
 			j = i;
 		while (s[i] && s[i] != ' ' && !(s[i] >= 9 && s[i] <= 13))
 		{
-			// if ((s[i] == '<' || s[i] == '>' || s[i] == '|'))
-			// {
-			// 	j = i;
-			// 	i++;
-			// 	break ;
-			// }
-			// if ((s[i] == '\'' || s[i] == '\"') && (s[i- 1] == ' ' || (s[i
-			// 		- 1] >= 9 && s[i - 1] <= 13)))
-			// 	i = our_quote(s, i + 1, s[i]);
-			// else if ((s[i] == '\'' || s[i] == '\"') && s[i - 1] != ' ' && !(s[i
-			// 		- 1] >= 9 && s[i - 1] <= 13))
-			// 	i = our_quote(s, i + 1, s[i]);
-			// i++;
-			// if ((s[i] == '<' || s[i] == '>' || s[i] == '|'))
-			// 	break;
 			if (our_help_fill(&j, &i, s) == -1)
 				break;
 		}

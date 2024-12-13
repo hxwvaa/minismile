@@ -201,15 +201,15 @@ void handle_signal(int sig)
     }
 }
 
-void signal_fncton(void)
-{
-    struct  sigaction act;
+// void signal_fncton(void)
+// {
+//     struct  sigaction act;
     
-    ft_memset(&act, 0, sizeof(act));
-    act.sa_handler = &handle_signal;
-    act.sa_flags = SA_RESTART;
-    sigaction(SIGINT, &act, NULL);
-}
+//     ft_memset(&act, 0, sizeof(act));
+//     act.sa_handler = &handle_signal;
+//     act.sa_flags = SA_RESTART;
+//     sigaction(SIGINT, &act, NULL);
+// }
 
 int main(int ac, char **av, char **envp)
 {
@@ -302,6 +302,11 @@ int main(int ac, char **av, char **envp)
             }
             // data.count = count_all_args(data.tokens);
             tmp = our_toklist_cmdlist(data.tokens, &data);
+            // if(our_toklist_cmdlist(data.tokens, &data) == NULL)
+            // {
+            //     free_all(&data);
+            //     exit(errno);
+            // }
             //our_toklistclear(&data.tokens);
             //our_toklist_cmdlist(data.tokens, &data);
             // printf("args count: %d\n", count);
