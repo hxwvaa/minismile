@@ -43,9 +43,19 @@ void	hd_exit_child(char *line, int fd, int exit_code, t_shell *data)
 	close(fd);
 	if (line)
 		free(line);
+	if(data->backup_pwd)
+	{
+		free(data->backup_pwd);
+		data->backup_pwd = NULL;
+	}
 	our_cmdlistclear(&data->cmds);
 	our_envlistclear(&data->envir);
 	our_toklistclear(&data->tokens);
+	if(exit_code == 64)
+	{
+		write(2, "here_doc input too large\n", 38);
+		exit(0);
+	}
 	if (exit_code == 130)
 		g_signo = 0;
 	exit(exit_code);
@@ -54,7 +64,9 @@ void	hd_exit_child(char *line, int fd, int exit_code, t_shell *data)
 char	*do_heredoc(int fd, char *limit, t_shell *data)
 {
 	char	*line;
+	int		i;
 
+	i = 0;
 	line = NULL;
 	while (1)
 	{
@@ -68,6 +80,9 @@ char	*do_heredoc(int fd, char *limit, t_shell *data)
 		line = expand_hd(line, data, 0);
 		if (!line)
 			hd_exit_child(line, fd, errno, data);
+		i += ft_strlen(line) + 1;
+		if(i > 65536)
+			hd_exit_child(line, fd, 64, data);
 		write(fd, line, ft_strlen(line));
 		write(fd, "\n", 1);
 		free(line);

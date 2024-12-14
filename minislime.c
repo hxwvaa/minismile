@@ -20,71 +20,53 @@ int count_cargs(t_cmd *cmd)
     return (i);
 }
 
-
-// int count_args(t_toklist *list)
+// int	check_syntax(char **av, int i)
 // {
-//     int i;
-//     t_toklist *temp;
-
-//     i = 1;
-//     temp = list;
-//     while(temp && temp->type != PIPE)
-//     {
-//         // while(temp->type != PIPE)
-//         // {
-//         if(temp->type == FLAG || temp->type == ARGS)
-//             i++;
-//         //     temp=temp->next;
-//         // }
-//         // if(temp->type == PIPE)
-//         //     break ;
-//         temp = temp->next;
-//     }
-//     return (i);
-// }
-
-// void check_built_in(char **av, t_shell *data)
-// {
-//     int i;
-
-//     i = 0;
-//     if (ft_strncmp(av[i], "exit", 5) == 0)
-//         exit_shell(av, data);
-//     else if(ft_strncmp(av[i], "env", 4) == 0)
-//         our_env(data->envir);
-//     else if(ft_strncmp(av[i], "unset", 6) == 0)
-//         our_unset(av[i + 1], &data->envir);
-//     else if(ft_strncmp(av[i], "echo", 5) == 0)
-//         our_echo(av, data);
-//     else if(ft_strncmp(av[i], "export", 7)== 0)
-//         our_export(av, data, 1);
-//     else if(ft_strncmp(av[i], "pwd", 4) == 0)
-//     {
-//         if(av[1] != NULL)
+// 	i = 0;
+// 	while (av[i])
+// 	{
+//         if(ft_strncmp(av[i], "|", 2) == 0)
 //         {
-//             write(2, "pwd: too many arguments\n", 24);
-//             return(1);
-//             //echo $?// data->exit_code = 1
+//             if(i == 0)
+//             {
+//                 write(2, "syntax error near unexpected token `|'\n", 39);
+//                 return(1);
+//             }
+//             if(av[i +1])
+//             {
+//                 if(check_syntax_pipe(av, i) == 1)
+//                     return(1);
+//             }
+//             else
+//             {
+//                 write(2, "syntax error near unexpected token `|'\n", 39);
+//                 return(1);
+//             }
+
 //         }
-//         else    
-//             return(our_pwd(), 1);
-//     }
-//     else if(ft_strncmp(av[0], "cd", 3) == 0)
-//         return(our_cdir(av[1], data), 1);
-//     // else if(ft_strncmp(av[0], "user_set", 9) == 0) //REMOVE LATER, IT IS JUST FOR TESTING USER_SET VARIABLES
-//     //     return(prit_user_set(data), 1);
-//     return(-1);
+// 		if (ft_strncmp(av[i], ">", 2) == 0 || ft_strncmp(av[i], "<", 2) == 0 || ft_strncmp(av[i], ">>", 3) == 0 || ft_strncmp(av[i], "<<", 3) == 0)
+// 		{
+// 			if (av[i + 1])
+// 			{
+// 				if (check_syntax_redirect(av, i) == 1)
+// 				{
+// 					write(2, "syntax error near unexpected token `>' or `<'\n", 46);
+//                     //data->exit_code = 258;
+// 					return (1);
+// 				}
+// 			}
+//             else
+//             {
+//                 write(2, "syntax error near unexpected token `newline'\n", 45);
+//                 //data->exit_code = 258
+//                 return (1);
+//             }
+// 		}
+// 		i++;
+// 	}
+// 	return (0);
 // }
 
-
-// void check_args(char **av, t_shell *data)
-// {
-//     // int i;
-
-//     // i = 0;
-//     check_built_in(av, data);
-
-//}
 // strdup the content so when u unset you free and set to NULL
 void init_shell(t_shell *data, char **envp)
 {
@@ -105,6 +87,7 @@ void init_shell(t_shell *data, char **envp)
     data->std[0] = -1;
     data->std[1] = -1;
     data->cmd_path = NULL;
+    data->lpid = 0;
 
     i = 0;
     if (envp)
@@ -127,7 +110,8 @@ void init_shell(t_shell *data, char **envp)
 int	check_syntax_redirect(char **av, int i)
 {
 	if (ft_strncmp(av[i + 1], ">", 2) == 0 || ft_strncmp(av[i + 1], "<",
-			2) == 0  || ft_strncmp(av[i + 1], ">>", 3) == 0 || ft_strncmp(av[i + 1], "<<", 3) == 0)
+			2) == 0  || ft_strncmp(av[i + 1], ">>", 3) == 0 
+            || ft_strncmp(av[i + 1], "<<", 3) == 0)
 	{
         return (1);
 	}
@@ -143,52 +127,73 @@ int check_syntax_pipe(char **av, int i)
     }
     return(0);
 }
-int	check_syntax(char **av, int i)
+int redirect_checker(char **av, int i)
 {
-	i = 0;
+    if (av[i + 1])
+    {
+        if (check_syntax_redirect(av, i) == 1)
+        {
+            write(2, "syntax error near unexpected token `>' or `<'\n", 46);
+            //data->exit_code = 258;
+            return (1);
+        }
+    }
+    if(av[i + 1] && ft_strncmp(av[i +1], "|", 2) == 0)
+    {
+        write(2, "syntax error near unexpected token `|'\n", 39);
+        //data->exit_code = 258
+        return (1);
+    }
+    if(!av[i + 1])
+    {
+        write(2, "syntax error near unexpected token `newline'\n", 45);
+        //data->exit_code = 258
+        return (1);
+    }
+    return (0);
+}
+int pipe_checker(char **av, int i)
+{
+    if(i == 0)
+    {
+        write(2, "syntax error near unexpected token `|'\n", 39);
+        return(1);
+    }
+    if(av[i +1])
+    {
+        if(check_syntax_pipe(av, i) == 1)
+            return(1);
+    }
+    else
+    {
+        write(2, "syntax error near unexpected token `|'\n", 39);
+        return(1);
+    }
+    return (0);
+}
+
+int check_syntax(char **av, int i)
+{
+    i = 0;
 	while (av[i])
 	{
         if(ft_strncmp(av[i], "|", 2) == 0)
         {
-            if(i == 0)
-            {
-                write(2, "syntax error near unexpected token `|'\n", 39);
+            if(pipe_checker(av, i) == 1)
                 return(1);
-            }
-            if(av[i +1])
-            {
-                if(check_syntax_pipe(av, i) == 1)
-                    return(1);
-            }
-            else
-            {
-                write(2, "syntax error near unexpected token `|'\n", 39);
-                return(1);
-            }
-
         }
-		if (ft_strncmp(av[i], ">", 2) == 0 || ft_strncmp(av[i], "<", 2) == 0 || ft_strncmp(av[i], ">>", 3) == 0 || ft_strncmp(av[i], "<<", 3) == 0)
-		{
-			if (av[i + 1])
-			{
-				if (check_syntax_redirect(av, i) == 1)
-				{
-					write(2, "syntax error near unexpected token `>' or `<'\n", 46);
-                    //data->exit_code = 258;
-					return (1);
-				}
-			}
-            else
-            {
-                write(2, "syntax error near unexpected token `newline'\n", 45);
-                //data->exit_code = 258
-                return (1);
-            }
-		}
-		i++;
-	}
-	return (0);
+        if(ft_strncmp(av[i], ">", 2) == 0 || ft_strncmp(av[i], "<", 2) == 0 
+            || ft_strncmp(av[i], ">>", 3) == 0 
+            || ft_strncmp(av[i], "<<", 3) == 0)
+        {
+            if(redirect_checker(av, i) == 1)
+                return(1);
+        }
+        i++;
+    }
+    return(0);
 }
+
 
 void handle_signal(int sig)
 {
@@ -203,15 +208,6 @@ void handle_signal(int sig)
     }
 }
 
-// void signal_fncton(void)
-// {
-//     struct  sigaction act;
-    
-//     ft_memset(&act, 0, sizeof(act));
-//     act.sa_handler = &handle_signal;
-//     act.sa_flags = SA_RESTART;
-//     sigaction(SIGINT, &act, NULL);
-// }
 
 int main(int ac, char **av, char **envp)
 {

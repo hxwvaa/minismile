@@ -6,7 +6,7 @@
 /*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 10:20:13 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/12/11 18:36:55 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/12/14 16:10:15 by mshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int handle_heredoc(t_redir *temp, int *input)
     if(temp->hd_input == NULL)
         return (close(hdpipe[1]), *input = hdpipe[0], 0);
     len = ft_strlen(temp->hd_input);
-    if(len > 65535)
+    if(len > 65536)
     {
         write(2, "Buffer Sizes: In contexts where memory buffers are allocated, 65536 is often used as a size for buffers, especially in networking and file I/O. For example, a common buffer size for network packets or file reads might be 65536 bytes (64 KB).\n", 243);
         close(hdpipe[1]);

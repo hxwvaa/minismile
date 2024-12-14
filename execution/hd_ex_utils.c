@@ -43,7 +43,7 @@ int count_bytes(int fd, char *temp, int *total)
 	{
 		temp[(*total)] = c;
 		(*total)++;
-		if(*total >= 65535)
+		if(*total > 65536)
 		{
 			write(2, "here_doc input too large\n", 26);
 			return(-1);
