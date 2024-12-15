@@ -4,13 +4,13 @@ int del_dir(char *path, char *prevdir, t_shell *data)
 {
     char *pwd;
     char *fullpath;
-
+    
     write(2,
         "cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n",
         108); // try using perror("getcwd")
     pwd = ft_strjoin(prevdir, "/");
     if(!pwd)
-        return(free(prevdir),  -1);
+        return(free(prevdir), -1);
     fullpath = ft_strjoin(pwd, path);
     free(pwd);
     if(!fullpath)

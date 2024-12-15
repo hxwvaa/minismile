@@ -87,7 +87,8 @@ void init_shell(t_shell *data, char **envp)
     data->std[0] = -1;
     data->std[1] = -1;
     data->cmd_path = NULL;
-    data->lpid = 0;
+    data->lpid = -1;
+    data->pid = -1;
 
     i = 0;
     if (envp)

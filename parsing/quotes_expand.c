@@ -16,12 +16,12 @@ int do_expand_help(t_toklist *temp, t_shell *data, char **res, int *i)
 {
     if(temp->token[*i] == '\"') //same issue
     {
-        *res = handle_dq(temp->token, *res, i, data);
+        *res = handle_dq(temp, *res, i, data);
         if(!*res)
             return(-1);
         temp->q_type = DQ;
     }
-    else if(temp->token[*i] == '$') // missing small issue if $ on its own should get executed, same for $PWD$ should be /home/gaz$
+    else if(temp->type != LIMITER && temp->token[*i] == '$') // missing small issue if $ on its own should get executed, same for $PWD$ should be /home/gaz$
     {
         //ithink issue solved
         *res = handle_ex(temp->token, *res, i, data);
@@ -89,7 +89,8 @@ int our_extok(t_toklist *tokens, t_shell *data)
     temp = tokens;
     while(temp)
     {
-        if(temp->type == CMD || temp->type == ARGS || temp->type == FILE_NAME || temp->type == FLAG)
+        if(temp->type == CMD || temp->type == ARGS || temp->type == FILE_NAME 
+            || temp->type == FLAG || temp->type == LIMITER)
         {
             expanded = do_expand(temp, data, ft_strdup(""), 0);
             if(!expanded)

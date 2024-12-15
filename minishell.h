@@ -132,7 +132,7 @@ int find_dollar(char *str);
 char *pre_dollar(char *str, char *bef_do);
 char *join_free(char *s1, char *s2);
 char *handle_ex(char *str, char *res, int *i, t_shell *data);
-char *handle_dq(char *str, char *res, int *i, t_shell *data);
+char *handle_dq(t_toklist *temp, char *res, int *i, t_shell *data);
 char *handle_sq(char *str, char *res, int *i);
 char *handle_any(char *str, char *res, int *i);
 int check_quotes(t_toklist *list);
@@ -158,7 +158,7 @@ void signal_hd(int signo);
 char	*do_heredoc(int fd, char *limit, t_shell *data);
 int count_bytes(int fd, char *temp, int *total);
 int process_heredoc(t_cmd *cmds, t_shell *data);
-int process_redir(t_cmd *curr, int *input, int *output);
+int process_redir(t_cmd *curr, int *input, int *output, t_shell *data);
 int is_builtin(char *cmd);
 int only_one_cmd(t_cmd *cmd);
 int execute_one_cmd(t_cmd *curr, t_shell *data);
@@ -170,6 +170,7 @@ void close_clean(t_shell *data, int input, int output);
 void invalid_lstcmd(char *file, int *input, int *output, t_shell *data);
 void invalid_cmd_dir(char *file, int *input, int *output, t_shell *data);
 int check_if_directory(char *cmd);
+void wait_loop(t_shell * data, int status, pid_t pid);
 
 //---------------------free_arr_list------------------//
 void	free_arr(char **arr);
@@ -180,7 +181,7 @@ void    our_cmdlistclear(t_cmd **list);
 void	exit_shell(char **av, t_shell *data);
 
 
-
+void free_exec_fail(t_shell *data, int *input, int *output, int exit_code);
 void free_all(t_shell *data);
 void handle_signal(int sig);
 

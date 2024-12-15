@@ -3,44 +3,55 @@
 char *get_value_env(char *var, t_shell *data)
 {
     t_list *current;
+	char *str;
+	char *res;
 
     current = data->envir;
-    while(current)
+    while (current)
     {
-        if(ft_strncmp(current->content, var, (ft_strlen(var))) == 0)
-            return(ft_strdup(current->content + ft_strlen(var)));
-        current = current->next;
-    }
+        if( ft_strncmp(current->content, var, (ft_strlen(var))) == 0)
+        {
+			str = ft_strdup(current->content + ft_strlen(var));
+			if (!str)
+				return (NULL);
+			res = ft_strdup(str);
+			free(str);
+			if (!res)
+				return (NULL);
+			return (res);
+		}
+		current = current->next;
+	}
     return (NULL);
 }
 
 char *get_pwd_value(t_shell *data)
 {
-    t_list *current;
+	char *pwd;
+	char *res;
 
-    current = data->envir;
-    while(current)
-    {
-        if(ft_strncmp(current->content, "PWD=", 4) == 0)
-            return(ft_strdup(current->content + 4));
-        current = current->next;
-    }
+	pwd = get_value_env("PWD=", data);
+	if(pwd)
+	{
+		res = ft_strdup(pwd);
+		free(pwd);
+		if(!res)
+			return (NULL);
+		return(res);
+	}
+	if(data->backup_pwd)
+		return(ft_strdup(data->backup_pwd));
     return (NULL);
 }
 
 char	*get_curr_pwd()
 {
 	char	pwd[1024];
-
 	if (getcwd(pwd, sizeof(pwd)) == NULL)
 	{
-		// write(2,
-		// 	"cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n",
-		// 	108);
-		// write(2, "pwd: Path too long\n", 19);
 		return (NULL);
 	}
-	return (ft_strdup(pwd));
+	return (ft_strdup(pwd)); // maybe store it in char * free pwd and check char * if malloc fails exit cleanly, else return char *
 }
 
 char *our_pwd_help(t_shell *data)
@@ -84,7 +95,6 @@ bool	our_pwd(t_shell *data)
 			write(2, "pwd: Path too long\n", 19);
 		return (true);
 	}
-	// printf("%s\n", pwd);
 	if(write(STDOUT_FILENO, pwd, ft_strlen(pwd)) < 0)
 		return (free(pwd), true);
 	if(write(STDOUT_FILENO, "\n", 1) < 0)

@@ -6,43 +6,11 @@
 /*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 10:53:59 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/12/12 21:35:04 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/12/15 18:26:45 by mshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-//hamadan gnl
-// char *get_file(int fd)
-// {
-// 	int i = 0;
-// 	int byte;
-// 	char c;
-// 	char *line;
-// 	int total;
-// 	if (fd < 0)
-// 		return (NULL);
-// 	if(count_bytes(fd, &total) == -1)
-// 		return(NULL);
-// 	byte = read(fd, &c, 1);
-// 	if (byte == -1)
-// 	{
-// 		perror("read");
-// 		return (NULL);
-// 	}
-// 	line = ft_calloc(65537, 1);
-// 	if (!line)
-// 		return (NULL);
-// 	while(byte > 0)
-// 	{
-// 		line[i] = c;
-// 		i++;
-// 		byte = read(fd, &c, 1);
-// 	}
-// 	if (byte == 0 && i == 0)
-// 		return(free(line), NULL);
-// 	return(line);
-// }
 
 char	*get_file(int fd, int i)
 {
@@ -85,7 +53,6 @@ char	*hd_parent(int fd, int status)
 	}
 	input = get_file(fd, 0);
 	close(fd);
-	printf("after while dasdasd\n");
 	return (input);
 }
 

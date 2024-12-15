@@ -7,20 +7,21 @@ int change_dir_help(char *path, char *prevdir, t_shell *data)
 {
     char *curdir;
 
-    if(chdir(path) == -1)
-    {
-        write(2, "cd: ", 4);
-        write(2, path, ft_strlen(path));
-        write(2, ": No such file or directory\n", 28);
-        return (free(prevdir), 1);
-    }
     curdir = get_curr_pwd();
     if(!curdir)
         return(del_dir(path, prevdir, data));
     if (update_pwd(data, curdir) == -1)
-        return(free(curdir), free(prevdir), -1);
+    {
+        free(curdir);
+        free(prevdir);
+        return(-1);
+    }
     if (update_oldpwd(data, prevdir) == -1)
-        return(free(curdir), free(prevdir), -1);
+    {
+        free(curdir);
+        free(prevdir);
+        return(-1);
+    }
     free(curdir);
     free(prevdir);
     return (0);
@@ -32,7 +33,15 @@ int change_dir(char *path, t_shell *data)
 
     prevdir = get_pwd_value(data);
     if(!prevdir)
-         return (-1); 
+         return (-1);
+    if(chdir(path) == -1)
+    {
+        write(2, "cd: ", 4);
+        write(2, path, ft_strlen(path));
+        write(2, ": No such file or directory\n", 28);
+        free(prevdir);
+        return (1);
+    }
     return (change_dir_help(path, prevdir, data));
 }
 
@@ -42,13 +51,17 @@ int handle_home(char **path, char **temp, t_shell *data)
     if(!*path)
     {
         if(errno == ENOMEM)
+        {
+            free_all(data);
             exit(errno); // call free_all function before exiting
+        }
         write(2, "cd : HOME is not set\n", 21);
         return (1);
     }
     *temp = *path;
     return (0);
 }
+
 int handle_flag(char **path, char **temp, t_shell *data)
 {
    if(ft_strncmp(*path, "-", 2) == 0)
@@ -70,7 +83,7 @@ int handle_flag(char **path, char **temp, t_shell *data)
         write(2, "cd: ", 5);
         write(2, *path, ft_strlen(*path));
         write(2, " invalid option\n", 16);
-        return (2); // maybe 1 here instead of 2
+        return (1); // maybe 1 here instead of 2
     }
 }
 

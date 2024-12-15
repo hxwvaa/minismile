@@ -82,6 +82,7 @@ char *handle_ex(char *str, char *res, int *i, t_shell *data)
         return(handle_exit_code(res, i, data));
     if((str[*i + 1] != '\'' && str[*i + 1] != '\"') && (str[*i + 1] != '_' && !ft_isalnum(str[*i + 1])))
         return(handle_em_ex(str, res, i));
+    // if((str[*i + 1] != '_' && !ft_isalnum(str[*i + 1])))
     start = ++(*i);
     while(str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_')) // maybe remove this'_'
         (*i)++;

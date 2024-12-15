@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   process_hd_child.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/15 18:27:57 by mshaheen          #+#    #+#             */
+/*   Updated: 2024/12/15 18:28:13 by mshaheen         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 void	hd_clean_exit(int exit_code, int flag, int pipefd[], t_shell *data)
@@ -43,7 +55,7 @@ void	hd_exit_child(char *line, int fd, int exit_code, t_shell *data)
 	close(fd);
 	if (line)
 		free(line);
-	if(data->backup_pwd)
+	if (data->backup_pwd)
 	{
 		free(data->backup_pwd);
 		data->backup_pwd = NULL;
@@ -51,7 +63,7 @@ void	hd_exit_child(char *line, int fd, int exit_code, t_shell *data)
 	our_cmdlistclear(&data->cmds);
 	our_envlistclear(&data->envir);
 	our_toklistclear(&data->tokens);
-	if(exit_code == 64)
+	if (exit_code == 64)
 	{
 		write(2, "here_doc input too large\n", 38);
 		exit(0);
@@ -81,7 +93,7 @@ char	*do_heredoc(int fd, char *limit, t_shell *data)
 		if (!line)
 			hd_exit_child(line, fd, errno, data);
 		i += ft_strlen(line) + 1;
-		if(i > 65536)
+		if (i > 65536)
 			hd_exit_child(line, fd, 64, data);
 		write(fd, line, ft_strlen(line));
 		write(fd, "\n", 1);
