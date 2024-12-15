@@ -20,53 +20,6 @@ int count_cargs(t_cmd *cmd)
     return (i);
 }
 
-// int	check_syntax(char **av, int i)
-// {
-// 	i = 0;
-// 	while (av[i])
-// 	{
-//         if(ft_strncmp(av[i], "|", 2) == 0)
-//         {
-//             if(i == 0)
-//             {
-//                 write(2, "syntax error near unexpected token `|'\n", 39);
-//                 return(1);
-//             }
-//             if(av[i +1])
-//             {
-//                 if(check_syntax_pipe(av, i) == 1)
-//                     return(1);
-//             }
-//             else
-//             {
-//                 write(2, "syntax error near unexpected token `|'\n", 39);
-//                 return(1);
-//             }
-
-//         }
-// 		if (ft_strncmp(av[i], ">", 2) == 0 || ft_strncmp(av[i], "<", 2) == 0 || ft_strncmp(av[i], ">>", 3) == 0 || ft_strncmp(av[i], "<<", 3) == 0)
-// 		{
-// 			if (av[i + 1])
-// 			{
-// 				if (check_syntax_redirect(av, i) == 1)
-// 				{
-// 					write(2, "syntax error near unexpected token `>' or `<'\n", 46);
-//                     //data->exit_code = 258;
-// 					return (1);
-// 				}
-// 			}
-//             else
-//             {
-//                 write(2, "syntax error near unexpected token `newline'\n", 45);
-//                 //data->exit_code = 258
-//                 return (1);
-//             }
-// 		}
-// 		i++;
-// 	}
-// 	return (0);
-// }
-
 // strdup the content so when u unset you free and set to NULL
 void init_shell(t_shell *data, char **envp)
 {

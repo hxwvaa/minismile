@@ -3,10 +3,11 @@ NAME = minishell
 EXEC = execution
 PAR	 = parsing
 
-SRC = minislime.c tokenize.c findpath.c builtins/our_echo.c\
+SRC = minislime.c $(PAR)/tokenize.c $(PAR)/tokenize_utils.c builtins/our_echo.c\
 		builtins/our_env.c builtins/our_pwd.c builtins/our_unset.c\
 		builtins/our_export.c builtins/our_cd.c builtins/our_exit.c\
-		pre_execute.c free_arr_list.c expand.c mini_utils.c toklist_cmdlist.c\
+		$(PAR)/pre_execute.c free_arr_list.c $(PAR)/expand.c mini_utils.c\
+		$(PAR)/toklist_cmdlist.c $(PAR)/cmdlist_utils.c $(PAR)/list_funcs.c\
 		gnl/get_next_line.c $(EXEC)/execution.c $(EXEC)/process_hd.c\
 		$(EXEC)/process_redir.c $(EXEC)/builtin_execute.c\
 		$(EXEC)/execute_child.c $(EXEC)/execute_parent.c\

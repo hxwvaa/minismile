@@ -38,13 +38,6 @@ typedef enum S_TYPES{
 
 }t_type;
 
-typedef struct s_token{
-
-    char *token;
-    int type;
-    int q_type;
-}t_token;
-
 typedef struct s_toklist{
     char *token;
     int type;
@@ -83,7 +76,7 @@ typedef struct s_shell{
     int std[2];
     int   pid;
     int     exit_code;
-    int lpid; // didnt initialize in init shell yet but it is working fine without initializing
+    int lpid;
     
 }t_shell;
 
@@ -94,15 +87,12 @@ char	*ft_strtrim(char const *s1, char const *set);
 char **our_tokenize(char *s);
 char	*get_cmd_path(char *cmd, char **env);
 int	our_quote(char *str, int i, char quote);
-void rm_quotes(t_toklist *tokens);//not needed
-int expand_tokens(t_toklist *tokens, t_shell *data);//not needed
 
 //---------------------builtins------------------//
 void our_echo(char **arg, t_shell *data);
 void our_expenv(t_shell *data);
 void our_env(t_list *envir);
 bool our_pwd(t_shell *data);
-//int our_pwd();
 char *our_pwd_help(t_shell *data);
 char *get_value_env(char *var, t_shell *data);
 char *get_curr_pwd(void);
@@ -119,7 +109,6 @@ char *our_expand(char *var, t_shell *data);
 char *before_equal(char *str);
 
 //---------------------pre_execute------------------//
-t_token *array_to_token_array(char **split, int count);
 
 t_toklist *array_token_list(t_shell *data, char **split, int count);
 //void array_token_list(t_shell *data, char **split, int count);
@@ -136,20 +125,28 @@ char *handle_dq(t_toklist *temp, char *res, int *i, t_shell *data);
 char *handle_sq(char *str, char *res, int *i);
 char *handle_any(char *str, char *res, int *i);
 int check_quotes(t_toklist *list);
+int	our_free(char **str, int t);
+int	our_fill(char *s, char **cmd, int count);
+int	our_quote(char *str, int i, char quote);
+t_cmd *our_clstlast(t_cmd *lst);
+int our_clstadd_back(t_cmd **lst, t_cmd *new);
+t_redir *our_redirlast(t_redir *lst);
+t_redir *our_redirnew(char *file, int flag);
+int our_rediradd(t_redir **lst, char *file, int flag);
+t_cmd *our_clistnew(int count);
+t_cmd *new_node(t_toklist *temp, t_shell *data, int *new_cmd);
+void exit_free(t_shell *data);
+int store_cmd(t_cmd *curr, t_toklist *temp);
+int process_args(t_cmd *curr, t_toklist *temp, int i);
+int count_args(t_toklist *list);
 //-----------hd_expansions && hd_ex_utiils---------//
 char    *expand_hd(char *line, t_shell *data, int len);
-int append_input(char **input, char *line);
 char *join_strs(char *s1, char *s2, char *line);
 char *expand_what(char *line, int start, int *len);
 char *final_string(char *line, char *res);
 char *update_line(char *line, char *res, int len);
 char    *handle_expand(char *line, t_shell *data, int *len, char *res);
 //---------------------execution------------------//
-// int is_builtin(char *cmd);
-// int execute_one_cmd(t_cmd *curr, t_shell *data);
-// int only_one_cmd(t_cmd *cmd);
-//void our_execution(t_shell *data);
-//void execution(t_shell *data, int input, int output);
 void pre_execute(t_shell *data, int input, int output);
 void wait_loop(t_shell *data, int status, pid_t pid);
 void hd_clean_exit(int exit_code, int flag, int pipefd[], t_shell *data);

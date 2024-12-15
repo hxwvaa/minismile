@@ -65,7 +65,7 @@ void	hd_exit_child(char *line, int fd, int exit_code, t_shell *data)
 	our_toklistclear(&data->tokens);
 	if (exit_code == 64)
 	{
-		write(2, "here_doc input too large\n", 38);
+		write(2, "here_doc input too large\n", 26);
 		exit(0);
 	}
 	if (exit_code == 130)
