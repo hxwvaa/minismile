@@ -271,15 +271,15 @@ int main(int ac, char **av, char **envp)
                 u = 0;
                 printf("cmd:%s ", tmp->cmd);
                 while(u < count)
-                    printf("args:%s ", tmp->cargs[u++]);
-                printf("\n");
+                    printf("args:%s \n", tmp->cargs[u++]);
+                // printf("\n");
                 t_redir *tmp_redir = tmp->redirs;
                 while(tmp_redir)
                 {
-                    printf("redirect: %s flag:%d ", tmp_redir->file, tmp_redir->flag);
+                    printf("redirect: %s flag:%d \n", tmp_redir->file, tmp_redir->flag);
                     tmp_redir = tmp_redir->next;
                 }
-                printf("\n");
+                // printf("\n");
                 tmp = tmp->next;
             }
         }

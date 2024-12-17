@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_execute.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hbasheer <hbasheer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 10:19:47 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/12/15 18:31:23 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/12/17 18:58:35 by hbasheer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,11 @@ int	execute_one_cmd(t_cmd *curr, t_shell *data)
 	i = 0;
 	j = 0;
 	if (ft_strncmp(curr->cmd, "exit", 5) == 0)
-		exit_shell(curr->cargs, data);
+		exit_shell(curr->cargs, data, &j);
 	else if (ft_strncmp(curr->cmd, "env", 4) == 0)
 		our_env(data->envir);
 	else if (ft_strncmp(curr->cmd, "unset", 6) == 0)
-		our_unset(curr->cargs[i + 1], &data->envir);
+		our_unset(curr->cargs, &data->envir);
 	else if (ft_strncmp(curr->cmd, "echo", 5) == 0)
 		our_echo(curr->cargs, data);
 	else if (ft_strncmp(curr->cmd, "export", 7) == 0)

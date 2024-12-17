@@ -2,7 +2,7 @@
 
 void free_exec_fail(t_shell *data, int *input, int *output, int exit_code)
 {
-     if(data->envi)
+    if(data->envi)
     {
         free_arr(data->envi);
         data->envi = NULL;
@@ -69,7 +69,7 @@ void free_exec_fail(t_shell *data, int *input, int *output, int exit_code)
     }
     exit(exit_code);
 }
-// copilot did this lol, it looks like it should work
+
 void free_all(t_shell *data)
 {
     write (2, "\033[32;1mfree_all\n\033[0m", 21);

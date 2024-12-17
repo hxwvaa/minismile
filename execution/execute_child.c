@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_child.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hbasheer <hbasheer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 10:19:55 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/12/15 18:14:28 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/12/17 16:43:54 by hbasheer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,14 +102,16 @@ void	execute_child(t_shell *data, t_cmd *curr, int *input, int *output)
 			close(data->fd[0]);
 		if (ft_strchr(curr->cmd, '/') && check_if_directory(curr->cmd))
 			invalid_cmd_dir(curr->cmd, input, output, data);
-		data->cmd_path = get_cmd_path(curr->cmd, data->envi);
+		data->cmd_path = get_cmd_path(curr->cmd, input, output, data);
 		if (!data->cmd_path)
 			invalid_lstcmd(curr->cmd, input, output, data);
 		if (execve(data->cmd_path, curr->cargs, data->envi) == -1)
-			invalid_lstcmd(curr->cmd, input, output, data);
+		{
+			perror(data->cmd_path);
+			free_exec_fail(data, input, output, 126);
+		}
 	}
 	cleanup_child(data, input, output);
-	data->exit_code = 0;
 	exit(0);
 }
 

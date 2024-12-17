@@ -1,63 +1,65 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   our_echo.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hbasheer <hbasheer@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/16 17:18:52 by hbasheer          #+#    #+#             */
+/*   Updated: 2024/12/17 15:06:37 by hbasheer         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-// checks if the argument is only n
-bool check_non_n(char *arg)
+void	protected_write(char *error, int fd, t_shell *data)
 {
-    int i;
-
-    i = 1;
-    while(arg[i])
-    {
-        if(arg[i] != 'n')
-            return (false);
-        i++;
-    }
-    return (true);
+	if (write(fd, error, ft_strlen(error)) == -1)
+	{
+		perror("write");
+		free_all(data);
+		exit(1);
+	}
 }
 
-//need to deal with the quotes still
-
-// change it to int and return 0
-void our_echo(char **arg, t_shell *data)
+bool	check_non_n(char *arg)
 {
-    int flag_n;
-    int flag_f;
-    int i;
-    char *echo_arg;
+	int	i;
 
-    i = 1;
-    flag_f = 0;
-    flag_n = 1;
-    if(!arg[i])
-        write(1, " ", 1);
-    else
-    {
-        if(ft_strncmp(arg[i], "-n", 2) == 0 && check_non_n(arg[i])) // added the check_non_n function
-        {
-            flag_n = 0;
-            i++;
-        }
-        while(arg[i])
-        {
-            echo_arg = arg[i];
-            if (arg[i][0] == '$')
-            {
-                flag_f = 1;
-                echo_arg = our_expand(arg[i] + 1, data);
-                if (!echo_arg)
-                    printf("malloc fail\n"); //malloc fail check
-            }
-            write(1, echo_arg, ft_strlen(echo_arg));
-            if((arg[i + 1]))
-                write(1, " ", 1);
-            i++;
-            if (flag_f)
-            {
-                free(echo_arg);
-                flag_f = 0;
-            }
-        }
-    }
-    if(flag_n)
-        write(1, "\n", 1);
+	i = 1;
+	while (arg[i])
+	{
+		if (arg[i] != 'n')
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
+void	our_echo(char **arg, t_shell *data)
+{
+	int	flag_n;
+	int	i;
+
+	i = 1;
+	flag_n = 1;
+	if (!arg[i])
+		;
+	else
+	{
+		while (ft_strncmp(arg[i], "-n", 2) == 0 && check_non_n(arg[i]))
+		{
+			flag_n = 0;
+			i++;
+		}
+		while (arg[i])
+		{
+			protected_write(arg[i], STDOUT_FILENO, data);
+			if ((arg[i + 1]))
+				protected_write(" ", STDOUT_FILENO, data);
+			i++;
+		}
+	}
+	if (flag_n)
+		protected_write("\n", STDOUT_FILENO, data);
 }

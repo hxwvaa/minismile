@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes_expand.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hbasheer <hbasheer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 00:44:40 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/12/16 01:15:56 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/12/17 19:26:51 by hbasheer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ char	*join_free(char *s1, char *s2)
 	char	*result;
 
 	result = ft_strjoin(s1, s2);
-	free(s1);
-	free(s2);
+	if (s1)
+		free(s1);
+	if (s2)
+		free(s2);
 	if (!result)
 	{
 		perror("malloc");

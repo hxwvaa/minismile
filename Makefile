@@ -5,7 +5,8 @@ PAR	 = parsing
 
 SRC = minislime.c $(PAR)/tokenize.c $(PAR)/tokenize_utils.c builtins/our_echo.c\
 		builtins/our_env.c builtins/our_pwd.c builtins/our_unset.c\
-		builtins/our_export.c builtins/our_cd.c builtins/our_exit.c\
+		builtins/our_export.c builtins/our_cd.c builtins/our_export_extend.c\
+		builtins/our_exit_helpers.c builtins/our_exit.c\
 		$(PAR)/pre_execute.c free_arr_list.c $(PAR)/expand.c mini_utils.c\
 		$(PAR)/toklist_cmdlist.c $(PAR)/cmdlist_utils.c $(PAR)/list_funcs.c\
 		gnl/get_next_line.c $(EXEC)/execution.c $(EXEC)/process_hd.c\
@@ -59,8 +60,5 @@ fclean: clean
 	@$(DEL) $(NAME)
 
 re: fclean all
-
-valgrind: $(NAME)
-	valgrind --trace-children=yes -s --suppressions=ignore_readline_leaks.txt  --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes ./minishell
 
 .PHONY: all clean fclean re

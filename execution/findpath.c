@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   findpath.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hbasheer <hbasheer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:24:30 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/11/24 11:24:35 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/12/17 16:47:06 by hbasheer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,23 +46,9 @@ char	**findsplit_path(char **env)
 	return (paths);
 }
 
-int	only_space(char *s)
-{
-	int	i;
-
-	i = 0;
-	if (s[i] == '\0')
-		return (1);
-	while (s[i] == 32 && s[i])
-		i++;
-	if (s[i] == '\0')
-		return (1);
-	return (0);
-}
-
 int	accessible_p(char **array, char *fp)
 {
-	if (access(fp, X_OK) == 0)
+	if (access(fp, F_OK & X_OK) == 0)
 	{
 		free_path_array(array);
 		return (1);
@@ -70,31 +56,44 @@ int	accessible_p(char **array, char *fp)
 	return (0);
 }
 
-char	*get_cmd_path(char *cmd, char **env)
+char *find_in_path(char *cmd, int *input, int *output, t_shell *data)
 {
-	char	*full_path;
 	char	**paths;
+	char	*full_path;
 	char	*tmp;
 	int		i;
 
 	i = 0;
-	if (ft_strchr(cmd, '/'))
-	{
-		if (access(cmd, X_OK) == 0)
-			return (ft_strdup(cmd));
-	}
-	paths = findsplit_path(env);
+	paths = findsplit_path(data->envi);
 	if (!paths)
-		return (NULL);
+		free_exec_fail(data, input, output, 12);
 	while (paths[i])
 	{
-		tmp = ft_strjoin(paths[i++], "/");
+		tmp = ft_strjoin(paths[i], "/");
+		if(!tmp)
+			free_exec_fail(data, input, output, 12);
 		full_path = ft_strjoin(tmp, cmd);
 		free(tmp);
+		if(!full_path)
+			free_exec_fail(data, input, output, 12);
 		if (accessible_p(paths, full_path) == 1)
 			return (full_path);
 		free(full_path);
+		i++;
 	}
 	free_path_array(paths);
 	return (NULL);
+}
+
+char	*get_cmd_path(char *cmd, int *input, int *output, t_shell *data)
+{
+	char	*res;
+
+	if (ft_strchr(cmd, '/'))
+	{
+		if (access(cmd, F_OK) == 0)
+			return (ft_strdup(cmd));
+	}
+	res = find_in_path(cmd, input, output, data);
+	return (res);
 }

@@ -85,7 +85,7 @@ void rl_replace_line (const char *text, int clear_undo);
 
 char	*ft_strtrim(char const *s1, char const *set);
 char **our_tokenize(char *s);
-char	*get_cmd_path(char *cmd, char **env);
+char	*get_cmd_path(char *cmd, int *input, int *output, t_shell *data);
 int	our_quote(char *str, int i, char quote);
 
 //---------------------builtins------------------//
@@ -100,10 +100,14 @@ char *get_pwd_value(t_shell *data);
 int del_dir(char *path, char *prevdir, t_shell *data);
 int update_pwd(t_shell *data, char *pwd);
 int update_oldpwd(t_shell *data, char *oldpwd);
-bool our_unset(char *var, t_list **envir);
+bool our_unset(char **var, t_list **envir);
 bool our_export(char **arg, t_shell *data, int i);
 int our_cdir(char *path, t_shell *data);
 
+
+void	protected_write(char *error, int fd, t_shell *data);
+int	is_digit_exit_code(char **av);
+bool	is_num_very_small(char *str);
 
 char *our_expand(char *var, t_shell *data);
 char *before_equal(char *str);
@@ -175,8 +179,8 @@ void	our_envlistclear(t_list **envir);
 void	our_toklistclear(t_toklist **tokens);
 void    our_cmdlistclear(t_cmd **list);
 
-void	exit_shell(char **av, t_shell *data);
-
+void	exit_shell(char **av, t_shell *data, int *exit_status);
+size_t len_b4_eq(char *arg);
 
 void free_exec_fail(t_shell *data, int *input, int *output, int exit_code);
 void free_all(t_shell *data);
