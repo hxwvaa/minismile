@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbasheer <hbasheer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 00:19:01 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/12/17 19:51:52 by hbasheer         ###   ########.fr       */
+/*   Updated: 2024/12/17 23:58:28 by mshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ char	*our_expand(char *var, t_shell *data)
 			free(str);
 			return (after_equal(temp->content));
 		}
-		free(str);
+		if (str && str[0] != '\0')
+			free(str);
 		temp = temp->next;
 	}
 	return (ft_strdup(""));

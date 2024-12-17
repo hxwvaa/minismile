@@ -120,6 +120,7 @@ t_toklist *array_token_list(t_shell *data, char **split, int count);
 t_cmd *our_toklist_cmdlist(t_toklist *list, t_shell *data);
 char **envlist_envarray(t_list *env);
 //----------------------parsing---------------------//
+int	check_syntax(char **av, int i);
 int our_extok(t_toklist *tokens, t_shell *data);
 int find_dollar(char *str);
 char *pre_dollar(char *str, char *bef_do);

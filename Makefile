@@ -15,7 +15,7 @@ SRC = minislime.c $(PAR)/tokenize.c $(PAR)/tokenize_utils.c builtins/our_echo.c\
 		$(EXEC)/exec_utils.c $(EXEC)/findpath.c $(EXEC)/process_hd_child.c\
 		$(EXEC)/hd_expansion.c $(EXEC)/hd_ex_utils.c $(EXEC)/wait_loop.c\
 		$(PAR)/quotes_expand.c $(PAR)/handle_quotes.c $(PAR)/expansion.c\
-		$(PAR)/unclosed_quotes.c builtins/updating_pwds.c
+		$(PAR)/unclosed_quotes.c $(PAR)/check_syntax.c builtins/updating_pwds.c
 
 
 OBJ = $(SRC:.c=.o)
