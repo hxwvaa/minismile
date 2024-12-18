@@ -61,93 +61,6 @@ void init_shell(t_shell *data, char **envp)
     }
 }
 
-int	check_syntax_redirect(char **av, int i)
-{
-	if (ft_strncmp(av[i + 1], ">", 2) == 0 || ft_strncmp(av[i + 1], "<",
-			2) == 0  || ft_strncmp(av[i + 1], ">>", 3) == 0 
-            || ft_strncmp(av[i + 1], "<<", 3) == 0)
-	{
-        return (1);
-	}
-	return (0);
-}
-int check_syntax_pipe(char **av, int i)
-{
-    if(ft_strncmp(av[i + 1], "|", 2) == 0)
-    {
-        write(2, "syntax error near unexpected token `|'\n", 39);
-        //exit code = 258
-        return(1);
-    }
-    return(0);
-}
-int redirect_checker(char **av, int i)
-{
-    if (av[i + 1])
-    {
-        if (check_syntax_redirect(av, i) == 1)
-        {
-            write(2, "syntax error near unexpected token `>' or `<'\n", 46);
-            //data->exit_code = 258;
-            return (1);
-        }
-    }
-    if(av[i + 1] && ft_strncmp(av[i +1], "|", 2) == 0)
-    {
-        write(2, "syntax error near unexpected token `|'\n", 39);
-        //data->exit_code = 258
-        return (1);
-    }
-    if(!av[i + 1])
-    {
-        write(2, "syntax error near unexpected token `newline'\n", 45);
-        //data->exit_code = 258
-        return (1);
-    }
-    return (0);
-}
-int pipe_checker(char **av, int i)
-{
-    if(i == 0)
-    {
-        write(2, "syntax error near unexpected token `|'\n", 39);
-        return(1);
-    }
-    if(av[i +1])
-    {
-        if(check_syntax_pipe(av, i) == 1)
-            return(1);
-    }
-    else
-    {
-        write(2, "syntax error near unexpected token `|'\n", 39);
-        return(1);
-    }
-    return (0);
-}
-
-int check_syntax(char **av, int i)
-{
-    i = 0;
-	while (av[i])
-	{
-        if(ft_strncmp(av[i], "|", 2) == 0)
-        {
-            if(pipe_checker(av, i) == 1)
-                return(1);
-        }
-        if(ft_strncmp(av[i], ">", 2) == 0 || ft_strncmp(av[i], "<", 2) == 0 
-            || ft_strncmp(av[i], ">>", 3) == 0 
-            || ft_strncmp(av[i], "<<", 3) == 0)
-        {
-            if(redirect_checker(av, i) == 1)
-                return(1);
-        }
-        i++;
-    }
-    return(0);
-}
-
 
 void handle_signal(int sig)
 {
@@ -179,10 +92,9 @@ int main(int ac, char **av, char **envp)
     int count;
 
     // printf("\n after = signo: %d\n", g_signo);
-    init_shell(&data, envp);
-    
     if (ac > 1)
         (write(2, "minishell: too many arguments\n", 31), exit(1));
+    init_shell(&data, envp);
     while(1)
     {
         signal(SIGINT, &handle_signal); 
@@ -216,7 +128,7 @@ int main(int ac, char **av, char **envp)
         }
         i--;
         //tokens = array_to_token_array(av, i);
-        if(check_syntax(av, i) == 1)
+        if(check_syntax(av, i) == 1) // send data, add/use av/our_args and line to struct, so that we can set exit_status to 258, free line & av, 
         {
             free_arr(av);
             if(line)
@@ -234,7 +146,7 @@ int main(int ac, char **av, char **envp)
             // tmp = tokens;
             if (av)
                 free_arr(av);
-            if(check_quotes(tokens) == -1)
+            if(check_quotes(tokens) == -1) // same here
             {
                 our_toklistclear(&data.tokens);
                 if(line)

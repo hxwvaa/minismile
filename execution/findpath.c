@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   findpath.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbasheer <hbasheer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:24:30 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/12/17 16:47:06 by hbasheer         ###   ########.fr       */
+/*   Updated: 2024/12/17 23:35:09 by mshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	accessible_p(char **array, char *fp)
 	return (0);
 }
 
-char *find_in_path(char *cmd, int *input, int *output, t_shell *data)
+char	*find_in_path(char *cmd, int *input, int *output, t_shell *data)
 {
 	char	**paths;
 	char	*full_path;
@@ -70,11 +70,11 @@ char *find_in_path(char *cmd, int *input, int *output, t_shell *data)
 	while (paths[i])
 	{
 		tmp = ft_strjoin(paths[i], "/");
-		if(!tmp)
+		if (!tmp)
 			free_exec_fail(data, input, output, 12);
 		full_path = ft_strjoin(tmp, cmd);
 		free(tmp);
-		if(!full_path)
+		if (!full_path)
 			free_exec_fail(data, input, output, 12);
 		if (accessible_p(paths, full_path) == 1)
 			return (full_path);
