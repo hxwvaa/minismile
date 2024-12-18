@@ -6,7 +6,7 @@
 /*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 18:44:56 by hbasheer          #+#    #+#             */
-/*   Updated: 2024/12/18 20:20:56 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/12/19 01:08:36 by mshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,23 +111,6 @@ bool	if_not_equal(char *arg, t_list *current, int *found, t_shell *data)
 		current = current->next;
 	}
 	return (true);
-}
-
-void	add_not_found(int found, t_shell *data, char *arg)
-{
-	t_list	*new;
-
-	if (!found)
-	{
-		new = ft_lstnew(ft_strdup(arg));
-		if (!new)
-		{
-			write(2, "error malloc\n", 13);
-			free_all(data);
-			exit(12);
-		}
-		ft_lstadd_back(&data->envir, new);
-	}
 }
 
 bool	our_export(char **arg, t_shell *data, int i)

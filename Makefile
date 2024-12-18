@@ -15,7 +15,8 @@ SRC = minislime.c read_loop.c $(PAR)/tokenize.c $(PAR)/tokenize_utils.c builtins
 		$(EXEC)/exec_utils.c $(EXEC)/findpath.c $(EXEC)/process_hd_child.c\
 		$(EXEC)/hd_expansion.c $(EXEC)/hd_ex_utils.c $(EXEC)/wait_loop.c\
 		$(PAR)/quotes_expand.c $(PAR)/handle_quotes.c $(PAR)/expansion.c\
-		$(PAR)/unclosed_quotes.c $(PAR)/check_syntax.c builtins/updating_pwds.c
+		$(PAR)/unclosed_quotes.c $(PAR)/check_syntax.c builtins/updating_pwds.c\
+		builtins/export_utils.c
 		
 
 

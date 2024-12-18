@@ -106,6 +106,7 @@ int update_pwd(t_shell *data, char *pwd);
 int update_oldpwd(t_shell *data, char *oldpwd);
 bool our_unset(char **var, t_list **envir);
 bool our_export(char **arg, t_shell *data, int i);
+void	add_not_found(int found, t_shell *data, char *arg);
 int our_cdir(char *path, t_shell *data);
 
 
