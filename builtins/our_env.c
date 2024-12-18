@@ -6,7 +6,7 @@
 /*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:35:02 by hbasheer          #+#    #+#             */
-/*   Updated: 2024/12/18 17:48:21 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/12/18 20:21:05 by mshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	our_env(t_list *envir, char **arg, t_shell *data)
 	t_list	*tmp;
 
 	tmp = envir;
-	if(arg[1])
+	if (arg[1])
 	{
 		write(2, "env: ", 5);
 		write(2, arg[1], ft_strlen(arg[1]));

@@ -6,7 +6,7 @@
 /*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 10:20:06 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/12/18 16:36:37 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/12/18 20:21:43 by mshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,22 +90,22 @@ void	dup_std_envi(t_shell *data)
 	}
 }
 
-void free_lists_line(t_shell *data)
+void	free_lists_line(t_shell *data)
 {
-		if(data->line)
-            add_history(data->line);
-		if (data->tokens)
-        {
-			our_toklistclear(&data->tokens);
-			data->tokens = NULL;
-		}
-		if(data->cmds)
-        {
-			our_cmdlistclear(&data->cmds);
-			data->cmds = NULL;
-		}
-		free(data->line);
-		data->line = NULL;
+	if (data->line)
+		add_history(data->line);
+	if (data->tokens)
+	{
+		our_toklistclear(&data->tokens);
+		data->tokens = NULL;
+	}
+	if (data->cmds)
+	{
+		our_cmdlistclear(&data->cmds);
+		data->cmds = NULL;
+	}
+	free(data->line);
+	data->line = NULL;
 }
 
 void	pre_execute(t_shell *data, int input, int output)

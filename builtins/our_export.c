@@ -6,7 +6,7 @@
 /*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 18:44:56 by hbasheer          #+#    #+#             */
-/*   Updated: 2024/12/18 19:42:52 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/12/18 20:20:56 by mshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,8 @@ bool	if_not_equal(char *arg, t_list *current, int *found, t_shell *data)
 	}
 	return (true);
 }
-void add_not_found(int found, t_shell *data, char *arg)
+
+void	add_not_found(int found, t_shell *data, char *arg)
 {
 	t_list	*new;
 
@@ -129,14 +130,13 @@ void add_not_found(int found, t_shell *data, char *arg)
 	}
 }
 
-
 bool	our_export(char **arg, t_shell *data, int i)
 {
 	t_list	*current;
 	char	*key;
 	int		found;
 
-	if(!data->envir)
+	if (!data->envir)
 		return (false);
 	if (!arg[1])
 		return (our_expenv(data), false);
@@ -151,7 +151,7 @@ bool	our_export(char **arg, t_shell *data, int i)
 			continue ;
 		add_not_found(found, data, arg[i]);
 	}
-	if(data->exit_code == 1)
+	if (data->exit_code == 1)
 		return (true);
 	return (false);
 }
