@@ -57,12 +57,12 @@ void free_exec_fail(t_shell *data, int *input, int *output, int exit_code)
         close(data->std[1]);
         data->std[1] = -1;
     }
-    if(*input != STDIN_FILENO && *input != -1) 
+    if(input && *input != STDIN_FILENO && *input != -1) 
     {
         close(*input);
         *input = -1;
     }
-    if(*output != STDOUT_FILENO && *output != -1) 
+    if(output && *output != STDOUT_FILENO && *output != -1) 
     {
         close(*output);
         *output = -1;

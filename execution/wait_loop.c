@@ -6,7 +6,7 @@
 /*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 17:07:54 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/12/15 17:07:59 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/12/19 03:19:08 by mshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,22 @@ void	wait_loop(t_shell *data, int status, pid_t pid)
 			set_exit_code_last(data, status);
 		}
 	}
+}
+
+void	free_lists_line(t_shell *data)
+{
+	if (data->line)
+		add_history(data->line);
+	if (data->tokens)
+	{
+		our_toklistclear(&data->tokens);
+		data->tokens = NULL;
+	}
+	if (data->cmds)
+	{
+		our_cmdlistclear(&data->cmds);
+		data->cmds = NULL;
+	}
+	free(data->line);
+	data->line = NULL;
 }

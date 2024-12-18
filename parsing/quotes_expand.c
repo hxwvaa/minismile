@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes_expand.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbasheer <hbasheer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 00:44:40 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/12/17 19:26:51 by hbasheer         ###   ########.fr       */
+/*   Updated: 2024/12/19 03:12:52 by mshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int	our_extok(t_toklist *tokens, t_shell *data)
 			if (!expanded)
 			{
 				perror("malloc");
-				return (-1); // check if returns -1 freeall and exit malloc;
+				return (-1);
 			}
 			free(temp->token);
 			temp->token = expanded;

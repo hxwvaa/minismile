@@ -6,7 +6,7 @@
 /*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 00:05:08 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/12/18 20:25:42 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/12/19 03:15:43 by mshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,13 +98,6 @@ int	check_syntax(char **av, int i, t_shell *data)
 		}
 		i++;
 	}
-	if (ret == 1)
-	{
-		free_arr(av);
-		if (data->line)
-			add_history(data->line);
-		free(data->line);
-		data->exit_code = 258;
-	}
+	set_estat_syntax(av, data, ret);
 	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 22:41:05 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/12/18 15:55:18 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/12/19 03:14:09 by mshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,23 @@ int	opened_or_closed(char *str)
 		return (quote);
 	return (0);
 }
+
+void	set_estat_syntax(char **av, t_shell *data, int ret)
+{
+	if (ret == 1)
+	{
+		free_arr(av);
+		if (data->line)
+			add_history(data->line);
+		free(data->line);
+		data->exit_code = 258;
+	}
+}
+
 void	unclosed_free(t_shell *data)
 {
 	our_toklistclear(&data->tokens);
-	if(data->line)
+	if (data->line)
 		add_history(data->line);
 	free(data->line);
 	data->exit_code = 1;
@@ -48,7 +61,7 @@ int	check_quotes(t_toklist *list, t_shell *data)
 	t_toklist	*temp;
 	char		quote;
 	int			ret;
-	
+
 	ret = 0;
 	temp = list;
 	quote = 0;
@@ -66,7 +79,7 @@ int	check_quotes(t_toklist *list, t_shell *data)
 		}
 		temp = temp->next;
 	}
-	if(ret == -1)
+	if (ret == -1)
 		unclosed_free(data);
 	return (ret);
 }

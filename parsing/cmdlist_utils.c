@@ -6,7 +6,7 @@
 /*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 23:38:17 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/12/16 00:41:07 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/12/19 02:08:32 by mshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,10 @@ void	exit_free(t_shell *data)
 		our_envlistclear(&data->envir);
 	if (data->tokens)
 		our_toklistclear(&data->tokens);
-	//we need to free line as well so add line to our struct
+	if (data->line)
+		free(data->line);
+	if (data->our_args)
+		free_arr(data->our_args);
 	exit(errno);
 }
 

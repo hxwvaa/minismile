@@ -6,7 +6,7 @@
 /*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 20:23:12 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/12/18 20:23:13 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/12/19 02:55:57 by mshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,17 @@ void	read_loop(t_shell *data)
 			g_signo = 0;
 		}
 		if (!data->line)
-			(free_all(data), exit(0));
+			free_exec_fail(data, NULL, NULL, 0);
 		data->our_args = our_tokenize(data->line);
 		if (!data->our_args)
-			(free_all(data), exit(12));
+			free_exec_fail(data, NULL, NULL, 12);
 		if (check_syntax(data->our_args, 0, data) == 1)
 			continue ;
 		array_token_list(data, data->our_args, count_oargs(data->our_args));
 		if (check_quotes(data->tokens, data) == -1)
 			continue ;
 		if (our_extok(data->tokens, data) == -1)
-			(free_all(data), exit(1));
+			free_exec_fail(data, NULL, NULL, 12);
 		our_toklist_cmdlist(data->tokens, data);
 		pre_execute(data, STDIN_FILENO, STDOUT_FILENO);
 	}

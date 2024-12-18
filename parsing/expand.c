@@ -6,11 +6,20 @@
 /*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 00:19:01 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/12/18 13:54:08 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/12/19 03:11:34 by mshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	free_args_set_null(t_shell *data)
+{
+	if (data->our_args)
+	{
+		free_arr(data->our_args);
+		data->our_args = NULL;
+	}
+}
 
 char	*before_equal(char *str)
 {
