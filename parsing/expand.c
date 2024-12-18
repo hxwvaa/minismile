@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbasheer <hbasheer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 00:19:01 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/12/17 19:51:52 by hbasheer         ###   ########.fr       */
+/*   Updated: 2024/12/18 13:45:19 by mshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*before_equal(char *str)
 			return (NULL);
 	}
 	else
-		return ("");
+		return (ft_strdup(""));
 	i = 0;
 	while (str[i] != '=')
 	{
