@@ -6,7 +6,7 @@
 /*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 18:44:56 by hbasheer          #+#    #+#             */
-/*   Updated: 2024/12/18 18:32:56 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/12/18 19:42:52 by mshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,8 +136,10 @@ bool	our_export(char **arg, t_shell *data, int i)
 	char	*key;
 	int		found;
 
+	if(!data->envir)
+		return (false);
 	if (!arg[1])
-		return (our_expenv(data), true);
+		return (our_expenv(data), false);
 	while (arg[++i])
 	{
 		current = data->envir;
