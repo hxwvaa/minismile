@@ -6,7 +6,7 @@
 /*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 22:21:14 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/12/15 22:40:52 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/12/18 16:28:50 by mshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,7 @@ char	**our_tokenize(char *s)
 	r = ft_strtrim(s, " ");
 	if (r == NULL)
 		return (NULL);
-	printf("\nafter_trim - {%s}\n", r);
 	word = our_wount(r, &i, word);
-	printf("\ntoken_count - %d\n", word);
 	split = ft_calloc(word + 1, sizeof(char *));
 	if (!split)
 		return (NULL);

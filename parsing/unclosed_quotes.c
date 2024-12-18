@@ -6,7 +6,7 @@
 /*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 22:41:05 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/12/16 00:27:42 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/12/18 15:55:18 by mshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,22 @@ int	opened_or_closed(char *str)
 		return (quote);
 	return (0);
 }
+void	unclosed_free(t_shell *data)
+{
+	our_toklistclear(&data->tokens);
+	if(data->line)
+		add_history(data->line);
+	free(data->line);
+	data->exit_code = 1;
+}
 
-int	check_quotes(t_toklist *list)
+int	check_quotes(t_toklist *list, t_shell *data)
 {
 	t_toklist	*temp;
 	char		quote;
-
+	int			ret;
+	
+	ret = 0;
 	temp = list;
 	quote = 0;
 	while (temp)
@@ -51,11 +61,14 @@ int	check_quotes(t_toklist *list)
 				ft_putendl_fd("syntax error unclosed quote \'", 2);
 			else
 				ft_putendl_fd("syntax error unclosed quote \"", 2);
-			return (-1);
+			ret = -1;
+			break ;
 		}
 		temp = temp->next;
 	}
-	return (0);
+	if(ret == -1)
+		unclosed_free(data);
+	return (ret);
 }
 
 t_cmd	*our_clstlast(t_cmd *lst)

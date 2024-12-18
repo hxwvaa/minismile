@@ -1,6 +1,5 @@
 #include "minishell.h"
 
-#include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 
@@ -28,6 +27,7 @@ void init_shell(t_shell *data, char **envp)
 
     //data->envi = envp;
     data->envi = NULL;
+    data->line = NULL;
     data->backup_pwd = NULL;
     data->envir = NULL;
     // data->user_set = NULL;
@@ -62,186 +62,124 @@ void init_shell(t_shell *data, char **envp)
 }
 
 
-void handle_signal(int sig)
-{
-    //i think we need to create a global variable and set the signal value and then check in execution
-    if (sig == SIGINT)
-    {
-        write(2, "\n", 1);
-        rl_on_new_line();
-        rl_replace_line("", 0);
-        rl_redisplay();
-        g_signo = SIGINT;
-    }
-}
+// void handle_signal(int sig)
+// {
+//     //i think we need to create a global variable and set the signal value and then check in execution
+//     if (sig == SIGINT)
+//     {
+//         write(2, "\n", 1);
+//         rl_on_new_line();
+//         rl_replace_line("", 0);
+//         rl_redisplay();
+//         g_signo = SIGINT;
+//     }
+// }
 
 
 int main(int ac, char **av, char **envp)
 {
     t_shell data;
-    char *line;
-    (void)ac;
-    int i = 0;
-    (void)envp;
+    // char *line;
+    // (void)ac;
+    // int i = 0;
+    // (void)envp;
     (void)av;
-    //t_token *tokens;
-    //int j = 0;
-    t_toklist *tokens;
-    // t_toklist *tmp;
-    t_cmd *tmp;
-    int count;
+    // //t_token *tokens;
+    // //int j = 0;
+    // t_toklist *tokens;
+    // // t_toklist *tmp;
+    // t_cmd *tmp;
+    // int count;
 
     // printf("\n after = signo: %d\n", g_signo);
     if (ac > 1)
         (write(2, "minishell: too many arguments\n", 31), exit(1));
     init_shell(&data, envp);
-    while(1)
-    {
-        signal(SIGINT, &handle_signal); 
-        signal(SIGQUIT, SIG_IGN);
-        // printf("\n signo: %d\n", signo);
-        // signal_fncton();    
-        i = 0;
-        line = readline("minishell♣ > ");
-        printf("\n after = signo: %d\n", g_signo);
+    read_loop(&data);
+    // while(1)
+    // {
+    //     signal(SIGINT, &handle_signal); 
+    //     signal(SIGQUIT, SIG_IGN);    
+    //     i = 0;
+    //     line = readline("minishell♣ > ");
 
-        // if(ft_strncmp(line, "exit", 4) == 0)`
-        // {
-        //     free(line);
-        //     exit(0);
-        if (g_signo == SIGINT)
-        {
-            data.exit_code = 1;
-            g_signo = 0;
-        }
-        // }
-        if(!line)
-            (free_all(&data), exit(0));
-        // printf("\nbefore_trim - {%s}\n", line);
+    //     if (g_signo == SIGINT)
+    //     {
+    //         data.exit_code = 1;
+    //         g_signo = 0;
+    //     }
+    //     // }
+    //     if(!line)
+    //         (free_all(&data), exit(0));
 
 
-        av = our_tokenize(line);
-        while(av[i])
-        {
-            printf("%d - [%s]\n", i + 1, av[i]);
-            i++;
-        }
-        i--;
-        //tokens = array_to_token_array(av, i);
-        if(check_syntax(av, i) == 1) // send data, add/use av/our_args and line to struct, so that we can set exit_status to 258, free line & av, 
-        {
-            free_arr(av);
-            if(line)
-                add_history(line);
-            free(line);
-            data.exit_code = 258;
-            continue;
-            printf("syntax\n");
-            // free_arr(av);
-        }
-        else   
-        {
-            tokens = array_token_list(&data, av, i);
-            //array_token_list(&data, av, i);
-            // tmp = tokens;
-            if (av)
-                free_arr(av);
-            if(check_quotes(tokens) == -1) // same here
-            {
-                our_toklistclear(&data.tokens);
-                if(line)
-                    add_history(line);
-                free(line);
-                data.exit_code = 1;
-                continue ;
-            }
-            //tokens = data.tokens;
-            //rm_quotes(tokens);
-            //expand_tokens(tokens, &data);
-            our_extok(tokens, &data); //if it returns -1 then that means malloc failed exit cleanly
-            while(tokens)
-            {
-                printf("token: %s, type: %d\n", tokens->token, tokens->type);
-                tokens = tokens->next;
-            }
-            // data.count = count_all_args(data.tokens);
-            tmp = our_toklist_cmdlist(data.tokens, &data);
-            // if(our_toklist_cmdlist(data.tokens, &data) == NULL)
-            // {
-            //     free_all(&data);
-            //     exit(errno);
-            // }
-            //our_toklistclear(&data.tokens);
-            //our_toklist_cmdlist(data.tokens, &data);
-            // printf("args count: %d\n", count);
-            int u = 0;
-            while(tmp)
-            {
-                count = 0;
-                count = count_cargs(tmp);
-                printf("count: %d\n", count);
-                u = 0;
-                printf("cmd:%s ", tmp->cmd);
-                while(u < count)
-                    printf("args:%s \n", tmp->cargs[u++]);
-                // printf("\n");
-                t_redir *tmp_redir = tmp->redirs;
-                while(tmp_redir)
-                {
-                    printf("redirect: %s flag:%d \n", tmp_redir->file, tmp_redir->flag);
-                    tmp_redir = tmp_redir->next;
-                }
-                // printf("\n");
-                tmp = tmp->next;
-            }
-        }
-        //     u = 0;
-        // while(tmp->inf[u])
-        //     printf("inf:%s ", tmp->inf[u++]);
-        
-        // while(tokens[j].token)
-        // {
-        //     printf("hello\n");
-        //     printf("token: %s, type:%d\n", (char *)tokens[j].token, (int)tokens[j].type);
-        //     j++;
-        // }
-        //if(data.cmds)
-        // if(only_one_cmd(data.cmds) == 1) //need to change the if statement < Makefile cat | << lol > result.txt | pwd | <<world >> result.txt
-        // {
-        //     if(is_builtin(av[0]) == 1)
-        //         check_built_in(av, &data);
-        // }
-        // else
-        //{
-        // data.envi = envlist_envarray(data.envir);
-        // if(!data.envi)
-        //     perror("malloc");
-        //our_execution(&data);
-        //execution(&data, STDIN_FILENO, -1);
-        //execution(&data, STDIN_FILENO, STDOUT_FILENO);
-        pre_execute(&data, STDIN_FILENO, STDOUT_FILENO);
-        //}
-        // if (av && av[0])
-        // {
-        //     printf("before check_args\n");
-        //     check_args(av, &data);
-        // }
-        if(line)
-            add_history(line);
-        // if (av)
-        // {
-        //     free_arr(av);
-        // }
-        // if (tokens)
-        if (data.tokens)
-            our_toklistclear(&data.tokens);
-        if(data.cmds)
-            our_cmdlistclear(&data.cmds);
-        //printf("in main before next line\n");
-        free(line);
-        //we need clean everything before next line the allocations
-
-    }
+    //     av = our_tokenize(line);
+    //     while(av[i])
+    //     {
+    //         printf("%d - [%s]\n", i + 1, av[i]);
+    //         i++;
+    //     }
+    //     i--;
+    //     if(check_syntax(av, i) == 1) // send data, add/use av/our_args and line to struct, so that we can set exit_status to 258, free line & av, 
+    //     {
+    //         free_arr(av);
+    //         if(line)
+    //             add_history(line);
+    //         free(line);
+    //         data.exit_code = 258;
+    //         continue;
+    //         printf("syntax\n");
+    //     }
+    //     else   
+    //     {
+    //         tokens = array_token_list(&data, av, i);
+    //         if (av)
+    //             free_arr(av);
+    //         if(check_quotes(tokens) == -1) // same here
+    //         {
+    //             our_toklistclear(&data.tokens);
+    //             if(line)
+    //                 add_history(line);
+    //             free(line);
+    //             data.exit_code = 1;
+    //             continue ;
+    //         }
+    //         our_extok(tokens, &data); //if it returns -1 then that means malloc failed exit cleanly
+    //         while(tokens)
+    //         {
+    //             printf("token: %s, type: %d\n", tokens->token, tokens->type);
+    //             tokens = tokens->next;
+    //         }
+    //         tmp = our_toklist_cmdlist(data.tokens, &data);
+    //         int u = 0;
+    //         while(tmp)
+    //         {
+    //             count = 0;
+    //             count = count_cargs(tmp);
+    //             printf("count: %d\n", count);
+    //             u = 0;
+    //             printf("cmd:%s ", tmp->cmd);
+    //             while(u < count)
+    //                 printf("args:%s \n", tmp->cargs[u++]);
+    //             // printf("\n");
+    //             t_redir *tmp_redir = tmp->redirs;
+    //             while(tmp_redir)
+    //             {
+    //                 printf("redirect: %s flag:%d \n", tmp_redir->file, tmp_redir->flag);
+    //                 tmp_redir = tmp_redir->next;
+    //             }
+    //             tmp = tmp->next;
+    //         }
+    //     }
+    //     pre_execute(&data, STDIN_FILENO, STDOUT_FILENO);
+    //     if(line)
+    //         add_history(line);
+    //     if (data.tokens)
+    //         our_toklistclear(&data.tokens);
+    //     if(data.cmds)
+    //         our_cmdlistclear(&data.cmds);
+    //     free(line);
+    // }
     return(0);
 }
  

@@ -6,7 +6,7 @@
 /*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:24:30 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/12/17 23:35:09 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/12/18 17:14:28 by mshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	*find_in_path(char *cmd, int *input, int *output, t_shell *data)
 	i = 0;
 	paths = findsplit_path(data->envi);
 	if (!paths)
-		free_exec_fail(data, input, output, 12);
+		return (NULL);
 	while (paths[i])
 	{
 		tmp = ft_strjoin(paths[i], "/");

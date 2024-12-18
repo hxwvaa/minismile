@@ -68,6 +68,7 @@ typedef struct s_cmd{
 typedef struct s_shell{
     
     char **envi;
+    char *line;
     char *backup_pwd;
     t_list *envir;
     t_toklist *tokens;
@@ -85,6 +86,7 @@ typedef struct s_shell{
 // replace_line for signal
 void rl_replace_line (const char *text, int clear_undo);
 
+void	read_loop(t_shell *data);
 char	*ft_strtrim(char const *s1, char const *set);
 char **our_tokenize(char *s);
 char	*get_cmd_path(char *cmd, int *input, int *output, t_shell *data);
@@ -93,7 +95,7 @@ int	our_quote(char *str, int i, char quote);
 //---------------------builtins------------------//
 void our_echo(char **arg, t_shell *data);
 void our_expenv(t_shell *data);
-void our_env(t_list *envir);
+int our_env(t_list *envir, char **arg, t_shell *data);
 bool our_pwd(t_shell *data);
 char *our_pwd_help(t_shell *data);
 char *get_value_env(char *var, t_shell *data);
@@ -122,7 +124,7 @@ t_toklist *array_token_list(t_shell *data, char **split, int count);
 t_cmd *our_toklist_cmdlist(t_toklist *list, t_shell *data);
 char **envlist_envarray(t_list *env);
 //----------------------parsing---------------------//
-int	check_syntax(char **av, int i);
+int	check_syntax(char **av, int i, t_shell *data);
 int our_extok(t_toklist *tokens, t_shell *data);
 int find_dollar(char *str);
 char *pre_dollar(char *str, char *bef_do);
@@ -131,7 +133,7 @@ char *handle_ex(char *str, char *res, int *i, t_shell *data);
 char *handle_dq(t_toklist *temp, char *res, int *i, t_shell *data);
 char *handle_sq(char *str, char *res, int *i);
 char *handle_any(char *str, char *res, int *i);
-int check_quotes(t_toklist *list);
+int check_quotes(t_toklist *list, t_shell *data);
 int	our_free(char **str, int t);
 int	our_fill(char *s, char **cmd, int count);
 int	our_quote(char *str, int i, char quote);

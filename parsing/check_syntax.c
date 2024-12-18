@@ -6,7 +6,7 @@
 /*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 00:05:08 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/12/18 00:06:07 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/12/18 15:46:01 by mshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,24 +80,35 @@ int	pipe_checker(char **av, int i)
 	return (0);
 }
 
-int	check_syntax(char **av, int i)
+int	check_syntax(char **av, int i, t_shell *data)
 {
+	int ret;
+
+	ret = 0;
 	i = 0;
 	while (av[i])
 	{
 		if (ft_strncmp(av[i], "|", 2) == 0)
 		{
 			if (pipe_checker(av, i) == 1)
-				return (1);
+				ret = 1;
 		}
 		if (ft_strncmp(av[i], ">", 2) == 0 || ft_strncmp(av[i], "<", 2) == 0
 			|| ft_strncmp(av[i], ">>", 3) == 0
 			|| ft_strncmp(av[i], "<<", 3) == 0)
 		{
 			if (redirect_checker(av, i) == 1)
-				return (1);
+				ret = 1;
 		}
 		i++;
 	}
-	return (0);
+	if(ret == 1)
+	{
+		free_arr(av);
+		if(data->line)
+			add_history(data->line);
+		free(data->line);
+		data->exit_code = 258;
+	}
+	return (ret);
 }

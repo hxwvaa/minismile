@@ -3,7 +3,7 @@ NAME = minishell
 EXEC = execution
 PAR	 = parsing
 
-SRC = minislime.c $(PAR)/tokenize.c $(PAR)/tokenize_utils.c builtins/our_echo.c\
+SRC = minislime.c read_loop.c $(PAR)/tokenize.c $(PAR)/tokenize_utils.c builtins/our_echo.c\
 		builtins/our_env.c builtins/our_pwd.c builtins/our_unset.c\
 		builtins/our_export.c builtins/our_cd.c builtins/our_export_extend.c\
 		builtins/our_exit_helpers.c builtins/our_exit.c\
@@ -16,6 +16,7 @@ SRC = minislime.c $(PAR)/tokenize.c $(PAR)/tokenize_utils.c builtins/our_echo.c\
 		$(EXEC)/hd_expansion.c $(EXEC)/hd_ex_utils.c $(EXEC)/wait_loop.c\
 		$(PAR)/quotes_expand.c $(PAR)/handle_quotes.c $(PAR)/expansion.c\
 		$(PAR)/unclosed_quotes.c $(PAR)/check_syntax.c builtins/updating_pwds.c
+		
 
 
 OBJ = $(SRC:.c=.o)

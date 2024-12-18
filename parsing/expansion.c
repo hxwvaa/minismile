@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbasheer <hbasheer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 00:56:53 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/12/17 20:03:49 by hbasheer         ###   ########.fr       */
+/*   Updated: 2024/12/18 16:43:28 by mshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ char	*handle_ex(char *str, char *res, int *i, t_shell *data)
 	if (!to_ex)
 		return (free(res), NULL);
 	temp = our_expand(to_ex, data);
-	printf("\n%p\n", temp);
 	free(to_ex);
 	if (!temp)
 		return (free(res), NULL);

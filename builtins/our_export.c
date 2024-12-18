@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   our_export.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbasheer <hbasheer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 18:44:56 by hbasheer          #+#    #+#             */
-/*   Updated: 2024/12/18 17:31:38 by hbasheer         ###   ########.fr       */
+/*   Updated: 2024/12/18 18:32:56 by mshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,16 @@ int	check_exp_ident(char *arg)
 	return (free(b_equal), 0);
 }
 
-bool	if_equal(char *arg, t_list *current, int *found)
+bool	if_equal(char *arg, t_list *current, int *found, t_shell *data)
 {
 	int	chevk;
 
 	chevk = check_exp_ident(arg);
 	if (chevk == 1 || chevk == -1)
+	{
+		data->exit_code = 1;
 		return (false);
+	}
 	while (current)
 	{
 		if (ft_strncmp(current->content, arg, len_b4_eq(current->content)) == 0)
@@ -78,7 +81,7 @@ bool	if_equal(char *arg, t_list *current, int *found)
 			if (!current->content)
 			{
 				write(2, "error malloc\n", 13);
-				return (false);
+				(free_all(data), exit(12));
 			}
 			*found = 1;
 			break ;
@@ -88,13 +91,16 @@ bool	if_equal(char *arg, t_list *current, int *found)
 	return (true);
 }
 
-bool	if_not_equal(char *arg, t_list *current, int *found)
+bool	if_not_equal(char *arg, t_list *current, int *found, t_shell *data)
 {
 	int	chevk;
 
 	chevk = check_exp_ident(arg);
 	if (chevk == 1 || chevk == -1)
+	{
+		data->exit_code = 1;
 		return (false);
+	}
 	while (current)
 	{
 		if (ft_strncmp(current->content, arg, len_b4_eq(current->content)) == 0)
@@ -106,11 +112,27 @@ bool	if_not_equal(char *arg, t_list *current, int *found)
 	}
 	return (true);
 }
+void add_not_found(int found, t_shell *data, char *arg)
+{
+	t_list	*new;
+
+	if (!found)
+	{
+		new = ft_lstnew(ft_strdup(arg));
+		if (!new)
+		{
+			write(2, "error malloc\n", 13);
+			free_all(data);
+			exit(12);
+		}
+		ft_lstadd_back(&data->envir, new);
+	}
+}
+
 
 bool	our_export(char **arg, t_shell *data, int i)
 {
 	t_list	*current;
-	t_list	*new;
 	char	*key;
 	int		found;
 
@@ -121,17 +143,13 @@ bool	our_export(char **arg, t_shell *data, int i)
 		current = data->envir;
 		found = 0;
 		key = ft_strchr(arg[i], '=');
-		if (key && !if_equal(arg[i], current, &found))
-			return (false);
-		else if (!key && !if_not_equal(arg[i], current, &found))
-			return (false);
-		if (!found)
-		{
-			new = ft_lstnew(ft_strdup(arg[i]));
-			if (!new)
-				return (write(2, "error malloc\n", 13), false);
-			ft_lstadd_back(&data->envir, new);
-		}
+		if (key && !if_equal(arg[i], current, &found, data))
+			continue ;
+		else if (!key && !if_not_equal(arg[i], current, &found, data))
+			continue ;
+		add_not_found(found, data, arg[i]);
 	}
-	return (true);
+	if(data->exit_code == 1)
+		return (true);
+	return (false);
 }

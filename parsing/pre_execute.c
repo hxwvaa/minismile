@@ -6,7 +6,7 @@
 /*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 22:47:41 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/12/15 22:57:11 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/12/18 16:33:40 by mshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,14 @@ t_toklist	*our_tlstnew(char *token, int type)
 	list->next = NULL;
 	return (list);
 }
+void free_args_set_null(t_shell *data)
+{
+	if(data->our_args)
+	{
+		free_arr(data->our_args);
+		data->our_args = NULL;
+	}
+}
 
 t_toklist	*array_token_list(t_shell *data, char **split, int count)
 {
@@ -106,6 +114,6 @@ t_toklist	*array_token_list(t_shell *data, char **split, int count)
 			our_tlstadd_back(&data->tokens, new);
 		i++;
 	}
-	//free split array
+	free_args_set_null(data);
 	return (data->tokens);
 }
