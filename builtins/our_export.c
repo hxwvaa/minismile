@@ -6,7 +6,7 @@
 /*   By: hbasheer <hbasheer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 18:44:56 by hbasheer          #+#    #+#             */
-/*   Updated: 2024/12/17 19:19:02 by hbasheer         ###   ########.fr       */
+/*   Updated: 2024/12/18 17:31:38 by hbasheer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ int	check_exp_ident(char *arg)
 	}
 	if (flag == 1)
 	{
-		write(2, "minishell: export: `", 20);
+		write(2, "minishell: `", 13);
 		write(2, arg, ft_strlen(arg));
-		return (write(2, "': not a valid identifier\n", 26), free(b_equal), 1);
+		return (write(2, "': not a valid identifier\n", 27), free(b_equal), 1);
 	}
 	return (free(b_equal), 0);
 }
@@ -100,7 +100,7 @@ bool	if_not_equal(char *arg, t_list *current, int *found)
 		if (ft_strncmp(current->content, arg, len_b4_eq(current->content)) == 0)
 		{
 			*found = 1;
-			break;
+			break ;
 		}
 		current = current->next;
 	}

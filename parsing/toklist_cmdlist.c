@@ -78,7 +78,8 @@ t_toklist	*cmd_found(t_toklist *temp, t_cmd *curr, t_shell *data)
 	return (temp);
 }
 
-t_toklist	*cmd_redirect(t_toklist *temp, t_cmd **curr, int *new_cmd, t_shell *data)
+t_toklist	*cmd_redirect(t_toklist *temp, t_cmd **curr,
+	int *new_cmd, t_shell *data)
 {
 	if (temp->type == CMD)
 		temp = cmd_found(temp, *curr, data);

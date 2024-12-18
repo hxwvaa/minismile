@@ -16,7 +16,9 @@
 #include <sys/stat.h>
 #include <signal.h>
 
-// define a macro for cd error message
+#define CD_ERR_1 "cd: error retrieving current directory:"
+#define CD_ERR_2 " getcwd: cannot access parent directories:"
+#define CD_ERR_3 " No such file or directory\n"
 
 extern int g_signo;
 
@@ -186,6 +188,7 @@ size_t len_b4_eq(char *arg);
 void free_exec_fail(t_shell *data, int *input, int *output, int exit_code);
 void free_all(t_shell *data);
 void handle_signal(int sig);
+int	check_exp_ident(char *arg);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hbasheer <hbasheer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:16:27 by hbasheer          #+#    #+#             */
-/*   Updated: 2024/10/23 20:07:07 by hbasheer         ###   ########.fr       */
+/*   Updated: 2024/12/18 17:39:45 by hbasheer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int					ft_isascii(int i);
 int					ft_isdigit(int i);
 int					ft_isprint(int i);
 char				*ft_itoa(int n);
-long long	ft_atol(const char *str);
+long long			ft_atol(const char *str);
 unsigned long long	ft_atoull(const char *str);
 void				*ft_memchr(const void *s, int c, size_t n);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
