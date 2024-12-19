@@ -1,185 +1,84 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minislime.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hbasheer <hbasheer@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/19 15:10:36 by hbasheer          #+#    #+#             */
+/*   Updated: 2024/12/19 15:10:36 by hbasheer         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
-
-#include <readline/readline.h>
 #include <readline/history.h>
+#include <readline/readline.h>
 
-int g_signo = 0;
+int		g_signo = 0;
 
-int count_cargs(t_cmd *cmd)
+int	count_cargs(t_cmd *cmd)
 {
-    int i;
-    t_cmd *temp;
+	int		i;
+	t_cmd	*temp;
 
-    i = 0;
-    temp = cmd;
-    while(temp->cargs[i])
-    {  
-            i++;
-    }
-    return (i);
+	i = 0;
+	temp = cmd;
+	while (temp->cargs[i])
+		i++;
+	return (i);
 }
 
-// strdup the content so when u unset you free and set to NULL
-void init_shell(t_shell *data, char **envp)
+void	init_shell_help(t_shell *data)
 {
-    t_list *new_node;
-    int i;
-
-    //data->envi = envp;
-    data->envi = NULL;
-    data->line = NULL;
-    data->backup_pwd = NULL;
-    data->envir = NULL;
-    // data->user_set = NULL;
-    data->our_args = NULL;
-    data->exit_code = 0;
-    data->tokens= NULL;
-    data->cmds = NULL;
-    data->fd[0] = -1;
-    data->fd[1] = -1;
-    data->std[0] = -1;
-    data->std[1] = -1;
-    data->cmd_path = NULL;
-    data->lpid = -1;
-    data->pid = -1;
-
-    i = 0;
-    if (envp)
-    {   
-        while(envp[i])
-        {
-            new_node = ft_lstnew(ft_strdup(envp[i]));
-            if(!new_node)
-            {
-                write(2, "error malloc\n", 13);
-                return ;
-            }
-            if(new_node)
-                ft_lstadd_back(&data->envir, new_node);
-            i++;
-        }
-    }
+	data->envi = NULL;
+	data->line = NULL;
+	data->backup_pwd = NULL;
+	data->envir = NULL;
+	data->our_args = NULL;
+	data->exit_code = 0;
+	data->tokens = NULL;
+	data->cmds = NULL;
+	data->fd[0] = -1;
+	data->fd[1] = -1;
+	data->std[0] = -1;
+	data->std[1] = -1;
+	data->cmd_path = NULL;
+	data->lpid = -1;
+	data->pid = -1;
 }
 
-
-// void handle_signal(int sig)
-// {
-//     //i think we need to create a global variable and set the signal value and then check in execution
-//     if (sig == SIGINT)
-//     {
-//         write(2, "\n", 1);
-//         rl_on_new_line();
-//         rl_replace_line("", 0);
-//         rl_redisplay();
-//         g_signo = SIGINT;
-//     }
-// }
-
-
-int main(int ac, char **av, char **envp)
+void	init_shell(t_shell *data, char **envp)
 {
-    t_shell data;
-    // char *line;
-    // (void)ac;
-    // int i = 0;
-    // (void)envp;
-    (void)av;
-    // //t_token *tokens;
-    // //int j = 0;
-    // t_toklist *tokens;
-    // // t_toklist *tmp;
-    // t_cmd *tmp;
-    // int count;
+	t_list	*new_node;
+	int		i;
 
-    // printf("\n after = signo: %d\n", g_signo);
-    if (ac > 1)
-        (write(2, "minishell: too many arguments\n", 31), exit(1));
-    init_shell(&data, envp);
-    read_loop(&data);
-    // while(1)
-    // {
-    //     signal(SIGINT, &handle_signal); 
-    //     signal(SIGQUIT, SIG_IGN);    
-    //     i = 0;
-    //     line = readline("minishell♣ > ");
-
-    //     if (g_signo == SIGINT)
-    //     {
-    //         data.exit_code = 1;
-    //         g_signo = 0;
-    //     }
-    //     // }
-    //     if(!line)
-    //         (free_all(&data), exit(0));
-
-
-    //     av = our_tokenize(line);
-    //     while(av[i])
-    //     {
-    //         printf("%d - [%s]\n", i + 1, av[i]);
-    //         i++;
-    //     }
-    //     i--;
-    //     if(check_syntax(av, i) == 1) // send data, add/use av/our_args and line to struct, so that we can set exit_status to 258, free line & av, 
-    //     {
-    //         free_arr(av);
-    //         if(line)
-    //             add_history(line);
-    //         free(line);
-    //         data.exit_code = 258;
-    //         continue;
-    //         printf("syntax\n");
-    //     }
-    //     else   
-    //     {
-    //         tokens = array_token_list(&data, av, i);
-    //         if (av)
-    //             free_arr(av);
-    //         if(check_quotes(tokens) == -1) // same here
-    //         {
-    //             our_toklistclear(&data.tokens);
-    //             if(line)
-    //                 add_history(line);
-    //             free(line);
-    //             data.exit_code = 1;
-    //             continue ;
-    //         }
-    //         our_extok(tokens, &data); //if it returns -1 then that means malloc failed exit cleanly
-    //         while(tokens)
-    //         {
-    //             printf("token: %s, type: %d\n", tokens->token, tokens->type);
-    //             tokens = tokens->next;
-    //         }
-    //         tmp = our_toklist_cmdlist(data.tokens, &data);
-    //         int u = 0;
-    //         while(tmp)
-    //         {
-    //             count = 0;
-    //             count = count_cargs(tmp);
-    //             printf("count: %d\n", count);
-    //             u = 0;
-    //             printf("cmd:%s ", tmp->cmd);
-    //             while(u < count)
-    //                 printf("args:%s \n", tmp->cargs[u++]);
-    //             // printf("\n");
-    //             t_redir *tmp_redir = tmp->redirs;
-    //             while(tmp_redir)
-    //             {
-    //                 printf("redirect: %s flag:%d \n", tmp_redir->file, tmp_redir->flag);
-    //                 tmp_redir = tmp_redir->next;
-    //             }
-    //             tmp = tmp->next;
-    //         }
-    //     }
-    //     pre_execute(&data, STDIN_FILENO, STDOUT_FILENO);
-    //     if(line)
-    //         add_history(line);
-    //     if (data.tokens)
-    //         our_toklistclear(&data.tokens);
-    //     if(data.cmds)
-    //         our_cmdlistclear(&data.cmds);
-    //     free(line);
-    // }
-    return(0);
+	i = 0;
+	init_shell_help(data);
+	if (envp)
+	{
+		while (envp[i])
+		{
+			new_node = ft_lstnew(ft_strdup(envp[i]));
+			if (!new_node)
+			{
+				write(2, "error malloc\n", 13);
+				return ;
+			}
+			if (new_node)
+				ft_lstadd_back(&data->envir, new_node);
+			i++;
+		}
+	}
 }
- 
+
+int	main(int ac, char **av, char **envp)
+{
+	t_shell	data;
+
+	(void)av;
+	if (ac > 1)
+		return (write(2, "minishell: too many arguments\n", 31), 1);
+	init_shell(&data, envp);
+	read_loop(&data);
+	return (0);
+}

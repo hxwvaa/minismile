@@ -6,7 +6,7 @@
 /*   By: hbasheer <hbasheer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:25:26 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/12/17 16:08:33 by hbasheer         ###   ########.fr       */
+/*   Updated: 2024/12/19 16:56:43 by hbasheer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	invalid_cmd_dir(char *file, int *input, int *output, t_shell *data)
 {
 	write(2, "shell: ", 7);
 	ft_putstr_fd(file, 2);
-	ft_putendl_fd(": Is a directory", 2);
+	ft_putendl_fd(": is a directory", 2);
 	if (data->backup_pwd)
 		free(data->backup_pwd);
 	if (*input != -1)

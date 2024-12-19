@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hbasheer <hbasheer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 10:20:06 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/12/19 03:18:13 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/12/19 16:46:27 by hbasheer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,5 +116,4 @@ void	pre_execute(t_shell *data, int input, int output)
 	our_execution(data, input, output, curr);
 	wait_loop(data, status, pid);
 	reset_stds(data);
-	free_lists_line(data);
 }

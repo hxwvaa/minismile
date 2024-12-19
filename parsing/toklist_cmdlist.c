@@ -12,15 +12,6 @@
 
 #include "../minishell.h"
 
-// void free_set_null(void **ptr)
-// {
-//     if(*ptr)
-//     {
-//         free(*ptr);
-//         *ptr = NULL;
-//     }
-// }
-
 t_toklist	*redirect_found(t_toklist *temp, t_cmd *curr, t_shell *data)
 {
 	int	flag;

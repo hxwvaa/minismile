@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   read_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hbasheer <hbasheer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 20:23:12 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/12/19 02:55:57 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/12/19 17:01:17 by hbasheer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	count_oargs(char **our_args)
 {
@@ -18,11 +18,18 @@ int	count_oargs(char **our_args)
 
 	i = 0;
 	while (our_args[i])
-	{
 		i++;
-	}
 	i--;
 	return (i);
+}
+
+void	check_signo(int *exit_status)
+{
+	if (g_signo == SIGINT)
+	{
+		*exit_status = 1;
+		g_signo = 0;
+	}
 }
 
 void	handle_signal(int sig)
@@ -44,11 +51,7 @@ void	read_loop(t_shell *data)
 		signal(SIGINT, &handle_signal);
 		signal(SIGQUIT, SIG_IGN);
 		data->line = readline("minishell♣ > ");
-		if (g_signo == SIGINT)
-		{
-			data->exit_code = 1;
-			g_signo = 0;
-		}
+		check_signo(&data->exit_code);
 		if (!data->line)
 			free_exec_fail(data, NULL, NULL, 0);
 		data->our_args = our_tokenize(data->line);
@@ -63,5 +66,6 @@ void	read_loop(t_shell *data)
 			free_exec_fail(data, NULL, NULL, 12);
 		our_toklist_cmdlist(data->tokens, data);
 		pre_execute(data, STDIN_FILENO, STDOUT_FILENO);
+		free_lists_line(data);
 	}
 }
