@@ -28,6 +28,25 @@ int	count_cargs(t_cmd *cmd)
 	return (i);
 }
 
+void	init_pwd(t_shell *data)
+{
+	char	pwd[1024];
+
+	if (getcwd(pwd, sizeof(pwd)) != NULL)
+	{
+		data->backup_pwd = ft_strdup(pwd);
+		if (!data->backup_pwd)
+		{
+			perror("malloc");
+			exit(1);
+		}
+	}
+	else
+	{
+		perror("getcwd");
+	}
+}
+
 void	init_shell_help(t_shell *data)
 {
 	data->envi = NULL;
@@ -54,6 +73,7 @@ void	init_shell(t_shell *data, char **envp)
 
 	i = 0;
 	init_shell_help(data);
+	init_pwd(data);
 	if (envp)
 	{
 		while (envp[i])

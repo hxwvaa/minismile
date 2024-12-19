@@ -6,7 +6,7 @@
 /*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 22:41:05 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/12/19 03:14:09 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/12/20 03:13:25 by mshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	set_estat_syntax(char **av, t_shell *data, int ret)
 	if (ret == 1)
 	{
 		free_arr(av);
+		data->our_args = NULL;
 		if (data->line)
 			add_history(data->line);
 		free(data->line);
