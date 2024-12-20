@@ -6,7 +6,7 @@
 /*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 10:19:47 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/12/18 18:33:15 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/12/20 18:57:01 by mshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ void	clean_exit(t_shell *data, int r)
 	if (data->backup_pwd)
 		free(data->backup_pwd);
 	if (data->fd[0] != -1)
+	{
 		close(data->fd[0]);
+		data->fd[0] = -1;
+	}
 	data->exit_code = r;
 	exit(r);
 }
