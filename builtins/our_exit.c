@@ -71,12 +71,12 @@ void	exit_shell(char **av, t_shell *data, int *exit_status)
 	if (!(i > 2 && is_digit_exit_code(av)))
 	{
 		if (data->std[0] != -1)
-			close(data->std[0]);
+			close(data->std[0]); //set to -1?
 		if (data->std[1] != -1)
-			close(data->std[1]);
+			close(data->std[1]); //set to -1?
 	}
 	if (data->fd[0] != -1)
-		close(data->fd[0]);
+		close(data->fd[0]); //set to -1?
 	if (i == 1)
 	{
 		write(2, "exit\n", 5);

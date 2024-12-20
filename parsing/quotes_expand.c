@@ -6,7 +6,7 @@
 /*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 00:44:40 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/12/19 03:12:52 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/12/20 15:53:00 by mshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	do_expand_help(t_toklist *temp, t_shell *data, char **res, int *i)
 	}
 	else
 	{
-		*res = handle_any(temp->token, *res, i);
+		*res = handle_any(temp->token, *res, i, temp);
 		if (!*res)
 			return (-1);
 	}

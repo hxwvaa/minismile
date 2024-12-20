@@ -82,7 +82,7 @@ void	init_shell(t_shell *data, char **envp)
 			if (!new_node)
 			{
 				write(2, "error malloc\n", 13);
-				return ;
+				free_exec_fail(data, NULL, NULL, 12);
 			}
 			if (new_node)
 				ft_lstadd_back(&data->envir, new_node);

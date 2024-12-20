@@ -140,7 +140,8 @@ char					*handle_ex(char *str, char *res, int *i, t_shell *data);
 char					*handle_dq(t_toklist *temp, char *res, int *i,
 							t_shell *data);
 char					*handle_sq(char *str, char *res, int *i);
-char					*handle_any(char *str, char *res, int *i);
+char					*handle_any(char *str, char *res, int *i,
+							t_toklist *token);
 int						check_quotes(t_toklist *list, t_shell *data);
 int						our_free(char **str, int t);
 int						our_fill(char *s, char **cmd, int count);

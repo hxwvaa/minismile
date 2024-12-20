@@ -6,7 +6,7 @@
 /*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 00:50:18 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/12/16 00:55:56 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/12/20 15:53:21 by mshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,22 @@ char	*handle_sq(char *str, char *res, int *i)
 	return (res);
 }
 
-char	*handle_any(char *str, char *res, int *i)
+char	*handle_any(char *str, char *res, int *i, t_toklist *token)
 {
 	int		start;
 	char	*temp;
 
 	start = (*i);
-	while (str[*i] && str[*i] != '\'' && str[*i] != '\"' && str[*i] != '$')
-		(*i)++;
+	if (token->type == LIMITER)
+	{
+		while (str[*i] && str[*i] != '\'' && str[*i] != '\"')
+			(*i)++;
+	}
+	else
+	{
+		while (str[*i] && str[*i] != '\'' && str[*i] != '\"' && str[*i] != '$')
+			(*i)++;
+	}
 	temp = ft_substr(str, start, (*i) - start);
 	if (!temp)
 	{
