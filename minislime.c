@@ -14,7 +14,7 @@
 #include <readline/history.h>
 #include <readline/readline.h>
 
-int		g_signo = 0;
+g_signo = 0;
 
 int	count_cargs(t_cmd *cmd)
 {
