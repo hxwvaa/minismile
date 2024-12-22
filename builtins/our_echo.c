@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   our_echo.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbasheer <hbasheer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 17:18:52 by hbasheer          #+#    #+#             */
-/*   Updated: 2024/12/17 15:06:37 by hbasheer         ###   ########.fr       */
+/*   Updated: 2024/12/22 15:32:36 by mshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ void	our_echo(char **arg, t_shell *data)
 		;
 	else
 	{
-		while (ft_strncmp(arg[i], "-n", 2) == 0 && check_non_n(arg[i]))
+		while (arg[i] && ft_strncmp(arg[i], "-n", 2) == 0
+			&& check_non_n(arg[i]))
 		{
 			flag_n = 0;
 			i++;

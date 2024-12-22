@@ -6,7 +6,7 @@
 /*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 17:07:54 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/12/19 03:19:08 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/12/22 15:24:00 by mshaheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ void	wait_loop(t_shell *data, int status, pid_t pid)
 		pid = wait(&status);
 		if (pid == -1)
 			break ;
-		set_exit_code_others(status);
+		if (pid != data->lpid)
+			set_exit_code_others(status);
 		if (pid == data->lpid)
 		{
 			set_exit_code_last(data, status);
