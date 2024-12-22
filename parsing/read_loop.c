@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mshaheen <mshaheen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hbasheer <hbasheer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 20:23:12 by mshaheen          #+#    #+#             */
-/*   Updated: 2024/12/20 15:33:39 by mshaheen         ###   ########.fr       */
+/*   Updated: 2024/12/22 16:17:06 by hbasheer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	read_loop(t_shell *data)
 	{
 		signal(SIGINT, &handle_signal);
 		signal(SIGQUIT, SIG_IGN);
-		data->line = readline("minishell♣ > ");
+		data->line = readline("ᴍɪɴɪꜱᴍɪʟᴇ ➤ ");
 		check_signo(&data->exit_code);
 		if (!data->line)
 			free_exec_fail(data, NULL, NULL, 0);
